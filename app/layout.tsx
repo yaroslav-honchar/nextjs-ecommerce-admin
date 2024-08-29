@@ -4,7 +4,7 @@ import React from "react"
 
 import { ModalProvider } from "@/providers/modal-provider"
 import { ToastProvider } from "@/providers/toast-provider"
-import { ClerkProvider, SignOutButton, SignedIn, UserButton } from "@clerk/nextjs"
+import { ClerkProvider } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
 
 import "./globals.css"
@@ -27,15 +27,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <ModalProvider />
           <ToastProvider />
-          <div className={"w-full h-full flex flex-col"}>
-            <header>
-              <SignedIn>
-                <UserButton />
-                <SignOutButton />
-              </SignedIn>
-            </header>
-            <main className={"flex-grow flex flex-col"}>{children}</main>
-          </div>
+          <div className={"w-full h-full flex flex-col"}>{children}</div>
         </body>
       </html>
     </ClerkProvider>

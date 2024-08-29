@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react"
 
+import { Header } from "@/components/header"
 import prismadb from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
@@ -27,7 +28,7 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <div>Nav</div>
+      <Header />
       {children}
     </>
   )
