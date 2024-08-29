@@ -22,10 +22,10 @@ export const Header: React.FC = async () => {
   })
 
   return (
-    <header className={"flex items-center px-4 py-6"}>
+    <header className={"flex items-center gap-6 px-4 py-6"}>
       <StoreSwitcher items={stores} />
-      <Navigation className={"mx-auto"} />
-      <div className={"flex items-center gap-4"}>
+      <Navigation />
+      <div className={"flex items-center gap-4 ms-auto"}>
         <SignedIn>
           <UserButton />
           <SignOutButton>

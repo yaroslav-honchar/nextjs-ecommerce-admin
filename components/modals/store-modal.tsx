@@ -8,7 +8,14 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
 import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
 import { useStoreModal } from "@/hooks/use-store-modal"
@@ -32,7 +39,6 @@ export const StoreModal = () => {
     try {
       setIsLoading(true)
       const response = await axios.post("/api/stores", values)
-
       window.location.assign(`/${response.data.id}`)
     } catch (error) {
       toast.error("Something went wrong")
@@ -52,20 +58,20 @@ export const StoreModal = () => {
       <div className={"space-y-8 py-2 pb-4"}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <Form.Field
+            <FormField
               control={form.control}
               render={({ field }) => (
-                <Form.Item>
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control>
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
                     <Input
                       disabled={isLoading}
                       placeholder={"E-Commerce example"}
                       {...field}
                     />
-                  </Form.Control>
-                  <Form.Message />
-                </Form.Item>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
               name={"name"}
             />

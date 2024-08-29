@@ -45,7 +45,6 @@ export const StoreSwitcher: React.FC<IStoreSwitcher> = ({ className, items = [] 
   )
 
   const selectedStore = items.find(({ id }: Store): boolean => id === params.storeId)
-  console.log(selectedStore)
 
   const onStoreSelect = (store: FormatedItemType): void => {
     setIsOpen(false)

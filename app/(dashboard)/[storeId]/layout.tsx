@@ -1,3 +1,5 @@
+import { ObjectId } from "bson"
+
 import type { PropsWithChildren } from "react"
 
 import { Header } from "@/components/header"
@@ -9,6 +11,10 @@ export default async function DashboardLayout({
   children,
   params: { storeId },
 }: Readonly<PropsWithChildren & { params: { storeId: string } }>) {
+  if (!ObjectId.isValid(storeId)) {
+    redirect("/")
+  }
+
   const { userId } = auth()
 
   if (!userId) {

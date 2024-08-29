@@ -2,7 +2,13 @@
 
 import React from "react"
 
-import { Dialog } from "@/components/ui/dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 interface IModalProps {
   title: string
@@ -24,13 +30,13 @@ export const Modal: React.FC<IModalProps> = ({ children, isOpen, onClose, title,
       open={isOpen}
       onOpenChange={onChange}
     >
-      <Dialog.Content>
-        <Dialog.Header>
-          <Dialog.Title>{title}</Dialog.Title>
-          <Dialog.Description>{description}</Dialog.Description>
-        </Dialog.Header>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
         <div>{children}</div>
-      </Dialog.Content>
+      </DialogContent>
     </Dialog>
   )
 }
