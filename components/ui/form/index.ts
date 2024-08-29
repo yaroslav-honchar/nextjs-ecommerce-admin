@@ -5,7 +5,7 @@ import { FormItem } from "./components/form-item"
 import { FormLabel } from "./components/form-label"
 import { FormMessage } from "./components/form-message"
 
-import { FormRoot } from "./form-root"
+import { FormRoot } from "./form.root"
 
 export { type FormFieldContextValue } from "./types/form-field-context-value.type"
 export { type FormItemContextValue } from "./types/form-item-context-value.type"
