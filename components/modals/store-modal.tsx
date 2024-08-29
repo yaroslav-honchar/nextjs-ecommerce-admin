@@ -5,14 +5,7 @@ import * as zod from "zod"
 import { useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
 import { useStoreModal } from "@/hooks/use-store-modal"
@@ -46,19 +39,19 @@ export const StoreModal = () => {
       <div className={"space-y-8 py-2 pb-4"}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
+            <Form.Field
               control={form.control}
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
+                <Form.Item>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control>
                     <Input
                       placeholder={"E-Commerce example"}
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                  </Form.Control>
+                  <Form.Message />
+                </Form.Item>
               )}
               name={"name"}
             />
