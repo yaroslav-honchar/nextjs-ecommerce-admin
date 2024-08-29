@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import React from "react"
 
 import { ModalProvider } from "@/providers/modal-provider"
+import { ToastProvider } from "@/providers/toast-provider"
 import { ClerkProvider, SignOutButton, SignedIn, UserButton } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <ModalProvider />
+          <ToastProvider />
           <div className={"w-full h-full flex flex-col"}>
             <header>
               <SignedIn>
