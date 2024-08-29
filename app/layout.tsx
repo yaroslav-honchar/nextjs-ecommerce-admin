@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import React from "react"
 
+import { ModalProvider } from "@/providers/modal-provider"
 import { ClerkProvider, SignOutButton, SignedIn, UserButton } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
 
@@ -23,11 +24,16 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <SignedIn>
-            <UserButton />
-            <SignOutButton />
-          </SignedIn>
-          {children}
+          <ModalProvider />
+          <div className={"w-full h-full flex flex-col"}>
+            <header>
+              <SignedIn>
+                <UserButton />
+                <SignOutButton />
+              </SignedIn>
+            </header>
+            <main className={"flex-grow flex flex-col"}>{children}</main>
+          </div>
         </body>
       </html>
     </ClerkProvider>
