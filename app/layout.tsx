@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import React from "react"
+
+import { ClerkProvider, SignOutButton, SignedIn, UserButton } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
 
 import "./globals.css"
@@ -21,11 +23,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
           <SignedIn>
             <UserButton />
+            <SignOutButton />
           </SignedIn>
           {children}
         </body>

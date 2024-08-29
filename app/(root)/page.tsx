@@ -1,3 +1,17 @@
-export default function Home() {
-  return <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
-}
+"use client"
+
+import { Modal } from "@/components/ui/modal"
+
+const SetupPage = () => (
+  <main>
+    <Modal
+      title={"Test modal"}
+      description={"Test description"}
+      isOpen={false}
+      onClose={(): void => {}}
+    >
+      <p>Hello, modal!</p>
+    </Modal>
+  </main>
+)
+export default SetupPage
