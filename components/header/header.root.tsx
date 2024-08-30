@@ -2,9 +2,8 @@ import React from "react"
 
 import { Navigation } from "./components/navigation"
 import { StoreSwitcher } from "./components/store-switcher"
-import { Button } from "@/components/ui/button"
 import prismadb from "@/lib/prismadb"
-import { SignOutButton, SignedIn, UserButton } from "@clerk/nextjs"
+import { SignedIn, UserButton } from "@clerk/nextjs"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
@@ -28,9 +27,6 @@ export const Header: React.FC = async () => {
       <div className={"flex items-center gap-4 ms-auto"}>
         <SignedIn>
           <UserButton />
-          <SignOutButton>
-            <Button>Sign Out</Button>
-          </SignOutButton>
         </SignedIn>
       </div>
     </header>

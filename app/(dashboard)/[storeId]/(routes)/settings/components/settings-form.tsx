@@ -14,16 +14,18 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
   const { name } = initialData
 
   return (
-    <>
-      <Heading
-        title={"Settings"}
-        description={`Managing preferences of store: ${name}`}
-      />
+    <div>
+      <div className={"flex gap-5 justify-between"}>
+        <Heading
+          title={"Settings"}
+          description={`Managing preferences of store: ${name}`}
+        />
 
-      <Button variant={"destructive"}>
-        <TrashIcon className={"w-4 h-4"} />
-        Remove store
-      </Button>
-    </>
+        <Button variant={"destructive"}>
+          <TrashIcon className={"w-4 h-4"} />
+          Remove store
+        </Button>
+      </div>
+    </div>
   )
 }

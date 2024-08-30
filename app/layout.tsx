@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import type { PropsWithChildren } from "react"
 import React from "react"
 
 import { ModalProvider } from "@/providers/modal-provider"
@@ -16,11 +17,7 @@ export const metadata: Metadata = {
   description: "Admin Dashboard",
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <ClerkProvider>
       <html lang="en">

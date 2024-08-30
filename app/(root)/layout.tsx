@@ -1,14 +1,10 @@
-import type React from "react"
+import type { PropsWithChildren } from "react"
 
 import prismadb from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
-const SetupLayout = async ({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) => {
+const SetupLayout = async ({ children }: Readonly<PropsWithChildren>) => {
   const { userId } = auth()
 
   if (!userId) {

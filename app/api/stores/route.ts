@@ -1,7 +1,8 @@
 import prismadb from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs/server"
+import type { NextRequest } from "next/server"
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const { userId } = auth()
     if (!userId) {
