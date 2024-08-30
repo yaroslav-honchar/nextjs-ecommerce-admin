@@ -64,9 +64,10 @@ export const StoreSwitcher: React.FC<IStoreSwitcher> = ({ className, items = [] 
           role={"combobox"}
           aria-expanded={isOpen}
           aria-label={"Select a store"}
+          title={selectedStore?.name}
         >
           <StoreIcon className={"w-4 n-4"} />
-          {selectedStore?.name}
+          <span className={"truncate"}>{selectedStore?.name}</span>
           <ChevronsUpDown className={"w-4 n-4 ms-auto shrink-0 opacity-50"} />
         </Button>
       </PopoverTrigger>
@@ -81,9 +82,10 @@ export const StoreSwitcher: React.FC<IStoreSwitcher> = ({ className, items = [] 
                   className={"gap-2"}
                   key={value}
                   onSelect={(): void => onStoreSelect({ label, value })}
+                  title={label}
                 >
                   <StoreIcon className={"w-4 n-4"} />
-                  {label}
+                  <span className={"truncate"}>{label}</span>
                   {selectedStore?.id === value && <Check className={"w-4 n-4 ms-auto"} />}
                 </CommandItem>
               ))}

@@ -3,6 +3,7 @@ import { ObjectId } from "bson"
 import type { ComponentType } from "react"
 import React from "react"
 
+import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidParam } from "@/types/props-with-storeid-param.interface"
 import { auth } from "@clerk/nextjs/server"
@@ -45,11 +46,7 @@ export function withStoreId<P extends object>(Component: ComponentType<P & { sto
       )
     } catch (error) {
       console.error("Failed to fetch store data:", error)
-      return (
-        <div className="flex-grow lg:p-8 p-4 flex flex-col items-center justify-center">
-          <div>Something went wrong. Please try again later.</div>
-        </div>
-      )
+      return <ErrorDisplay />
     }
   }
 }
