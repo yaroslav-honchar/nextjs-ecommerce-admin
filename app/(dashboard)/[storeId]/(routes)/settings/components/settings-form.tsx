@@ -8,6 +8,7 @@ import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
+import { ApiAlert } from "@/components/api-alert/api-alert"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,6 +21,8 @@ import {
 } from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { useOrigin } from "@/hooks/use-origin"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Store } from "@prisma/client"
 import { useRouter } from "next/navigation"
@@ -35,6 +38,7 @@ const formSchema = zod.object({
 type SettingsFormValuesType = zod.infer<typeof formSchema>
 
 export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
+  const origin = useOrigin()
   const [deleteStoreSubmitInputValue, setDeleteStoreSubmitInputValue] = useState<string>("")
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -123,9 +127,11 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
         </Button>
       </div>
 
+      <Separator className={"my-5"} />
+
       <Form {...form}>
         <form
-          className={"flex-grow flex flex-col gap-8"}
+          className={"flex flex-col gap-8"}
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className={"grid grid-cols-3 gap-5"}>
@@ -148,7 +154,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
             />
           </div>
 
-          <div className={"flex items-center justify-end gap-2 mt-auto"}>
+          <div className={"flex items-center gap-2 mt-auto"}>
             <Button
               className={"w-[12.5rem]"}
               type={"submit"}
@@ -159,6 +165,12 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
           </div>
         </form>
       </Form>
+      <Separator className={"my-5"} />
+      <ApiAlert
+        title={"NEXT_PUBLIC_API_URL"}
+        description={`${origin}/api/stores/${initialData.id}`}
+        variant={"public"}
+      />
     </>
   )
 }

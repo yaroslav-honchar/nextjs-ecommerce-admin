@@ -19,6 +19,11 @@ export const Navigation: React.FC<HTMLAttributes<HTMLDivElement>> = ({ className
 
   const routes: INavigationRoute[] = [
     {
+      label: "Overview",
+      href: `/${params.storeId}`,
+      active: pathname === `/${params.storeId}`,
+    },
+    {
       label: "Settings",
       href: `/${params.storeId}/settings`,
       active: pathname === `/${params.storeId}/settings`,
