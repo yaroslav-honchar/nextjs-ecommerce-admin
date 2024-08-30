@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-import { StoreModal } from "@/components/modals/store-modal"
+import { CreateStoreModal } from "@/components/modals/create-store-modal"
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -17,7 +17,7 @@ export const ModalProvider = () => {
 
   return (
     <>
-      <StoreModal />
+      <CreateStoreModal />
     </>
   )
 }

@@ -25,7 +25,7 @@ const formSchema = zod.object({
   name: zod.string().min(1),
 })
 
-export const StoreModal = () => {
+export const CreateStoreModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { isOpen, onClose } = useStoreModal()
   const form = useForm<zod.infer<typeof formSchema>>({
