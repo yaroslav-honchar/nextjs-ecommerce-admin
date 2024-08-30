@@ -4,4 +4,5 @@ export const ClientRoutes = {
   register: "/sign-up",
   overview: (storeId: string): string => `${storeId}`,
   settings: (storeId: string): string => `${storeId}/settings`,
+  billboards: (storeId: string): string => `${storeId}/billboards`,
 }
