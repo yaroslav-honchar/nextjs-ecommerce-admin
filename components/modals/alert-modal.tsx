@@ -3,12 +3,14 @@ import React from "react"
 
 import { Button } from "@/components/ui/button"
 import { Modal } from "@/components/ui/modal"
+import { useMounted } from "@/hooks/use-mounted"
 
 interface IAlertModalProps extends PropsWithChildren {
   title: string
   description: string
   onSubmit: () => void
   isDisabledSubmit?: boolean
+  isDisabled?: boolean
   isOpen: boolean
   onClose: () => void
 }
@@ -21,7 +23,13 @@ export const AlertModal: React.FC<IAlertModalProps> = ({
   onSubmit,
   children,
   isDisabledSubmit = false,
+  isDisabled = false,
 }) => {
+  const isMounted = useMounted()
+  if (!isMounted) {
+    return null
+  }
+
   return (
     <Modal
       title={title}
@@ -35,6 +43,7 @@ export const AlertModal: React.FC<IAlertModalProps> = ({
           type={"submit"}
           variant={"outline"}
           onClick={onClose}
+          disabled={isDisabled}
         >
           Cancel
         </Button>
@@ -42,7 +51,7 @@ export const AlertModal: React.FC<IAlertModalProps> = ({
           type={"submit"}
           variant={"destructive"}
           onClick={onSubmit}
-          disabled={isDisabledSubmit}
+          disabled={isDisabledSubmit || isDisabled}
         >
           Submit
         </Button>

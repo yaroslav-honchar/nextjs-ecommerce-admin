@@ -69,16 +69,21 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
       setIsLoading(true)
       await axios.delete(`/api/stores/${initialData.id}`)
       toast.success("Store removed successfully")
+      router.push("/")
     } catch (error) {
       console.log(error)
-      toast.error("Failed to delete store")
+      toast.error("Make sure to remove all products and categories before deleting the store.")
     } finally {
       setIsLoading(false)
-      router.push("/")
+      setIsOpen(false)
     }
   }
 
   const onAlertModalClose = (): void => {
+    if (isLoading) {
+      return
+    }
+
     setIsOpen(false)
     setDeleteStoreSubmitInputValue("")
   }
@@ -92,6 +97,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
         onSubmit={onDeleteStore}
         onClose={onAlertModalClose}
         isDisabledSubmit={deleteStoreSubmitInputValue.trim() !== initialData.name}
+        isDisabled={isLoading}
       >
         <p className={"text-sm mb-4"}>
           To confirm, type "<b>{initialData.name}</b>" in the box below
