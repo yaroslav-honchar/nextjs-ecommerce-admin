@@ -26,27 +26,29 @@ export function withStoreId<P extends object>(Component: ComponentType<P & { sto
       redirect("/sign-in")
     }
 
+    let store: Store | null = null
+
     try {
-      const store = await prismadb.store.findFirst({
+      store = await prismadb.store.findFirst({
         where: {
           id: storeId,
           userId,
         },
       })
-
-      if (!store) {
-        redirect("/")
-      }
-
-      return (
-        <Component
-          {...(props as P)}
-          store={store}
-        />
-      )
     } catch (error) {
-      console.error("Failed to fetch store data:", error)
+      console.error("Failed to fetch store data from withStoreId hoc:", error)
       return <ErrorDisplay />
     }
+
+    if (!store) {
+      redirect("/")
+    }
+
+    return (
+      <Component
+        {...(props as P)}
+        store={store}
+      />
+    )
   }
 }
