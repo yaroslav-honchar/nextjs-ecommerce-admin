@@ -1,7 +1,6 @@
 "use client"
 
 import * as zod from "zod"
-import axios from "axios"
 import { TrashIcon } from "lucide-react"
 
 import React, { useState } from "react"
@@ -22,6 +21,8 @@ import {
 import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+
+import { deleteStore, updateStore } from "@/services/stores.service"
 
 import { useOrigin } from "@/hooks/use-origin"
 
@@ -55,7 +56,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
   const onSubmit = async (data: SettingsFormValuesType): Promise<void> => {
     try {
       setIsLoading(true)
-      await axios.patch(`/api/stores/${initialData.id}`, data)
+      await updateStore(initialData.id, data)
       router.refresh()
       toast.success("Store updated successfully")
     } catch (error) {
@@ -73,7 +74,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
 
     try {
       setIsLoading(true)
-      await axios.delete(`/api/stores/${initialData.id}`)
+      await deleteStore(initialData.id)
       toast.success("Store removed successfully")
       router.push("/")
     } catch (error) {

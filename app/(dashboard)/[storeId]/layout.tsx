@@ -12,7 +12,7 @@ const DashboardLayout = ({
   return (
     <>
       <Header />
-      <div className={"flex flex-col lg:p-8 p-4"}>{children}</div>
+      <div className={"flex flex-col flex-grow lg:p-8 p-4"}>{children}</div>
     </>
   )
 }

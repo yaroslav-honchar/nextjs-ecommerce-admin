@@ -1,3 +1,5 @@
+import { ObjectId } from "bson"
+
 import type { IPropsWithStoreidParam } from "@/types/props-with-storeid-param.interface"
 
 import prismadb from "@/lib/prismadb"
@@ -10,6 +12,10 @@ export async function PATCH(
   req: NextRequest,
   { params: { storeId } }: IPropsWithStoreidParam,
 ): Promise<NextResponse> {
+  if (!ObjectId.isValid(storeId)) {
+    return new NextResponse("Invalid store id", { status: 400 })
+  }
+
   try {
     if (!storeId) {
       return new NextResponse("Store id is required", { status: 400 })
@@ -43,6 +49,10 @@ export async function PATCH(
 }
 
 export async function DELETE(_req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) {
+  if (!ObjectId.isValid(storeId)) {
+    return new NextResponse("Invalid store id", { status: 400 })
+  }
+
   try {
     if (!storeId) {
       return new NextResponse("Store id is required", { status: 400 })

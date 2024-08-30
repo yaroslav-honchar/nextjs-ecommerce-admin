@@ -3,9 +3,10 @@
 import type { HTMLAttributes } from "react"
 import React from "react"
 
+import { ClientRoutes } from "@/routes/client.routes"
+
 import { cn } from "@/lib/utils"
 
-import { ClientRoutes } from "@/routes/client.routes"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 

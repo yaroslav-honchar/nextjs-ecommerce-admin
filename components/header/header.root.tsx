@@ -1,10 +1,11 @@
 import React from "react"
 
+import { ClientRoutes } from "@/routes/client.routes"
+
 import prismadb from "@/lib/prismadb"
 
 import { Navigation } from "./components/navigation"
 import { StoreSwitcher } from "./components/store-switcher"
-import { ClientRoutes } from "@/routes/client.routes"
 import { SignedIn, UserButton } from "@clerk/nextjs"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
