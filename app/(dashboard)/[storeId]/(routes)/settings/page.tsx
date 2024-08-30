@@ -1,37 +1,13 @@
+import React from "react"
+
 import { SettingsForm } from "./components/settings-form"
-import prismadb from "@/lib/prismadb"
-import { auth } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
+import { withStoreId } from "@/hocs/with-store-id"
+import type { IPropsWithStoreidParamAndStore } from "@/types/props-with-storeid-param-and-store.interface"
 
-export default async function SettingsPage({
-  params: { storeId },
-}: {
-  params: { storeId: string }
-}) {
-  const { userId } = auth() as { userId: string }
+const SettingsPage: React.FC<IPropsWithStoreidParamAndStore> = ({ store }) => (
+  <div className={"flex-grow lg:p-8 p-4"}>
+    <SettingsForm initialData={store} />
+  </div>
+)
 
-  try {
-    const store = await prismadb.store.findFirst({
-      where: {
-        id: storeId,
-        userId,
-      },
-    })
-    if (!store) {
-      redirect("/")
-    }
-
-    return (
-      <div className={"flex-grow lg:p-8 p-4"}>
-        <SettingsForm initialData={store} />
-      </div>
-    )
-  } catch (error) {
-    console.log(error)
-    return (
-      <div className={"flex-grow lg:p-8 p-4 flex flex-col items-center justify-center"}>
-        <div>Something went wrong</div>
-      </div>
-    )
-  }
-}
+export default withStoreId(SettingsPage)

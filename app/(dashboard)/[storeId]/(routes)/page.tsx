@@ -1,19 +1,10 @@
-import prismadb from "@/lib/prismadb"
+import { withStoreId } from "@/hocs/with-store-id"
+import type { IPropsWithStoreidParamAndStore } from "@/types/props-with-storeid-param-and-store.interface"
 
-export default async function DashboardPage({
-  params: { storeId },
-}: {
-  params: { storeId: string }
-}) {
-  const store = await prismadb.store.findFirst({
-    where: {
-      id: storeId,
-    },
-  })
-
-  return (
-    <div>
-      <p>Store id: {store?.name}</p>
-    </div>
-  )
-}
+const DashboardPage = ({ store }: IPropsWithStoreidParamAndStore) => (
+  <div>
+    <div>Here is dashboard home route with store</div>
+    <div>Store name is: {store.name}</div>
+  </div>
+)
+export default withStoreId(DashboardPage)

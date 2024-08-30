@@ -4,11 +4,11 @@ import prismadb from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
-export default async function SetupLayout({
+const SetupLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode
-}>) {
+}>) => {
   const { userId } = auth()
 
   if (!userId) {
@@ -25,3 +25,5 @@ export default async function SetupLayout({
 
   return children
 }
+
+export default SetupLayout
