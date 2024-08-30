@@ -5,6 +5,7 @@ import React from "react"
 
 import { cn } from "@/lib/utils"
 
+import { ClientRoutes } from "@/routes/client.routes"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 
@@ -21,13 +22,13 @@ export const Navigation: React.FC<HTMLAttributes<HTMLDivElement>> = ({ className
   const routes: INavigationRoute[] = [
     {
       label: "Overview",
-      href: `/${params.storeId}`,
-      active: pathname === `/${params.storeId}`,
+      href: ClientRoutes.overview(params.storeId),
+      active: pathname === ClientRoutes.overview(params.storeId),
     },
     {
       label: "Settings",
-      href: `/${params.storeId}/settings`,
-      active: pathname === `/${params.storeId}/settings`,
+      href: ClientRoutes.settings(params.storeId),
+      active: pathname === ClientRoutes.settings(params.storeId),
     },
   ]
 

@@ -1,9 +1,9 @@
 "use client"
 
-import * as zod from "zod"
+import type * as zod from "zod"
 import axios from "axios"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
@@ -23,11 +23,9 @@ import { useStoreModal } from "@/hooks/use-store-modal"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-const formSchema = zod.object({
-  name: zod.string().min(1),
-})
+import { formSchema } from "./form.schema"
 
-export const CreateStoreModal = () => {
+export const CreateStoreModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { isOpen, onClose } = useStoreModal()
   const form = useForm<zod.infer<typeof formSchema>>({

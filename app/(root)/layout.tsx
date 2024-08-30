@@ -4,6 +4,7 @@ import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
 
 import prismadb from "@/lib/prismadb"
 
+import { ClientRoutes } from "@/routes/client.routes"
 import { auth } from "@clerk/nextjs/server"
 import type { Store } from "@prisma/client"
 import { redirect } from "next/navigation"
@@ -12,7 +13,7 @@ const SetupLayout = async ({ children }: Readonly<PropsWithChildren>) => {
   const { userId } = auth()
 
   if (!userId) {
-    redirect("/sign-in")
+    redirect(ClientRoutes.login)
   }
 
   let store: Store | null = null
@@ -27,7 +28,7 @@ const SetupLayout = async ({ children }: Readonly<PropsWithChildren>) => {
   }
 
   if (store) {
-    redirect(`/${store.id}`)
+    redirect(ClientRoutes.overview(store.id))
   }
 
   return children

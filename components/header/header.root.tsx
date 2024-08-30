@@ -4,6 +4,7 @@ import prismadb from "@/lib/prismadb"
 
 import { Navigation } from "./components/navigation"
 import { StoreSwitcher } from "./components/store-switcher"
+import { ClientRoutes } from "@/routes/client.routes"
 import { SignedIn, UserButton } from "@clerk/nextjs"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
@@ -12,7 +13,7 @@ export const Header: React.FC = async () => {
   const { userId } = auth()
 
   if (!userId) {
-    redirect("/sign-in")
+    redirect(ClientRoutes.login)
   }
 
   const stores = await prismadb.store.findMany({

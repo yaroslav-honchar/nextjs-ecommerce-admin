@@ -7,9 +7,7 @@ import { withStoreId } from "@/hocs/with-store-id"
 import { SettingsForm } from "./components/settings-form"
 
 const SettingsPage: React.FC<Readonly<IPropsWithStoreidParamAndStore>> = ({ store }) => (
-  <div className={"flex-grow flex flex-col lg:p-8 p-4"}>
-    <SettingsForm initialData={store} />
-  </div>
+  <SettingsForm initialData={store} />
 )
 
 export default withStoreId(SettingsPage)

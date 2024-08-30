@@ -9,6 +9,7 @@ import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
 
 import prismadb from "@/lib/prismadb"
 
+import { ClientRoutes } from "@/routes/client.routes"
 import { auth } from "@clerk/nextjs/server"
 import type { Store } from "@prisma/client"
 import { redirect } from "next/navigation"
@@ -20,13 +21,13 @@ export function withStoreId<P extends object>(Component: ComponentType<P & { sto
     } = props
 
     if (!ObjectId.isValid(storeId)) {
-      redirect("/")
+      redirect(ClientRoutes.home)
     }
 
     const { userId } = auth()
 
     if (!userId) {
-      redirect("/sign-in")
+      redirect(ClientRoutes.login)
     }
 
     let store: Store | null = null
@@ -44,7 +45,7 @@ export function withStoreId<P extends object>(Component: ComponentType<P & { sto
     }
 
     if (!store) {
-      redirect("/")
+      redirect(ClientRoutes.home)
     }
 
     return (

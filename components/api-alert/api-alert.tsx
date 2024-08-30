@@ -9,21 +9,10 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
-interface IApiAlertProps {
-  title: string
-  description: string
-  variant: "admin" | "public"
-}
+import { textMap } from "./lib/text.map"
+import { variantMap } from "./lib/variant.map"
 
-const textMap: Record<IApiAlertProps["variant"], "Public" | "Admin"> = {
-  admin: "Admin",
-  public: "Public",
-}
-
-const variantMap: Record<IApiAlertProps["variant"], "secondary" | "destructive"> = {
-  public: "secondary",
-  admin: "destructive",
-}
+import type { IApiAlertProps } from "./api-alert.props"
 
 export const ApiAlert: React.FC<IApiAlertProps> = ({ title, description, variant }) => {
   const onCopy = (): void => {

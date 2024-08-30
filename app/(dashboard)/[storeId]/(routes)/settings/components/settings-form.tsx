@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
 import { ApiAlert } from "@/components/api-alert/api-alert"
-import { AlertModal } from "@/components/modals/alert-modal"
+import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -170,7 +170,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
       <Separator className={"my-5"} />
       <ApiAlert
         title={"NEXT_PUBLIC_API_URL"}
-        description={`${origin}/api/stores/${initialData.id}`}
+        description={`${origin}/api/${initialData.id}`}
         variant={"public"}
       />
     </>

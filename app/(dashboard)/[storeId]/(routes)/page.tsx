@@ -3,9 +3,6 @@ import type { IPropsWithStoreidParamAndStore } from "@/types/props-with-storeid-
 import { withStoreId } from "@/hocs/with-store-id"
 
 const DashboardPage = ({ store }: Readonly<IPropsWithStoreidParamAndStore>) => (
-  <div>
-    <div>Here is dashboard home route with store</div>
-    <div>Store name is: {store.name}</div>
-  </div>
+  <div>Here is overview. Store name is: {store.name}</div>
 )
 export default withStoreId(DashboardPage)
