@@ -1,4 +1,4 @@
-import type { IPropsWithStoreidParamAndStore } from "@/types/props-with-storeid-param-and-store.interface"
+import type { IPropsWithStoreidParamAndStore } from "@/types/pages-props.interface"
 
 import { withStoreId } from "@/hocs/with-store-id"
 

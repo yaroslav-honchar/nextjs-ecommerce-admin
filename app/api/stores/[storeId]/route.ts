@@ -1,6 +1,6 @@
 import { ObjectId } from "bson"
 
-import type { IPropsWithStoreidParam } from "@/types/props-with-storeid-param.interface"
+import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 
 import prismadb from "@/lib/prismadb"
 

@@ -5,6 +5,8 @@ import { Check, ChevronsUpDown, PlusCircle, StoreIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef } from "react"
 import React, { useState } from "react"
 
+import type { StoreIdParamType } from "@/types/pages-params.type"
+
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -36,7 +38,7 @@ interface IStoreSwitcher extends PopoverTriggerProps {
 
 export const StoreSwitcher: React.FC<IStoreSwitcher> = ({ className, items = [] }) => {
   const storeModal = useStoreModal()
-  const params = useParams<{ storeId: string }>()
+  const params = useParams<StoreIdParamType>()
   const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
 

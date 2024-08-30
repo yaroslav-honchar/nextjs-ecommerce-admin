@@ -3,7 +3,7 @@ import { ObjectId } from "bson"
 import type { ComponentType } from "react"
 import React from "react"
 
-import type { IPropsWithStoreidParam } from "@/types/props-with-storeid-param.interface"
+import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 
 import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
 
