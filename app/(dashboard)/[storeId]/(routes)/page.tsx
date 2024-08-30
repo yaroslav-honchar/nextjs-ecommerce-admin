@@ -1,5 +1,6 @@
-import { withStoreId } from "@/hocs/with-store-id"
 import type { IPropsWithStoreidParamAndStore } from "@/types/props-with-storeid-param-and-store.interface"
+
+import { withStoreId } from "@/hocs/with-store-id"
 
 const DashboardPage = ({ store }: Readonly<IPropsWithStoreidParamAndStore>) => (
   <div>

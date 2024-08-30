@@ -1,7 +1,9 @@
 import type { PropsWithChildren } from "react"
 
 import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
+
 import prismadb from "@/lib/prismadb"
+
 import { auth } from "@clerk/nextjs/server"
 import type { Store } from "@prisma/client"
 import { redirect } from "next/navigation"

@@ -5,6 +5,7 @@ import React from "react"
 
 import { ModalProvider } from "@/providers/modal-provider"
 import { ToastProvider } from "@/providers/toast-provider"
+
 import { ClerkProvider } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
 
