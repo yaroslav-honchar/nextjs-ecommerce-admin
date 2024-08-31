@@ -8,7 +8,7 @@ import prismadb from "@/lib/prismadb"
 
 import { CategoryForm } from "./components/category-form"
 
-const BillboardsNewPage: React.FC<Readonly<IPropsWithStoreidCategoryidParam>> = async ({
+const CategoriesNewPage: React.FC<Readonly<IPropsWithStoreidCategoryidParam>> = async ({
   params: { categoryId, storeId },
 }) => {
   const category = ObjectId.isValid(categoryId)
@@ -31,4 +31,4 @@ const BillboardsNewPage: React.FC<Readonly<IPropsWithStoreidCategoryidParam>> = 
   )
 }
 
-export default BillboardsNewPage
+export default CategoriesNewPage

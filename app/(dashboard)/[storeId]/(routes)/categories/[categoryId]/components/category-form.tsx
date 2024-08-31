@@ -7,7 +7,7 @@ import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
-import type { StoreIdBillboardIdParamType } from "@/types/pages-params.type"
+import type { StoreIdCategoryIdParamType } from "@/types/pages-params.type"
 
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
@@ -32,8 +32,6 @@ import { Separator } from "@/components/ui/separator"
 
 import { ClientRoutes } from "@/routes/client.routes"
 
-import { deleteBillboard } from "@/services/billboards.service"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard, Category } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
@@ -54,7 +52,7 @@ export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billbo
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
-  const params = useParams<StoreIdBillboardIdParamType>()
+  const params = useParams<StoreIdCategoryIdParamType>()
 
   const title = initialData ? "Edit category" : "Create category"
   const description = initialData ? "Managing store of category" : "Creating store category"
@@ -89,16 +87,16 @@ export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billbo
     }
   }
 
-  const onDeleteBillboard = async (): Promise<void> => {
+  const onDeleteCategory = async (): Promise<void> => {
     if (isLoading) {
       return
     }
 
     try {
       setIsLoading(true)
-      await deleteBillboard(params.storeId, params.billboardId)
-      toast.success("Billboard deleted successfully")
-      router.push(ClientRoutes.billboards(params.storeId))
+      // delete category
+      toast.success("Category deleted successfully")
+      router.push(ClientRoutes.categories(params.storeId))
     } catch (error) {
       console.log(error)
       toast.error("Make sure you removed all products from the category first")
@@ -120,10 +118,10 @@ export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billbo
     <>
       {initialData && (
         <AlertModal
-          title={"Remove billboard"}
+          title={"Remove category"}
           description={`Are you sure you want to remove category: ${initialData.name}. This action cannot be undone.`}
           isOpen={isOpen}
-          onSubmit={onDeleteBillboard}
+          onSubmit={onDeleteCategory}
           onClose={onAlertModalClose}
           isDisabled={isLoading}
         />
