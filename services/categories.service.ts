@@ -46,7 +46,7 @@ export const updateCategory = async (
   return response.data
 }
 
-export const deleteBillboard = async (
+export const deleteCategory = async (
   storeId: string,
   categoryId: string,
   config: AxiosRequestConfig = {},

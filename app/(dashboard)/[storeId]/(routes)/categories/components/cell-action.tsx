@@ -18,6 +18,8 @@ import {
 
 import { ClientRoutes } from "@/routes/client.routes"
 
+import { deleteCategory } from "@/services/categories.service"
+
 import { useParams, useRouter } from "next/navigation"
 
 import type { CategoryColumnType } from "./columns"
@@ -59,9 +61,10 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
 
     try {
       setIsLoading(true)
-      // delete category
+      await deleteCategory(params.storeId, data.id)
       toast.success("Category deleted successfully")
-      // router.refresh()
+      router.push(ClientRoutes.categories(params.storeId))
+      router.refresh()
     } catch (error) {
       console.log(error)
       toast.error("Make sure you removed all products from the category first")

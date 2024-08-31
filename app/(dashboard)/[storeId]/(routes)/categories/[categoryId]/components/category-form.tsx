@@ -32,6 +32,8 @@ import { Separator } from "@/components/ui/separator"
 
 import { ClientRoutes } from "@/routes/client.routes"
 
+import { createCategory, deleteCategory, updateCategory } from "@/services/categories.service"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard, Category } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
@@ -68,13 +70,12 @@ export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billbo
   })
 
   const onSubmit = async (data: CategoryFormValuesType): Promise<void> => {
-    console.log(data)
     try {
       setIsLoading(true)
       if (initialData) {
-        // Update category
+        await updateCategory(params.storeId, params.categoryId, data)
       } else {
-        // Create category
+        await createCategory(params.storeId, data)
       }
       toast.success(toastMessage)
       router.push(ClientRoutes.categories(params.storeId))
@@ -94,9 +95,10 @@ export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billbo
 
     try {
       setIsLoading(true)
-      // delete category
+      await deleteCategory(params.storeId, params.categoryId)
       toast.success("Category deleted successfully")
       router.push(ClientRoutes.categories(params.storeId))
+      router.refresh()
     } catch (error) {
       console.log(error)
       toast.error("Make sure you removed all products from the category first")

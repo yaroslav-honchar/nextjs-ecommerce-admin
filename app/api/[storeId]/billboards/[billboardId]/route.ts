@@ -44,7 +44,6 @@ export async function PATCH(
       return new NextResponse("Unauthenticated", { status: 401 })
     }
 
-    // TODO: Validate data keys and values
     const { label, imageUrl } = await req.json()
     if (!label) {
       return new NextResponse("Label is required", { status: 400 })

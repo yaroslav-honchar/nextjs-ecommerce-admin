@@ -63,6 +63,7 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
       setIsLoading(true)
       await deleteBillboard(params.storeId, data.id)
       toast.success("Billboard deleted successfully")
+      router.push(ClientRoutes.billboards(params.storeId))
       router.refresh()
     } catch (error) {
       console.log(error)
