@@ -71,6 +71,7 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
         await createBillboard(params.storeId, data)
       }
       toast.success(toastMessage)
+      router.refresh()
       router.push(ClientRoutes.billboards(params.storeId))
     } catch (error) {
       console.log(error)
@@ -89,7 +90,7 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
       setIsLoading(true)
       await deleteBillboard(params.storeId, params.billboardId)
       toast.success("Billboard deleted successfully")
-      router.push("/")
+      router.push(ClientRoutes.billboards(params.storeId))
     } catch (error) {
       console.log(error)
       toast.error("Make sure you removed all categories from the billboard first")
@@ -111,7 +112,7 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
     <>
       {initialData && (
         <AlertModal
-          title={"Remove store"}
+          title={"Remove billboard"}
           description={`Are you sure you want to remove billboard: ${initialData.label}. This action cannot be undone.`}
           isOpen={isOpen}
           onSubmit={onDeleteBillboard}

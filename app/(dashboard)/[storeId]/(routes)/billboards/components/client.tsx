@@ -6,16 +6,19 @@ import React from "react"
 import type { StoreIdParamType } from "@/types/pages-params.type"
 
 import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 
 import { ClientRoutes } from "@/routes/client.routes"
 
-import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
+import type { BillboardColumnType } from "./columns"
+import { columns } from "./columns"
+
 interface IBillboardClientProps {
-  data: Billboard[]
+  data: BillboardColumnType[]
 }
 
 export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
@@ -42,6 +45,12 @@ export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator className={"my-5"} />
+      <DataTable
+        columns={columns}
+        data={data}
+        hasPagination={true}
+        searchKey={"label"}
+      />
     </>
   )
 }

@@ -9,6 +9,9 @@ import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
 
 import { BillboardClient } from "./components/client"
+import type { BillboardColumnType } from "@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns"
+import type { Billboard } from "@prisma/client"
+import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
 
 const BillboardsPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({
@@ -26,7 +29,15 @@ const BillboardsPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({
     },
   })
 
-  return <BillboardClient data={billboards} />
+  const formattedBillboards: BillboardColumnType[] = billboards.map(
+    (billboard: Billboard): BillboardColumnType => ({
+      id: billboard.id,
+      label: billboard.label,
+      createdAt: format(billboard.createdAt, "MMMM do, yyyy"),
+    }),
+  )
+
+  return <BillboardClient data={formattedBillboards} />
 }
 
 export default BillboardsPage

@@ -22,6 +22,8 @@ import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
+import { ClientRoutes } from "@/routes/client.routes"
+
 import { deleteStore, updateStore } from "@/services/stores.service"
 
 import { useOrigin } from "@/hooks/use-origin"
@@ -76,7 +78,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
       setIsLoading(true)
       await deleteStore(initialData.id)
       toast.success("Store removed successfully")
-      router.push("/")
+      router.push(ClientRoutes.home)
     } catch (error) {
       console.log(error)
       toast.error("Make sure to remove all products and categories before deleting the store.")
