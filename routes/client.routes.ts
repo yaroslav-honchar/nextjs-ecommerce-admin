@@ -7,5 +7,6 @@ export const ClientRoutes = {
   billboards: (storeId: string): string => `/${storeId}/billboards`,
   billboard: (storeId: string, billboardId: string): string =>
     `/${storeId}/billboards/${billboardId}`,
-  billboardsNew: (storeId: string): string => `/${storeId}/billboards/new`,
+  billboardEdit: (storeId: string): string => `/${storeId}/billboards/new`,
+  categories: (storeId: string): string => `/${storeId}/categories`,
 }

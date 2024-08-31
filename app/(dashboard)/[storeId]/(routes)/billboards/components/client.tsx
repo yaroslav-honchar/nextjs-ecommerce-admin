@@ -27,7 +27,7 @@ export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
   const params = useParams<StoreIdParamType>()
 
   const onAddNew = (): void => {
-    router.push(ClientRoutes.billboardsNew(params.storeId))
+    router.push(ClientRoutes.billboardEdit(params.storeId))
   }
 
   return (
