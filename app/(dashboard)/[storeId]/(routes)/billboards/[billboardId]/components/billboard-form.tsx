@@ -1,6 +1,5 @@
 "use client"
 
-import * as zod from "zod"
 import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -16,19 +15,10 @@ import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { createBillboard, deleteBillboard, updateBillboard } from "@/services/billboards.service"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
-
-interface IBillboardFormProps {
-  initialData: Billboard | null
-}
-
-const formSchema = zod.object({
-  label: zod.string().min(1),
-  imageUrl: zod.string().min(1),
-})
-
-type BillboardFormValuesType = zod.infer<typeof formSchema>
+import type { IBillboardFormProps } from "./billboard-form.props"
+import type { BillboardFormValuesType } from "./billboard-form.schema"
+import { formSchema } from "./billboard-form.schema"
 
 export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)

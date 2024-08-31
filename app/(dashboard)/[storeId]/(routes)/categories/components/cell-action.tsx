@@ -16,11 +16,7 @@ import {
 import { ClientRoutes } from "@/routes/client.routes"
 import { deleteCategory } from "@/services/categories.service"
 import { useParams, useRouter } from "next/navigation"
-import type { CategoryColumnType } from "./columns"
-
-interface ICellActionProps {
-  data: CategoryColumnType
-}
+import type { ICellActionProps } from "./cell-action.props"
 
 export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

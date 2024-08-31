@@ -16,11 +16,7 @@ import {
 import { ClientRoutes } from "@/routes/client.routes"
 import { deleteBillboard } from "@/services/billboards.service"
 import { useParams, useRouter } from "next/navigation"
-import type { BillboardColumnType } from "./columns"
-
-interface ICellActionProps {
-  data: BillboardColumnType
-}
+import type { ICellActionProps } from "./cell-action.props"
 
 export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

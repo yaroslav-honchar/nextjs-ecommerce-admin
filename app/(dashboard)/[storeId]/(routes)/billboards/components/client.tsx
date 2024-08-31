@@ -10,12 +10,8 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { useParams, useRouter } from "next/navigation"
-import type { BillboardColumnType } from "./columns"
+import type { IBillboardClientProps } from "./client.props"
 import { columns } from "./columns"
-
-interface IBillboardClientProps {
-  data: BillboardColumnType[]
-}
 
 export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
   const router = useRouter()

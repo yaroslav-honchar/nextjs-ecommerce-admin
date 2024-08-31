@@ -10,12 +10,8 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { useParams, useRouter } from "next/navigation"
-import type { CategoryColumnType } from "./columns"
+import type { ICategoryClientProps } from "./client.props"
 import { columns } from "./columns"
-
-interface ICategoryClientProps {
-  data: CategoryColumnType[]
-}
 
 export const CategoryClient: React.FC<ICategoryClientProps> = ({ data }) => {
   const router = useRouter()

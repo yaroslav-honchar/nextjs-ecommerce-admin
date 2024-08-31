@@ -1,58 +1,28 @@
 "use client"
 
 import type { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import React from "react"
+import { TableSortButton } from "@/components/ui/table-sort-button"
 import { CellAction } from "./cell-action"
-
-export type CategoryColumnType = {
-  id: string
-  name: string
-  billboardLabel: string
-  createdAt: string
-}
+import type { CategoryColumnType } from "./column.type"
 
 export const columns: ColumnDef<CategoryColumnType>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
+      return <TableSortButton column={column}>Name</TableSortButton>
     },
   },
   {
     accessorKey: "billboardLabel",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Billboard
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
+      return <TableSortButton column={column}>Billboard</TableSortButton>
     },
   },
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Date
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
+      return <TableSortButton column={column}>Date</TableSortButton>
     },
   },
   {

@@ -1,6 +1,5 @@
 "use client"
 
-import * as zod from "zod"
 import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -16,20 +15,11 @@ import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { createCategory, deleteCategory, updateCategory } from "@/services/categories.service"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Billboard, Category } from "@prisma/client"
+import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
-
-interface ICategoryFormProps {
-  initialData: Category | null
-  billboards: Billboard[]
-}
-
-const formSchema = zod.object({
-  name: zod.string().min(1),
-  billboardId: zod.string().min(1),
-})
-
-type CategoryFormValuesType = zod.infer<typeof formSchema>
+import type { ICategoryFormProps } from "./category-form.props"
+import type { CategoryFormValuesType } from "./category-form.schema"
+import { formSchema } from "./category-form.schema"
 
 export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billboards }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
