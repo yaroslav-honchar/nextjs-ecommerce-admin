@@ -63,9 +63,6 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
   })
 
   const onSubmit = async (data: BillboardFormValuesType): Promise<void> => {
-    console.log(data)
-    console.log(params.storeId)
-
     try {
       setIsLoading(true)
       if (initialData) {

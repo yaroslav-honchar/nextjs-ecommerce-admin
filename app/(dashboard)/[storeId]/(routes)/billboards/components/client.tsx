@@ -11,9 +11,14 @@ import { Separator } from "@/components/ui/separator"
 
 import { ClientRoutes } from "@/routes/client.routes"
 
+import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
-export const BillboardClient: React.FC = () => {
+interface IBillboardClientProps {
+  data: Billboard[]
+}
+
+export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
   const router = useRouter()
   const params = useParams<StoreIdParamType>()
 
@@ -25,7 +30,7 @@ export const BillboardClient: React.FC = () => {
     <>
       <div className={"flex items-start justify-between"}>
         <Heading
-          title={"Billboards (0)"}
+          title={`Billboards (${data.length})`}
           description={"Manage billboards for your store"}
         />
         <Button
