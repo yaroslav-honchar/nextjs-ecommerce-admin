@@ -1,9 +1,6 @@
 import React from "react"
-
 import { ClientRoutes } from "@/routes/client.routes"
-
 import prismadb from "@/lib/prismadb"
-
 import { Navigation } from "./components/navigation/navigation"
 import { StoreSwitcher } from "./components/store-switcher"
 import { SignedIn, UserButton } from "@clerk/nextjs"

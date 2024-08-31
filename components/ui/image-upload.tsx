@@ -2,14 +2,10 @@
 
 import type { CloudinaryUploadWidgetResults } from "next-cloudinary"
 import { CldUploadWidget } from "next-cloudinary"
-
 import { ImagePlus, TrashIcon } from "lucide-react"
 import React from "react"
-
 import { Button } from "@/components/ui/button"
-
 import { useMounted } from "@/hooks/use-mounted"
-
 import Image from "next/image"
 
 interface IImageUploadProps {
@@ -19,12 +15,7 @@ interface IImageUploadProps {
   value: string[]
 }
 
-export const ImageUpload: React.FC<IImageUploadProps> = ({
-  disabled,
-  onChange,
-  onRemove,
-  value,
-}) => {
+export const ImageUpload: React.FC<IImageUploadProps> = ({ disabled, onChange, onRemove, value }) => {
   const isMounted = useMounted()
 
   const onUpload = async (result: CloudinaryUploadWidgetResults | undefined) => {

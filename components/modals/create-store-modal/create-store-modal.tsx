@@ -1,29 +1,16 @@
 "use client"
 
 import type * as zod from "zod"
-
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
-
 import { createStore } from "@/services/stores.service"
-
 import { useStoreModal } from "@/hooks/use-store-modal"
-
 import { zodResolver } from "@hookform/resolvers/zod"
-
 import { formSchema } from "./form.schema"
 
 export const CreateStoreModal: React.FC = () => {

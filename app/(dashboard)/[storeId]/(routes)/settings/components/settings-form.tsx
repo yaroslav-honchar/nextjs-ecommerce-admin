@@ -1,46 +1,24 @@
 "use client"
 
-import * as zod from "zod"
-
 import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-
 import { ApiAlert } from "@/components/api-alert/api-alert"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-
 import { ClientRoutes } from "@/routes/client.routes"
-
 import { deleteStore, updateStore } from "@/services/stores.service"
-
 import { useOrigin } from "@/hooks/use-origin"
-
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Store } from "@prisma/client"
 import { useRouter } from "next/navigation"
-
-interface ISettingsFormProps {
-  initialData: Store
-}
-
-const formSchema = zod.object({
-  name: zod.string().min(1),
-})
-
-type SettingsFormValuesType = zod.infer<typeof formSchema>
+import type { ISettingsFormProps } from "./settings-form.props"
+import type { SettingsFormValuesType } from "./settings-form.schema"
+import { formSchema } from "./settings-form.schema"
 
 export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
   const origin = useOrigin()

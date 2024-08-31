@@ -1,39 +1,20 @@
 "use client"
 
 import * as zod from "zod"
-
 import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-
 import type { StoreIdCategoryIdParamType } from "@/types/pages-params.type"
-
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-
 import { ClientRoutes } from "@/routes/client.routes"
-
 import { createCategory, deleteCategory, updateCategory } from "@/services/categories.service"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard, Category } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"

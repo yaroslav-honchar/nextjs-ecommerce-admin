@@ -1,5 +1,4 @@
 import { ClientRoutes } from "@/routes/client.routes"
-
 import type { INavigationRoute } from "./navigation-route.type"
 
 export const getNavigationRoutes = (storeId: string): INavigationRoute[] => {

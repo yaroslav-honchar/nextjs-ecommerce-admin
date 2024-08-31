@@ -1,18 +1,12 @@
 import { ObjectId } from "bson"
-
 import type { IPropsWithStoreidBillboardidParam } from "@/types/pages-props.interface"
-
 import prismadb from "@/lib/prismadb"
-
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
 // Send a billboard of a store
-export async function GET(
-  _req: NextRequest,
-  { params: { storeId, billboardId } }: IPropsWithStoreidBillboardidParam,
-) {
+export async function GET(_req: NextRequest, { params: { storeId, billboardId } }: IPropsWithStoreidBillboardidParam) {
   if (!ObjectId.isValid(storeId) || !ObjectId.isValid(billboardId)) {
     return new NextResponse("Invalid store or billboard id", { status: 400 })
   }
@@ -30,10 +24,7 @@ export async function GET(
 }
 
 // Update a billboard of a store
-export async function PATCH(
-  req: NextRequest,
-  { params: { storeId, billboardId } }: IPropsWithStoreidBillboardidParam,
-) {
+export async function PATCH(req: NextRequest, { params: { storeId, billboardId } }: IPropsWithStoreidBillboardidParam) {
   if (!ObjectId.isValid(storeId) || !ObjectId.isValid(billboardId)) {
     return new NextResponse("Invalid store or billboard id", { status: 400 })
   }

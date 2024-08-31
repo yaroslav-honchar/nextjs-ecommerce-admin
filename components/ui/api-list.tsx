@@ -1,11 +1,8 @@
 "use client"
 
 import React from "react"
-
 import { ApiAlert } from "@/components/api-alert/api-alert"
-
 import { useOrigin } from "@/hooks/use-origin"
-
 import { useParams } from "next/navigation"
 
 interface IApiListProps {

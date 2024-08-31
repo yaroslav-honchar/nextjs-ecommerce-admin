@@ -3,9 +3,7 @@
 import { CopyIcon, EditIcon, MoreHorizontalIcon, TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import toast from "react-hot-toast"
-
 import type { StoreIdParamType } from "@/types/pages-params.type"
-
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,13 +13,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
 import { ClientRoutes } from "@/routes/client.routes"
-
 import { deleteBillboard } from "@/services/billboards.service"
-
 import { useParams, useRouter } from "next/navigation"
-
 import type { BillboardColumnType } from "./columns"
 
 interface ICellActionProps {

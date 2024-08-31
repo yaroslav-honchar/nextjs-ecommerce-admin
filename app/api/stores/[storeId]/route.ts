@@ -1,18 +1,12 @@
 import { ObjectId } from "bson"
-
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
-
 import prismadb from "@/lib/prismadb"
-
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
 // Update an existed store
-export async function PATCH(
-  req: NextRequest,
-  { params: { storeId } }: IPropsWithStoreidParam,
-): Promise<NextResponse> {
+export async function PATCH(req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam): Promise<NextResponse> {
   if (!ObjectId.isValid(storeId)) {
     return new NextResponse("Invalid store id", { status: 400 })
   }

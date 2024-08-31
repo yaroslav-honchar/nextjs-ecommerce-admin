@@ -3,24 +3,12 @@
 import { Check, ChevronsUpDown, PlusCircle, StoreIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef } from "react"
 import React, { useState } from "react"
-
 import type { StoreIdParamType } from "@/types/pages-params.type"
-
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-
 import { useStoreModal } from "@/hooks/use-store-modal"
-
 import { cn } from "@/lib/utils"
-
 import type { Store } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 

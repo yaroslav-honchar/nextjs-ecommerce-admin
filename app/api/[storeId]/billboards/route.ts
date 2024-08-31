@@ -1,9 +1,6 @@
 import { ObjectId } from "bson"
-
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
-
 import prismadb from "@/lib/prismadb"
-
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"

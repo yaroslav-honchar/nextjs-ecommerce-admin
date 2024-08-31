@@ -4,7 +4,7 @@
   ],
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "printWidth": 100,
+  "printWidth": 120,
   "singleQuote": false,
   "semi": false,
   "tabWidth": 2,
@@ -27,7 +27,7 @@
     "../(.*)$",
     "./(.*)$"
   ],
-  "importOrderSeparation": true,
+  "importOrderSeparation": false,
   "importOrderSortSpecifiers": true,
   "importOrderGroupNamespaceSpecifiers": true
 }

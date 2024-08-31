@@ -2,19 +2,14 @@
 
 import { PlusIcon } from "lucide-react"
 import React from "react"
-
 import type { StoreIdParamType } from "@/types/pages-params.type"
-
 import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
-
 import { ClientRoutes } from "@/routes/client.routes"
-
 import { useParams, useRouter } from "next/navigation"
-
 import type { BillboardColumnType } from "./columns"
 import { columns } from "./columns"
 

@@ -1,18 +1,12 @@
 import { ObjectId } from "bson"
-
 import type { IPropsWithStoreidCategoryidParam } from "@/types/pages-props.interface"
-
 import prismadb from "@/lib/prismadb"
-
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
 // Send a category of a store
-export async function GET(
-  _req: NextRequest,
-  { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam,
-) {
+export async function GET(_req: NextRequest, { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam) {
   if (!ObjectId.isValid(storeId) || !ObjectId.isValid(categoryId)) {
     return new NextResponse("Invalid store or category id", { status: 400 })
   }
@@ -30,10 +24,7 @@ export async function GET(
 }
 
 // Update a category of a store
-export async function PATCH(
-  req: NextRequest,
-  { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam,
-) {
+export async function PATCH(req: NextRequest, { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam) {
   if (!ObjectId.isValid(storeId) || !ObjectId.isValid(categoryId)) {
     return new NextResponse("Invalid store or category id", { status: 400 })
   }
@@ -77,10 +68,7 @@ export async function PATCH(
 }
 
 // Delete a category of a store
-export async function DELETE(
-  _req: NextRequest,
-  { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam,
-) {
+export async function DELETE(_req: NextRequest, { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam) {
   if (!ObjectId.isValid(storeId) || !ObjectId.isValid(categoryId)) {
     return new NextResponse("Invalid store or category id", { status: 400 })
   }

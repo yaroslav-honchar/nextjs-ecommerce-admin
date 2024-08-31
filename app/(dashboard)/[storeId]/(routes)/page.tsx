@@ -1,5 +1,4 @@
 import type { IPropsWithStoreidParamAndStore } from "@/types/pages-props.interface"
-
 import { withStoreId } from "@/hocs/with-store-id"
 
 const DashboardPage = ({ store }: Readonly<IPropsWithStoreidParamAndStore>) => (

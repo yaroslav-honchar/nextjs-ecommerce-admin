@@ -1,16 +1,10 @@
 import { ObjectId } from "bson"
-
 import type { ComponentType } from "react"
 import React from "react"
-
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
-
 import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
-
 import { ClientRoutes } from "@/routes/client.routes"
-
 import prismadb from "@/lib/prismadb"
-
 import { auth } from "@clerk/nextjs/server"
 import type { Store } from "@prisma/client"
 import { redirect } from "next/navigation"

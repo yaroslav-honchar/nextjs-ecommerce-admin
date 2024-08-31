@@ -1,14 +1,10 @@
 import type { Metadata } from "next"
-
 import type { PropsWithChildren } from "react"
 import React from "react"
-
 import { ModalProvider } from "@/providers/modal-provider"
 import { ToastProvider } from "@/providers/toast-provider"
-
 import { ClerkProvider } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
-
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })

@@ -2,14 +2,10 @@
 
 import type { HTMLAttributes } from "react"
 import React from "react"
-
 import type { StoreIdParamType } from "@/types/pages-params.type"
-
 import { cn } from "@/lib/utils"
-
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
-
 import type { INavigationRoute } from "./navigation-route.type"
 import { getNavigationRoutes } from "./navigation.routes"
 

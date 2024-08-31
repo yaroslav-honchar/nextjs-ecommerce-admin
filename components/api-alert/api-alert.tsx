@@ -3,14 +3,11 @@
 import { CopyIcon, ServerIcon } from "lucide-react"
 import React from "react"
 import toast from "react-hot-toast"
-
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-
 import { textMap } from "./lib/text.map"
 import { variantMap } from "./lib/variant.map"
-
 import type { IApiAlertProps } from "./api-alert.props"
 
 export const ApiAlert: React.FC<IApiAlertProps> = ({ title, description, variant }) => {
@@ -35,9 +32,7 @@ export const ApiAlert: React.FC<IApiAlertProps> = ({ title, description, variant
         </AlertTitle>
       </div>
       <AlertDescription className={"flex items-start gap-5 w-full"}>
-        <code className={"relative rounded bg-muted p-2 font-mono text-sm w-full"}>
-          {description}
-        </code>
+        <code className={"relative rounded bg-muted p-2 font-mono text-sm w-full"}>{description}</code>
         <Button
           className={"ms-auto"}
           size={"icon"}
