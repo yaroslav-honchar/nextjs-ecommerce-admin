@@ -18,22 +18,6 @@ export async function GET(
   }
 
   try {
-    const { userId } = auth()
-    if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 })
-    }
-
-    const storeByUserId = await prismadb.store.findFirst({
-      where: {
-        id: storeId,
-        userId,
-      },
-    })
-
-    if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 })
-    }
-
     const billboard = await prismadb.billboard.findUnique({
       where: { storeId, id: billboardId },
     })

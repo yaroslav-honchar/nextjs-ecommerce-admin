@@ -51,7 +51,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className={"flex-grow flex flex-col"}>
+    <div>
       {searchKey && (
         <div className="flex items-center py-4">
           <Input
@@ -62,7 +62,7 @@ export function DataTable<TData, TValue>({
           />
         </div>
       )}
-      <div className="rounded-md border flex-grow flex flex-col">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

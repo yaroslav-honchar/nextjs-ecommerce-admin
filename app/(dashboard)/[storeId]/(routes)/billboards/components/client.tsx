@@ -5,6 +5,7 @@ import React from "react"
 
 import type { StoreIdParamType } from "@/types/pages-params.type"
 
+import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
@@ -50,6 +51,15 @@ export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
         data={data}
         hasPagination={true}
         searchKey={"label"}
+      />
+      <Heading
+        title={"API"}
+        description={"API documentation for billboards"}
+      />
+      <Separator className={"my-5"} />
+      <ApiList
+        entityName={"billboards"}
+        entityIdName={"billboardId"}
       />
     </>
   )
