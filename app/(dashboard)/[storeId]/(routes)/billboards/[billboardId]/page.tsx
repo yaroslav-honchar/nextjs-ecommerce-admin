@@ -2,13 +2,15 @@ import { ObjectId } from "bson"
 
 import React from "react"
 
+import type { IPropsWithStoreidBillboardidParam } from "@/types/pages-props.interface"
+
 import prismadb from "@/lib/prismadb"
 
-import { BillboardForm } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/components/billboard-form"
+import { BillboardForm } from "./components/billboard-form"
 
-const BillboardsNewPage: React.FC<{
-  params: { billboardId: string }
-}> = async ({ params: { billboardId } }) => {
+const BillboardsNewPage: React.FC<Readonly<IPropsWithStoreidBillboardidParam>> = async ({
+  params: { billboardId },
+}) => {
   const billboard = ObjectId.isValid(billboardId)
     ? await prismadb.billboard.findUnique({
         where: { id: billboardId },

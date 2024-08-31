@@ -9,7 +9,7 @@ import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
 
 import { BillboardClient } from "./components/client"
-import type { BillboardColumnType } from "@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns"
+import type { BillboardColumnType } from "./components/columns"
 import type { Billboard } from "@prisma/client"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"

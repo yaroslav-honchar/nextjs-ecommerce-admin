@@ -18,14 +18,12 @@ import {
 
 import { ClientRoutes } from "@/routes/client.routes"
 
-import { deleteBillboard } from "@/services/billboards.service"
-
 import { useParams, useRouter } from "next/navigation"
 
-import type { BillboardColumnType } from "./columns"
+import type { CategoryColumnType } from "./columns"
 
 interface ICellActionProps {
-  data: BillboardColumnType
+  data: CategoryColumnType
 }
 
 export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
@@ -47,7 +45,7 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
   }
 
   const onEdit = (): void => {
-    router.push(ClientRoutes.billboardEdit(params.storeId, data.id))
+    router.push(ClientRoutes.categoryEdit(params.storeId, data.id))
   }
 
   const onAlertModalClose = (): void => {
@@ -61,12 +59,12 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
 
     try {
       setIsLoading(true)
-      await deleteBillboard(params.storeId, data.id)
-      toast.success("Billboard deleted successfully")
-      router.refresh()
+      // delete category
+      toast.success("Category deleted successfully")
+      // router.refresh()
     } catch (error) {
       console.log(error)
-      toast.error("Make sure you removed all categories from the billboard first")
+      toast.error("Make sure you removed all products from the category first")
     } finally {
       setIsLoading(false)
       setIsOpen(false)
@@ -76,8 +74,8 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
   return (
     <>
       <AlertModal
-        title={"Remove billboard"}
-        description={`Are you sure you want to remove billboard: ${data.label}. This action cannot be undone.`}
+        title={"Remove category"}
+        description={`Are you sure you want to remove category: ${data.name}. This action cannot be undone.`}
         isOpen={isOpen}
         onSubmit={onDelete}
         onClose={onAlertModalClose}
@@ -90,7 +88,7 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
             variant={"ghost"}
           >
             <MoreHorizontalIcon className="w-6 h-6" />
-            <span className={"sr-only"}>Open options menu of billboard {data.label}</span>
+            <span className={"sr-only"}>Open options menu of category {data.name}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align={"end"}>

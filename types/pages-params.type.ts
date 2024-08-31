@@ -6,3 +6,8 @@ export type StoreIdBillboardIdParamType = {
   storeId: string
   billboardId: string
 }
+
+export type StoreIdCategoryIdParamType = {
+  storeId: string
+  categoryId: string
+}
