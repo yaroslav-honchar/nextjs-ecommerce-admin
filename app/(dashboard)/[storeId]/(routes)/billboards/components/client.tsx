@@ -1,7 +1,6 @@
 "use client"
 
 import { PlusIcon } from "lucide-react"
-
 import React from "react"
 
 import type { StoreIdParamType } from "@/types/pages-params.type"

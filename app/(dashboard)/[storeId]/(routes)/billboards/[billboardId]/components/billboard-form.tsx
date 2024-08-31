@@ -1,11 +1,13 @@
 "use client"
 
 import * as zod from "zod"
-import { TrashIcon } from "lucide-react"
 
+import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+
+import type { StoreIdBillboardIdParamType } from "@/types/pages-params.type"
 
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
@@ -18,12 +20,15 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
+import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
+import { createBillboard, updateBillboard } from "@/services/billboards.service"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard } from "@prisma/client"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 interface IBillboardFormProps {
   initialData: Billboard | null
@@ -41,6 +46,7 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
+  const params = useParams<StoreIdBillboardIdParamType>()
 
   const title = initialData ? "Edit billboard" : "Create billboard"
   const description = initialData ? "Managing store of billboard" : "Creating store billboard"
@@ -60,12 +66,16 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
 
     try {
       setIsLoading(true)
-      // Update or create billboard
+      if (initialData) {
+        await updateBillboard(params.storeId, params.billboardId, data)
+      } else {
+        await createBillboard(params.storeId, data)
+      }
       router.refresh()
       toast.success(toastMessage)
     } catch (error) {
       console.log(error)
-      toast.error("Something went wrong")
+      toast.error("Make sure you removed all categories from the billboard first")
     } finally {
       setIsLoading(false)
     }
@@ -131,6 +141,25 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
           className={"flex flex-col gap-8"}
           onSubmit={form.handleSubmit(onSubmit)}
         >
+          <FormField
+            name={"imageUrl"}
+            control={form.control}
+            render={({ field: { value, onChange } }) => (
+              <FormItem>
+                <FormLabel>Background image</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={value ? [value] : []}
+                    disabled={isLoading}
+                    onChange={(url: string): void => onChange(url)}
+                    onRemove={(): void => onChange("")}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <div className={"grid grid-cols-3 gap-5"}>
             <FormField
               name={"label"}

@@ -6,8 +6,11 @@ import { coreService } from "@/services/core.service"
 
 import type { Store } from "@prisma/client"
 
-export const createStore = async (data: { name: string }): Promise<Store> => {
-  const response = await coreService.post<Store>(ApiRoutes.stores, data)
+export const createStore = async (
+  data: { name: string },
+  config: AxiosRequestConfig = {},
+): Promise<Store> => {
+  const response = await coreService.post<Store>(ApiRoutes.stores, data, config)
   return response.data
 }
 
