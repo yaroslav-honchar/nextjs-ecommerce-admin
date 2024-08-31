@@ -5,5 +5,7 @@ export const ClientRoutes = {
   overview: (storeId: string): string => `/${storeId}`,
   settings: (storeId: string): string => `/${storeId}/settings`,
   billboards: (storeId: string): string => `/${storeId}/billboards`,
+  billboard: (storeId: string, billboardId: string): string =>
+    `/${storeId}/billboards/${billboardId}`,
   billboardsNew: (storeId: string): string => `/${storeId}/billboards/new`,
 }

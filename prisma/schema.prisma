@@ -18,7 +18,6 @@ model Store {
 
 model Billboard {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
   storeId   String   @db.ObjectId
   store     Store    @relation("StoreToBillboard", fields: [storeId], references: [id])
   label     String

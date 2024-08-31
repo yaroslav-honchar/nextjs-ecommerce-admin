@@ -4,11 +4,12 @@ import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
+// Create a new store
 export async function POST(req: NextRequest) {
   try {
     const { userId } = auth()
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 })
+      return new NextResponse("Unauthenticated", { status: 401 })
     }
 
     const { name } = await req.json()

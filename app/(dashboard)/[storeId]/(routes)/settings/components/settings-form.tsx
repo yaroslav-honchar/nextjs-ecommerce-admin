@@ -68,7 +68,7 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
   }
 
   const onDeleteStore = async (): Promise<void> => {
-    if (deleteStoreSubmitInputValue.trim() !== initialData.name) {
+    if (deleteStoreSubmitInputValue.trim() !== initialData.name || isLoading) {
       return
     }
 

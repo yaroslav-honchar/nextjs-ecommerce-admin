@@ -24,7 +24,9 @@ import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
-import { createBillboard, updateBillboard } from "@/services/billboards.service"
+import { ClientRoutes } from "@/routes/client.routes"
+
+import { createBillboard, deleteBillboard, updateBillboard } from "@/services/billboards.service"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard } from "@prisma/client"
@@ -35,7 +37,6 @@ interface IBillboardFormProps {
 }
 
 const formSchema = zod.object({
-  name: zod.string().min(1),
   label: zod.string().min(1),
   imageUrl: zod.string().min(1),
 })
@@ -63,6 +64,7 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
 
   const onSubmit = async (data: BillboardFormValuesType): Promise<void> => {
     console.log(data)
+    console.log(params.storeId)
 
     try {
       setIsLoading(true)
@@ -71,25 +73,29 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
       } else {
         await createBillboard(params.storeId, data)
       }
-      router.refresh()
       toast.success(toastMessage)
+      router.push(ClientRoutes.billboards(params.storeId))
     } catch (error) {
       console.log(error)
-      toast.error("Make sure you removed all categories from the billboard first")
+      toast.error("Failed to save billboard")
     } finally {
       setIsLoading(false)
     }
   }
 
-  const onDeleteStore = async (): Promise<void> => {
+  const onDeleteBillboard = async (): Promise<void> => {
+    if (isLoading) {
+      return
+    }
+
     try {
       setIsLoading(true)
-      // Delete billboard
-      toast.success("")
+      await deleteBillboard(params.storeId, params.billboardId)
+      toast.success("Billboard deleted successfully")
       router.push("/")
     } catch (error) {
       console.log(error)
-      toast.error("")
+      toast.error("Make sure you removed all categories from the billboard first")
     } finally {
       setIsLoading(false)
       setIsOpen(false)
@@ -111,7 +117,7 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
           title={"Remove store"}
           description={`Are you sure you want to remove billboard: ${initialData.label}. This action cannot be undone.`}
           isOpen={isOpen}
-          onSubmit={onDeleteStore}
+          onSubmit={onDeleteBillboard}
           onClose={onAlertModalClose}
           isDisabled={isLoading}
         />

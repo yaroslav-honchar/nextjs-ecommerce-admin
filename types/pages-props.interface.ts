@@ -1,4 +1,4 @@
-import type { StoreIdParamType } from "@/types/pages-params.type"
+import type { StoreIdBillboardIdParamType, StoreIdParamType } from "@/types/pages-params.type"
 
 import type { Store } from "@prisma/client"
 
@@ -9,4 +9,8 @@ export interface IPropsWithStoreidParam {
 export interface IPropsWithStoreidParamAndStore {
   store: Store
   params: StoreIdParamType
+}
+
+export interface IPropsWithStoreidBillboardidParam {
+  params: StoreIdBillboardIdParamType
 }

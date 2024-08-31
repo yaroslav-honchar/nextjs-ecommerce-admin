@@ -56,8 +56,9 @@ export const ImageUpload: React.FC<IImageUploadProps> = ({
               <TrashIcon className={"w-4 h-4"} />
             </Button>
             <Image
-              fill={true}
-              className={"object-cover"}
+              width={200}
+              height={200}
+              className={"w-full h-full object-cover"}
               src={url}
               alt={"Image"}
             />

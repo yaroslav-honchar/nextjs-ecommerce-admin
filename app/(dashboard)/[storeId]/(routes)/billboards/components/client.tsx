@@ -32,7 +32,7 @@ export const BillboardClient: React.FC = () => {
           className={"gap-2"}
           onClick={onAddNew}
         >
-          <PlusIcon width={"w-4 h-4"} />
+          <PlusIcon className={"w-4 h-4"} />
           Add new
         </Button>
       </div>

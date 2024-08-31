@@ -8,6 +8,7 @@ import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
+// Update an existed store
 export async function PATCH(
   req: NextRequest,
   { params: { storeId } }: IPropsWithStoreidParam,
@@ -17,13 +18,9 @@ export async function PATCH(
   }
 
   try {
-    if (!storeId) {
-      return new NextResponse("Store id is required", { status: 400 })
-    }
-
     const { userId } = auth()
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 })
+      return new NextResponse("Unauthenticated", { status: 401 })
     }
 
     const { name } = await req.json()
@@ -48,19 +45,16 @@ export async function PATCH(
   }
 }
 
+// Delete an existed store
 export async function DELETE(_req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) {
   if (!ObjectId.isValid(storeId)) {
     return new NextResponse("Invalid store id", { status: 400 })
   }
 
   try {
-    if (!storeId) {
-      return new NextResponse("Store id is required", { status: 400 })
-    }
-
     const { userId } = auth()
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 })
+      return new NextResponse("Unauthenticated", { status: 401 })
     }
 
     const store = await prismadb.store.deleteMany({
