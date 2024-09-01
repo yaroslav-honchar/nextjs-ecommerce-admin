@@ -8,5 +8,5 @@ export const ApiRoutes = {
   categories: (storeId: string): string => `${root}/${storeId}/categories`,
   category: (storeId: string, categoryId: string): string => `${root}/${storeId}/categories/${categoryId}`,
   sizes: (storeId: string): string => `${root}/${storeId}/sizes`,
-  size: (storeId: string, sizeId: string): string => `${root}/${storeId}/categories/${sizeId}`,
+  size: (storeId: string, sizeId: string): string => `${root}/${storeId}/sizes/${sizeId}`,
 }

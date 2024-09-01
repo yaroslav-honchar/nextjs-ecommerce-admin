@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from "axios"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
+import type { SizeDataType } from "@/app/(dashboard)/[storeId]/(routes)/sizes/[sizeId]/components/form.schema"
 import type { Size } from "@prisma/client"
 
 export const getSizes = async (storeId: string, config: AxiosRequestConfig = {}): Promise<Size[]> => {
@@ -15,7 +16,7 @@ export const getSize = async (storeId: string, sizeId: string, config: AxiosRequ
 
 export const createSize = async (
   storeId: string,
-  data: { name: string; value: string },
+  data: SizeDataType,
   config: AxiosRequestConfig = {},
 ): Promise<Size> => {
   const response = await coreService.post<Size>(ApiRoutes.sizes(storeId), data, config)
@@ -25,7 +26,7 @@ export const createSize = async (
 export const updateSize = async (
   storeId: string,
   sizeId: string,
-  data: { name: string; value: string },
+  data: SizeDataType,
   config: AxiosRequestConfig = {},
 ): Promise<Size> => {
   const response = await coreService.patch<Size>(ApiRoutes.size(storeId, sizeId), data, config)
