@@ -1,5 +1,3 @@
-"use client"
-
 import { CopyIcon, EditIcon, MoreHorizontalIcon, TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import toast from "react-hot-toast"
@@ -14,11 +12,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ClientRoutes } from "@/routes/client.routes"
-import { deleteCategory } from "@/services/categories.service"
 import { useParams, useRouter } from "next/navigation"
 import type { ICellActionProps } from "./cell-action.props"
 
-export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
+export function CellTableAction<ColumnDataType extends Record<"id", string>>({
+  data,
+  editPathKey,
+  deleteHandle,
+}: ICellActionProps<ColumnDataType>) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const params = useParams<StoreIdParamType>()
@@ -37,7 +38,7 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
   }
 
   const onEdit = (): void => {
-    router.push(ClientRoutes.categoryEdit(params.storeId, data.id))
+    router.push(ClientRoutes[editPathKey](params.storeId, data.id))
   }
 
   const onAlertModalClose = (): void => {
@@ -51,13 +52,12 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
 
     try {
       setIsLoading(true)
-      await deleteCategory(params.storeId, data.id)
-      toast.success("Category deleted successfully")
-      router.push(ClientRoutes.categories(params.storeId))
+      await deleteHandle(params.storeId, data.id)
+      toast.success("Deleted successfully")
       router.refresh()
     } catch (error) {
       console.log(error)
-      toast.error("Make sure you removed all products from the category first")
+      toast.error("Make sure you removed all other entities associated with this entity first")
     } finally {
       setIsLoading(false)
       setIsOpen(false)
@@ -68,7 +68,7 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
     <>
       <AlertModal
         title={"Remove category"}
-        description={`Are you sure you want to remove category: ${data.name}. This action cannot be undone.`}
+        description={"Are you sure you want to remove entity. This action cannot be undone."}
         isOpen={isOpen}
         onSubmit={onDelete}
         onClose={onAlertModalClose}
@@ -81,7 +81,7 @@ export const CellAction: React.FC<ICellActionProps> = ({ data }) => {
             variant={"ghost"}
           >
             <MoreHorizontalIcon className="w-6 h-6" />
-            <span className={"sr-only"}>Open options menu of category {data.name}</span>
+            <span className={"sr-only"}>Open options menu</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align={"end"}>

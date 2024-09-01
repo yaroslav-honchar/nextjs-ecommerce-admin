@@ -1,4 +1,4 @@
-export type SizeColumnType = {
+export type ColumnType = {
   id: string
   name: string
   value: string

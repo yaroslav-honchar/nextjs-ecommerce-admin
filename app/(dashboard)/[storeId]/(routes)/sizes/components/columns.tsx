@@ -2,11 +2,12 @@
 
 import type { ColumnDef } from "@tanstack/react-table"
 import React from "react"
+import { CellTableAction } from "@/components/cell-action/cell-action"
 import { TableSortButton } from "@/components/ui/table-sort-button"
-import { CellAction } from "./cell-action"
-import type { SizeColumnType } from "./column.type"
+import { deleteSize } from "@/services/sizes.service"
+import type { ColumnType } from "./column.type"
 
-export const columns: ColumnDef<SizeColumnType>[] = [
+export const columns: ColumnDef<ColumnType>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -27,6 +28,12 @@ export const columns: ColumnDef<SizeColumnType>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => (
+      <CellTableAction
+        editPathKey={"sizeEdit"}
+        data={row.original}
+        deleteHandle={deleteSize}
+      />
+    ),
   },
 ]

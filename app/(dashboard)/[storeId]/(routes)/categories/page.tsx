@@ -3,7 +3,7 @@ import React from "react"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
-import { CategoryClient } from "./components/client"
+import { Dashboard } from "./components/dashboard"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
 
@@ -30,7 +30,7 @@ const CategoriesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ para
     createdAt: format(createdAt, "MMMM do, yyyy"),
   }))
 
-  return <CategoryClient data={formattedCategories} />
+  return <Dashboard data={formattedCategories} />
 }
 
 export default CategoriesPage

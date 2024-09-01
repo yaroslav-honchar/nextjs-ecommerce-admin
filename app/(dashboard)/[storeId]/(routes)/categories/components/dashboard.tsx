@@ -10,10 +10,10 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { useParams, useRouter } from "next/navigation"
-import type { ICategoryClientProps } from "./client.props"
 import { columns } from "./columns"
+import type { IDashboardProps } from "./dashboard.props"
 
-export const CategoryClient: React.FC<ICategoryClientProps> = ({ data }) => {
+export const Dashboard: React.FC<IDashboardProps> = ({ data }) => {
   const router = useRouter()
   const params = useParams<StoreIdParamType>()
 

@@ -1,4 +1,4 @@
-export type CategoryColumnType = {
+export type ColumnType = {
   id: string
   name: string
   billboardLabel: string

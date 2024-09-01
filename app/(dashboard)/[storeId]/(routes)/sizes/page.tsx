@@ -3,7 +3,7 @@ import React from "react"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
-import { SizeClient } from "./components/client"
+import { Dashboard } from "./components/dashboard"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
 
@@ -27,7 +27,7 @@ const SizesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: {
     createdAt: format(createdAt, "MMMM do, yyyy"),
   }))
 
-  return <SizeClient data={formattedSizes} />
+  return <Dashboard data={formattedSizes} />
 }
 
 export default SizesPage
