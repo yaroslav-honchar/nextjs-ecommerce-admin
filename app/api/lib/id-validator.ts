@@ -6,14 +6,11 @@ import type { IDValidatorHandlerType } from "./id-validator.type"
 /**
  * A higher-order function that validates ObjectId parameters in the request.
  *
- * @template ParamsType - The type of the parameters object.
+ * @template ParamsType - The type of the parameters objects.
  * @param {IDValidatorHandlerType<ParamsType>} handler - The handler functions to be executed if validation passes.
- * @returns {Function} - A function that takes a NextRequest and parameters, validates the IDs,
  * and either returns a 400 response or calls the handler.
  */
-export function IDValidator<ParamsType extends Record<string, any>>(
-  handler: IDValidatorHandlerType<ParamsType>,
-): NextResponse | IDValidatorHandlerType<ParamsType> {
+export function IDValidator<ParamsType extends Record<string, any>>(handler: IDValidatorHandlerType<ParamsType>) {
   return async (req: NextRequest, params: ParamsType): Promise<NextResponse> => {
     // Filter out invalid ObjectId parameters
     const invalidIds = Object.keys(params!).filter((key) => key.endsWith("Id") && !ObjectId.isValid(params[key]))
@@ -24,6 +21,6 @@ export function IDValidator<ParamsType extends Record<string, any>>(
     }
 
     // If all IDs are valid, call the handler function
-    return handler(req, params)
+    return await handler(req, params)
   }
 }

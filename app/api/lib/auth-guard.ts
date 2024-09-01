@@ -8,11 +8,8 @@ import type { AuthGuardHandlerType } from "./auth-guard.type"
  *
  * @template ParamsType - The type of the parameters object.
  * @param {AuthGuardHandlerType<ParamsType>} handler - The handler functions to be executed if authentication passes.
- * @returns {Function} - A function that takes a NextRequest and parameters, checks authentication, and either returns a 401 response or calls the handler.
  */
-export function authGuard<ParamsType = undefined>(
-  handler: AuthGuardHandlerType<ParamsType>,
-): NextRequest | AuthGuardHandlerType<ParamsType> {
+export function authGuard<ParamsType = undefined>(handler: AuthGuardHandlerType<ParamsType>) {
   return async (req: NextRequest, params: ParamsType): Promise<NextResponse> => {
     // Retrieve the userId from the authentication context
     const { userId } = auth()
@@ -23,6 +20,6 @@ export function authGuard<ParamsType = undefined>(
     }
 
     // If authenticated, call the handler function with the userId
-    return handler(req, params, userId)
+    return await handler(req, params, userId)
   }
 }
