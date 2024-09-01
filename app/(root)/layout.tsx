@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react"
-import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
+import { ErrorDisplay } from "@/components/ui/error-display"
 import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs/server"

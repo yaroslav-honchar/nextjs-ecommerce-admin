@@ -4,10 +4,9 @@ import { MailIcon, RefreshCwIcon } from "lucide-react"
 import type { PropsWithChildren } from "react"
 import React from "react"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
 
 export const ErrorDisplay: React.FC<PropsWithChildren> = ({ children }) => {
-  const router = useRouter()
+  const onReload = () => (typeof window !== "undefined" ? window.location.reload() : null)
 
   return (
     <div className="flex-grow lg:p-8 p-4 flex gap-5 flex-col items-center justify-center">
@@ -16,7 +15,7 @@ export const ErrorDisplay: React.FC<PropsWithChildren> = ({ children }) => {
         <Button
           className={"gap-2"}
           variant={"outline"}
-          onClick={router.refresh}
+          onClick={onReload}
         >
           <RefreshCwIcon className={"w-4 h-4"} />
           Retry
