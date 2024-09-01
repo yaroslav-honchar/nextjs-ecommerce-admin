@@ -3,6 +3,14 @@
 This is a fullstack application designed to build an admin panel with login functionality and database integration. The
 application is built using modern web technologies and libraries to ensure a robust and scalable solution.
 
+## [Demo](https://ecommerce-admin-pi-sage.vercel.app)
+
+Here is the demo of the project. You can login with the following credentials:
+
+**Email**: `yonilav532@amxyy.com`
+
+**Password**: `JFrQ7dkMUwnAX6q`
+
 ## Description
 
 The Admin Panel application provides a comprehensive interface for managing various aspects of a store, including

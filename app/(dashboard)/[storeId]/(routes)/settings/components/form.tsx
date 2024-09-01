@@ -4,7 +4,6 @@ import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-import { ApiAlert } from "@/components/api-alert/api-alert"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -13,7 +12,6 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { deleteStore, updateStore } from "@/services/stores.service"
-import { useOrigin } from "@/hooks/use-origin"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import type { IClientFormProps } from "./form.props"
@@ -21,7 +19,7 @@ import type { StoreDataType } from "./form.schema"
 import { storeDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
-  const origin = useOrigin()
+  // const origin = useOrigin()
   const [deleteStoreSubmitInputValue, setDeleteStoreSubmitInputValue] = useState<string>("")
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -148,12 +146,12 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
           </div>
         </form>
       </Form>
-      <Separator className={"my-5"} />
-      <ApiAlert
-        title={"NEXT_PUBLIC_API_URL"}
-        description={`${origin}/api/${initialData.id}`}
-        variant={"public"}
-      />
+      {/*<Separator className={"my-5"} />*/}
+      {/*<ApiAlert*/}
+      {/*  title={"NEXT_PUBLIC_API_URL"}*/}
+      {/*  description={`${origin}/api/stores/${initialData.id}`}*/}
+      {/*  variant={"admin"}*/}
+      {/*/>*/}
     </>
   )
 }
