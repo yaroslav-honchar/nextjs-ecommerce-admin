@@ -78,7 +78,6 @@ First, create a `.env` file in the root directory of the project with the follow
 - **Next.js**: A React framework for server-side rendering and static site generation.
 - **Tailwind CSS**: A utility-first CSS framework for styling.
 - **Lucide React**: Icon library for React.
-- **Schadcn ui**: Icon library for React.
 
 ### Backend
 
@@ -89,6 +88,7 @@ First, create a `.env` file in the root directory of the project with the follow
 
 - **Radix UI**: A set of accessible and customizable UI components.
 - **React Hook Form**: For managing form state and validation.
+- **Schadcn ui**: Icon library for React.
 
 ### Database Client
 
