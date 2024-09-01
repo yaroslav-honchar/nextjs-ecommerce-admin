@@ -1,17 +1,21 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
-import type { ExceptionFilterHandlerType, ExceptionFilterMethodType } from "./exception-filter.type"
+import type {
+  ExceptionFilterHandlerType,
+  ExceptionFilterMethodType,
+  ExceptionFilterModuleType,
+} from "./exception-filter.type"
 
 /**
  * A higher-order function that wraps a handler function with exception filtering.
  *
- * @template ParamsType - The type of the parameters object.
+ * @template ParamsType - The type of the parameters objects.
  * @param {string} module - The name of the module where the handler is located.
  * @param {ExceptionFilterMethodType} method - The HTTP method used in the request.
  * @param {ExceptionFilterHandlerType<ParamsType>} handler - The handler function to be executed.
  */
 export function exceptionFilter<ParamsType = undefined>(
-  module: string,
+  module: ExceptionFilterModuleType,
   method: ExceptionFilterMethodType,
   handler: ExceptionFilterHandlerType<ParamsType>,
 ) {

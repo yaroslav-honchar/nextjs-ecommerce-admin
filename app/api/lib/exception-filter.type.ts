@@ -15,4 +15,13 @@ export type ExceptionFilterHandlerType<T> = (req: NextRequest, params: T) => Pro
  *
  * @typedef {"GET" | "POST" | "PUT" | "PATCH" | "DELETE"} ExceptionFilterMethodType
  */
+export type ExceptionFilterModuleType =
+  | "STORE"
+  | "STORES"
+  | "BILLBOARD"
+  | "BILLBOARDS"
+  | "CATEGORY"
+  | "CATEGORIES"
+  | "SIZE"
+  | "SIZES"
 export type ExceptionFilterMethodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
