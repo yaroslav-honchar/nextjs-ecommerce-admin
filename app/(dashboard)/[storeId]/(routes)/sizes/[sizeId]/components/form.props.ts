@@ -1,5 +1,5 @@
 import type { Size } from "@prisma/client"
 
-export interface ISizeFormProps {
+export interface IFormProps {
   initialData: Size | null
 }

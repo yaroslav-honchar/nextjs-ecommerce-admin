@@ -15,11 +15,11 @@ import { ClientRoutes } from "@/routes/client.routes"
 import { createSize, deleteSize, updateSize } from "@/services/sizes.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
-import type { ISizeFormProps } from "./form.props"
+import type { IFormProps } from "./form.props"
 import type { SizeDataType } from "./form.schema"
 import { sizeDataSchema } from "./form.schema"
 
-export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
+export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
@@ -57,7 +57,7 @@ export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
     }
   }
 
-  const onDeleteCategory = async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     if (isLoading) {
       return
     }
@@ -92,7 +92,7 @@ export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
           title={"Remove category"}
           description={`Are you sure you want to remove size: ${initialData.name}. This action cannot be undone.`}
           isOpen={isOpen}
-          onSubmit={onDeleteCategory}
+          onSubmit={onDelete}
           onClose={onAlertModalClose}
           isDisabled={isLoading}
         />
@@ -132,7 +132,7 @@ export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder={"Category name..."}
+                      placeholder={"Size name..."}
                       {...field}
                     />
                   </FormControl>

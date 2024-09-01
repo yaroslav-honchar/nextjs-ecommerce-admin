@@ -57,7 +57,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
     }
   }
 
-  const onDeleteCategory = async (): Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     if (isLoading) {
       return
     }
@@ -92,7 +92,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
           title={"Remove category"}
           description={`Are you sure you want to remove color: ${initialData.name}. This action cannot be undone.`}
           isOpen={isOpen}
-          onSubmit={onDeleteCategory}
+          onSubmit={onDelete}
           onClose={onAlertModalClose}
           isDisabled={isLoading}
         />
@@ -132,7 +132,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder={"Category name..."}
+                      placeholder={"Color name..."}
                       {...field}
                     />
                   </FormControl>

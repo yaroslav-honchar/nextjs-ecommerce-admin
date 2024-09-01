@@ -1,6 +1,5 @@
 "use client"
 
-import type { CloudinaryUploadWidgetResults } from "next-cloudinary"
 import { CldUploadWidget } from "next-cloudinary"
 import { ImagePlus, TrashIcon } from "lucide-react"
 import React from "react"
@@ -18,11 +17,8 @@ interface IImageUploadProps {
 export const ImageUpload: React.FC<IImageUploadProps> = ({ disabled, onChange, onRemove, value }) => {
   const isMounted = useMounted()
 
-  const onUpload = async (result: CloudinaryUploadWidgetResults | undefined) => {
-    if (!result || !result.info || typeof result.info === "string") {
-      return console.log("No result")
-    }
-
+  const onUpload = (result: any) => {
+    console.log(result.info.secure_url)
     onChange(result.info.secure_url)
   }
 
