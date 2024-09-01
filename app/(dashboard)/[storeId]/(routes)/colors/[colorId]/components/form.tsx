@@ -146,19 +146,24 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Value</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder={"Color value..."}
-                      {...field}
+                  <div className={"flex items-center gap-4"}>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder={"Color value..."}
+                        {...field}
+                      />
+                    </FormControl>
+                    <div
+                      className={"w-10 h-10 min-w-10 min-h-10 rounded-full border-2"}
+                      style={{ backgroundColor: field.value || "" }}
                     />
-                  </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
           <div className={"flex items-center gap-2 mt-auto"}>
             <Button
               className={"w-[12.5rem]"}
