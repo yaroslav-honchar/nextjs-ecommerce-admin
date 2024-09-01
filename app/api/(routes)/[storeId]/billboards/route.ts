@@ -1,6 +1,6 @@
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
-import { billboardDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/components/billboard-form.schema"
+import { billboardDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"

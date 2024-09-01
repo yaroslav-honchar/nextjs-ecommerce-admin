@@ -1,6 +1,6 @@
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
-import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form.schema"
+import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"

@@ -2,11 +2,12 @@
 
 import type { ColumnDef } from "@tanstack/react-table"
 import React from "react"
+import { CellTableAction } from "@/components/cell-action/cell-action"
 import { TableSortButton } from "@/components/ui/table-sort-button"
-import { CellAction } from "./cell-action"
-import type { BillboardColumnType } from "./column.type"
+import { deleteBillboard } from "@/services/billboards.service"
+import type { ColumnType } from "./column.type"
 
-export const columns: ColumnDef<BillboardColumnType>[] = [
+export const columns: ColumnDef<ColumnType>[] = [
   {
     accessorKey: "label",
     header: ({ column }) => {
@@ -21,6 +22,12 @@ export const columns: ColumnDef<BillboardColumnType>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => (
+      <CellTableAction
+        editPathKey={"billboardEdit"}
+        data={row.original}
+        deleteHandle={deleteBillboard}
+      />
+    ),
   },
 ]

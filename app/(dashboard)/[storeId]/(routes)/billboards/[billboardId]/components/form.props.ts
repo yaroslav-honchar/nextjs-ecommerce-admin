@@ -1,5 +1,5 @@
 import type { Billboard } from "@prisma/client"
 
-export interface IBillboardFormProps {
+export interface IClientFormProps {
   initialData: Billboard | null
 }

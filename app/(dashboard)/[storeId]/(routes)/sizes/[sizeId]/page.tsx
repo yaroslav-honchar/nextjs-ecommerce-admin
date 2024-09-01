@@ -4,7 +4,7 @@ import type { IPropsWithStoreidSizeidParam } from "@/types/pages-props.interface
 import prismadb from "@/lib/prismadb"
 import { ClientForm } from "./components/form"
 
-const CategoriesNewPage: React.FC<Readonly<IPropsWithStoreidSizeidParam>> = async ({ params: { sizeId } }) => {
+const SizesNewPage: React.FC<Readonly<IPropsWithStoreidSizeidParam>> = async ({ params: { sizeId } }) => {
   const size = ObjectId.isValid(sizeId)
     ? await prismadb.size.findUnique({
         where: { id: sizeId },
@@ -14,4 +14,4 @@ const CategoriesNewPage: React.FC<Readonly<IPropsWithStoreidSizeidParam>> = asyn
   return <ClientForm initialData={size} />
 }
 
-export default CategoriesNewPage
+export default SizesNewPage

@@ -3,8 +3,8 @@ import React from "react"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
-import { BillboardClient } from "./components/client"
-import type { BillboardColumnType } from "./components/column.type"
+import type { ColumnType } from "./components/column.type"
+import { Dashboard } from "./components/dashboard"
 import type { Billboard } from "@prisma/client"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
@@ -22,15 +22,15 @@ const BillboardsPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ para
     },
   })
 
-  const formattedBillboards: BillboardColumnType[] = billboards.map(
-    (billboard: Billboard): BillboardColumnType => ({
+  const formattedBillboards: ColumnType[] = billboards.map(
+    (billboard: Billboard): ColumnType => ({
       id: billboard.id,
       label: billboard.label,
       createdAt: format(billboard.createdAt, "MMMM do, yyyy"),
     }),
   )
 
-  return <BillboardClient data={formattedBillboards} />
+  return <Dashboard data={formattedBillboards} />
 }
 
 export default BillboardsPage

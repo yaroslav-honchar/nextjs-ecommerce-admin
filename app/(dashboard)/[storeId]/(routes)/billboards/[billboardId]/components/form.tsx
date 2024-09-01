@@ -16,11 +16,11 @@ import { ClientRoutes } from "@/routes/client.routes"
 import { createBillboard, deleteBillboard, updateBillboard } from "@/services/billboards.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
-import type { IBillboardFormProps } from "./billboard-form.props"
-import type { BillboardDataType } from "./billboard-form.schema"
-import { billboardDataSchema } from "./billboard-form.schema"
+import type { IClientFormProps } from "./form.props"
+import type { BillboardDataType } from "./form.schema"
+import { billboardDataSchema } from "./form.schema"
 
-export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) => {
+export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()

@@ -10,10 +10,10 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { useParams, useRouter } from "next/navigation"
-import type { IBillboardClientProps } from "./client.props"
 import { columns } from "./columns"
+import type { IBillboardClientProps } from "./dashboard.props"
 
-export const BillboardClient: React.FC<IBillboardClientProps> = ({ data }) => {
+export const Dashboard: React.FC<IBillboardClientProps> = ({ data }) => {
   const router = useRouter()
   const params = useParams<StoreIdParamType>()
 

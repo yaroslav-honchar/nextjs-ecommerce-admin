@@ -16,11 +16,11 @@ import { deleteStore, updateStore } from "@/services/stores.service"
 import { useOrigin } from "@/hooks/use-origin"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
-import type { ISettingsFormProps } from "./settings-form.props"
-import type { StoreDataType } from "./settings-form.schema"
-import { storeDataSchema } from "./settings-form.schema"
+import type { IClientFormProps } from "./form.props"
+import type { StoreDataType } from "./form.schema"
+import { storeDataSchema } from "./form.schema"
 
-export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
+export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const origin = useOrigin()
   const [deleteStoreSubmitInputValue, setDeleteStoreSubmitInputValue] = useState<string>("")
   const [isOpen, setIsOpen] = useState<boolean>(false)

@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
 import { createStore } from "@/services/stores.service"
 import { useStoreModal } from "@/hooks/use-store-modal"
-import type { StoreDataType } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form.schema"
-import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form.schema"
+import type { StoreDataType } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/form.schema"
+import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/form.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 export const CreateStoreModal: React.FC = () => {

@@ -1,6 +1,6 @@
 import type { IPropsWithStoreidCategoryidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
-import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/category-form.schema"
+import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
