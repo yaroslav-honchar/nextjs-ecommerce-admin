@@ -1,6 +1,5 @@
 "use client"
 
-import type * as zod from "zod"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
@@ -10,20 +9,21 @@ import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
 import { createStore } from "@/services/stores.service"
 import { useStoreModal } from "@/hooks/use-store-modal"
+import type { StoreDataType } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form.schema"
+import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { formSchema } from "./form.schema"
 
 export const CreateStoreModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { isOpen, onClose } = useStoreModal()
-  const form = useForm<zod.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<StoreDataType>({
+    resolver: zodResolver(storeDataSchema),
     defaultValues: {
       name: "",
     },
   })
 
-  const onSubmit = async (data: zod.infer<typeof formSchema>) => {
+  const onSubmit = async (data: StoreDataType) => {
     try {
       setIsLoading(true)
       const response = await createStore(data)

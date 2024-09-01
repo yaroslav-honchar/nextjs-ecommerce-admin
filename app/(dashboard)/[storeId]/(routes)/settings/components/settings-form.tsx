@@ -17,8 +17,8 @@ import { useOrigin } from "@/hooks/use-origin"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import type { ISettingsFormProps } from "./settings-form.props"
-import type { SettingsFormValuesType } from "./settings-form.schema"
-import { formSchema } from "./settings-form.schema"
+import type { StoreDataType } from "./settings-form.schema"
+import { storeDataSchema } from "./settings-form.schema"
 
 export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
   const origin = useOrigin()
@@ -28,12 +28,12 @@ export const SettingsForm: React.FC<ISettingsFormProps> = ({ initialData }) => {
   const router = useRouter()
 
   const { name } = initialData
-  const form = useForm<SettingsFormValuesType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<StoreDataType>({
+    resolver: zodResolver(storeDataSchema),
     defaultValues: initialData,
   })
 
-  const onSubmit = async (data: SettingsFormValuesType): Promise<void> => {
+  const onSubmit = async (data: StoreDataType): Promise<void> => {
     try {
       setIsLoading(true)
       await updateStore(initialData.id, data)

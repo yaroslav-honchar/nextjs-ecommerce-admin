@@ -1,5 +1,6 @@
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
+import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/category-form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
@@ -22,20 +23,11 @@ export const GET = exceptionFilter(
 
 // Create a new category for a store
 export const POST = exceptionFilter(
-  "",
+  "CATEGORIES",
   "POST",
   authGuard(
     IDValidator<IPropsWithStoreidParam>(async (req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) => {
       const userId = auth().userId as string
-
-      const { name, billboardId } = await req.json()
-      if (!name) {
-        return new NextResponse("Name is required", { status: 400 })
-      }
-
-      if (!billboardId) {
-        return new NextResponse("Billboard id is required", { status: 400 })
-      }
 
       const storeByUserId = await prismadb.store.findFirst({
         where: { id: storeId, userId },
@@ -45,10 +37,11 @@ export const POST = exceptionFilter(
         return new NextResponse("Unauthorized", { status: 403 })
       }
 
+      const data = categoryDataSchema.parse(await req.json())
+
       const category = await prismadb.category.create({
         data: {
-          name,
-          billboardId,
+          ...data,
           storeId,
         },
       })

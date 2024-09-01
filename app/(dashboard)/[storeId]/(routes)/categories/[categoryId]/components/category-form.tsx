@@ -18,8 +18,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { ICategoryFormProps } from "./category-form.props"
-import type { CategoryFormValuesType } from "./category-form.schema"
-import { formSchema } from "./category-form.schema"
+import type { CategoryDataType } from "./category-form.schema"
+import { categoryDataSchema } from "./category-form.schema"
 
 export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billboards }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -32,15 +32,15 @@ export const CategoryForm: React.FC<ICategoryFormProps> = ({ initialData, billbo
   const toastMessage = initialData ? "Category editing saved" : "Category created"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<CategoryFormValuesType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CategoryDataType>({
+    resolver: zodResolver(categoryDataSchema),
     defaultValues: initialData || {
       name: "",
       billboardId: "",
     },
   })
 
-  const onSubmit = async (data: CategoryFormValuesType): Promise<void> => {
+  const onSubmit = async (data: CategoryDataType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

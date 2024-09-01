@@ -17,8 +17,8 @@ import { createBillboard, deleteBillboard, updateBillboard } from "@/services/bi
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
 import type { IBillboardFormProps } from "./billboard-form.props"
-import type { BillboardFormValuesType } from "./billboard-form.schema"
-import { formSchema } from "./billboard-form.schema"
+import type { BillboardDataType } from "./billboard-form.schema"
+import { billboardDataSchema } from "./billboard-form.schema"
 
 export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -31,15 +31,15 @@ export const BillboardForm: React.FC<IBillboardFormProps> = ({ initialData }) =>
   const toastMessage = initialData ? "Billboard editing saved" : "Billboard created"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<BillboardFormValuesType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<BillboardDataType>({
+    resolver: zodResolver(billboardDataSchema),
     defaultValues: initialData || {
       label: "",
       imageUrl: "",
     },
   })
 
-  const onSubmit = async (data: BillboardFormValuesType): Promise<void> => {
+  const onSubmit = async (data: BillboardDataType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

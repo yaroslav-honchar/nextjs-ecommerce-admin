@@ -1,5 +1,6 @@
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
+import { billboardDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/components/billboard-form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
@@ -36,19 +37,11 @@ export const POST = exceptionFilter(
         return new NextResponse("Unauthorized", { status: 403 })
       }
 
-      const { label, imageUrl } = await req.json()
-      if (!label) {
-        return new NextResponse("Label is required", { status: 400 })
-      }
-
-      if (!imageUrl) {
-        return new NextResponse("Image url is required", { status: 400 })
-      }
+      const data = billboardDataSchema.parse(await req.json())
 
       const billboard = await prismadb.billboard.create({
         data: {
-          label,
-          imageUrl,
+          ...data,
           storeId,
         },
       })

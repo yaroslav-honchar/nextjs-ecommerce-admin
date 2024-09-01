@@ -1,5 +1,6 @@
 import type { IPropsWithStoreidCategoryidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
+import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/category-form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
@@ -42,18 +43,11 @@ export const PATCH = exceptionFilter(
           return new NextResponse("Unauthorized", { status: 403 })
         }
 
-        const { name, billboardId } = await req.json()
-        if (!name) {
-          return new NextResponse("Name is required", { status: 400 })
-        }
-
-        if (!billboardId) {
-          return new NextResponse("Billboard id is required", { status: 400 })
-        }
+        const data = categoryDataSchema.parse(await req.json())
 
         const category = await prismadb.category.update({
           where: { id: categoryId, storeId },
-          data: { name, billboardId },
+          data,
         })
 
         return new NextResponse(JSON.stringify(category), { status: 200 })

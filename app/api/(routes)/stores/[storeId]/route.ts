@@ -1,5 +1,6 @@
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import prismadb from "@/lib/prismadb"
+import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
@@ -15,19 +16,15 @@ export const PATCH = exceptionFilter(
     IDValidator<IPropsWithStoreidParam>(
       async (req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam): Promise<NextResponse> => {
         const userId = auth().userId as string
-        const { name } = await req.json()
-        if (!name) {
-          return new NextResponse("Name is required", { status: 400 })
-        }
+
+        const data = storeDataSchema.parse(await req.json())
 
         const store = await prismadb.store.updateMany({
           where: {
             id: storeId,
             userId,
           },
-          data: {
-            name,
-          },
+          data,
         })
 
         return new NextResponse(JSON.stringify(store), { status: 200 })
