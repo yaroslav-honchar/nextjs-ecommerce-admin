@@ -16,6 +16,10 @@ export const getNavigationRoutes = (storeId: string): INavigationRoute[] => {
       href: ClientRoutes.categories(storeId),
     },
     {
+      label: "Sizes",
+      href: ClientRoutes.sizes(storeId),
+    },
+    {
       label: "Settings",
       href: ClientRoutes.settings(storeId),
     },

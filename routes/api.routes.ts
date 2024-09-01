@@ -7,4 +7,6 @@ export const ApiRoutes = {
   billboard: (storeId: string, billboardId: string): string => `${root}/${storeId}/billboards/${billboardId}`,
   categories: (storeId: string): string => `${root}/${storeId}/categories`,
   category: (storeId: string, categoryId: string): string => `${root}/${storeId}/categories/${categoryId}`,
+  sizes: (storeId: string): string => `${root}/${storeId}/sizes`,
+  size: (storeId: string, sizeId: string): string => `${root}/${storeId}/categories/${sizeId}`,
 }
