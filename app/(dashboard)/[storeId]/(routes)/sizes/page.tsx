@@ -20,14 +20,14 @@ const SizesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: {
     },
   })
 
-  const formattedSizes = sizes.map(({ id, name, value, createdAt }) => ({
+  const formattedData = sizes.map(({ id, name, value, createdAt }) => ({
     id,
     name,
     value,
     createdAt: format(createdAt, "MMMM do, yyyy"),
   }))
 
-  return <Dashboard data={formattedSizes} />
+  return <Dashboard data={formattedData} />
 }
 
 export default SizesPage

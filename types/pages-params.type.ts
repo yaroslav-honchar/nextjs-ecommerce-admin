@@ -16,3 +16,8 @@ export type StoreIdSizeIdParamType = {
   storeId: string
   sizeId: string
 }
+
+export type StoreIdColorIdParamType = {
+  storeId: string
+  colorId: string
+}

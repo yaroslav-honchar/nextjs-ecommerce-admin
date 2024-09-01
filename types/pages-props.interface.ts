@@ -1,6 +1,7 @@
 import type {
   StoreIdBillboardIdParamType,
   StoreIdCategoryIdParamType,
+  StoreIdColorIdParamType,
   StoreIdParamType,
   StoreIdSizeIdParamType,
 } from "@/types/pages-params.type"
@@ -25,4 +26,8 @@ export interface IPropsWithStoreidCategoryidParam {
 
 export interface IPropsWithStoreidSizeidParam {
   params: StoreIdSizeIdParamType
+}
+
+export interface IPropsWithStoreidColoridParam {
+  params: StoreIdColorIdParamType
 }

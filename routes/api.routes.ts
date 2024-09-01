@@ -9,4 +9,6 @@ export const ApiRoutes = {
   category: (storeId: string, categoryId: string): string => `${root}/${storeId}/categories/${categoryId}`,
   sizes: (storeId: string): string => `${root}/${storeId}/sizes`,
   size: (storeId: string, sizeId: string): string => `${root}/${storeId}/sizes/${sizeId}`,
+  colors: (storeId: string): string => `${root}/${storeId}/colors`,
+  color: (storeId: string, colorId: string): string => `${root}/${storeId}/colors/${colorId}`,
 }

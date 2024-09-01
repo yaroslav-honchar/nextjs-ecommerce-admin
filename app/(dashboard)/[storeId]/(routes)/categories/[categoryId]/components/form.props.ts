@@ -1,6 +1,6 @@
 import type { Billboard, Category } from "@prisma/client"
 
-export interface ICategoryFormProps {
+export interface IClientFormProps {
   initialData: Category | null
   billboards: Billboard[]
 }

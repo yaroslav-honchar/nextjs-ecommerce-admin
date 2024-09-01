@@ -7,30 +7,27 @@ import { Dashboard } from "./components/dashboard"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
 
-const CategoriesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: { storeId } }) => {
+const ColorsPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: { storeId } }) => {
   if (!ObjectId.isValid(storeId)) {
     redirect(ClientRoutes.home)
   }
-  const categories = await prismadb.category.findMany({
+  const colors = await prismadb.color.findMany({
     where: {
       storeId,
-    },
-    include: {
-      billboard: true,
     },
     orderBy: {
       name: "asc",
     },
   })
 
-  const formattedData = categories.map(({ id, name, billboard, createdAt }) => ({
+  const formattedData = colors.map(({ id, name, value, createdAt }) => ({
     id,
     name,
-    billboardLabel: billboard.label,
+    value,
     createdAt: format(createdAt, "MMMM do, yyyy"),
   }))
 
   return <Dashboard data={formattedData} />
 }
 
-export default CategoriesPage
+export default ColorsPage

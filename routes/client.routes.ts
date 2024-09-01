@@ -9,5 +9,7 @@ export const ClientRoutes = {
   categoryEdit: (storeId: string, categoryId: string = "new"): string => `/${storeId}/categories/${categoryId}`,
   sizes: (storeId: string): string => `/${storeId}/sizes`,
   sizeEdit: (storeId: string, sizeId: string = "new"): string => `/${storeId}/sizes/${sizeId}`,
+  colors: (storeId: string): string => `/${storeId}/colors`,
+  colorEdit: (storeId: string, colorId: string = "new"): string => `/${storeId}/colors/${colorId}`,
   settings: (storeId: string): string => `/${storeId}/settings`,
 }

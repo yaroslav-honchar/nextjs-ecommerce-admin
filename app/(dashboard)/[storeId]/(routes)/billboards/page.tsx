@@ -22,7 +22,7 @@ const BillboardsPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ para
     },
   })
 
-  const formattedBillboards: ColumnType[] = billboards.map(
+  const formattedData: ColumnType[] = billboards.map(
     (billboard: Billboard): ColumnType => ({
       id: billboard.id,
       label: billboard.label,
@@ -30,7 +30,7 @@ const BillboardsPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ para
     }),
   )
 
-  return <Dashboard data={formattedBillboards} />
+  return <Dashboard data={formattedData} />
 }
 
 export default BillboardsPage

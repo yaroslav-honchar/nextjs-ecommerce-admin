@@ -33,10 +33,6 @@ export const updateSize = async (
   return response.data
 }
 
-export const deleteSize = async (
-  storeId: string,
-  categoryId: string,
-  config: AxiosRequestConfig = {},
-): Promise<void> => {
-  await coreService.delete(ApiRoutes.size(storeId, categoryId), config)
+export const deleteSize = async (storeId: string, sizeId: string, config: AxiosRequestConfig = {}): Promise<void> => {
+  await coreService.delete(ApiRoutes.size(storeId, sizeId), config)
 }

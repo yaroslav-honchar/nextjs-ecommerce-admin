@@ -17,11 +17,11 @@ import { createCategory, deleteCategory, updateCategory } from "@/services/categ
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
-import type { ICategoryFormProps } from "./form.props"
+import type { IClientFormProps } from "./form.props"
 import type { CategoryDataType } from "./form.schema"
 import { categoryDataSchema } from "./form.schema"
 
-export const ClientForm: React.FC<ICategoryFormProps> = ({ initialData, billboards }) => {
+export const ClientForm: React.FC<IClientFormProps> = ({ initialData, billboards }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()

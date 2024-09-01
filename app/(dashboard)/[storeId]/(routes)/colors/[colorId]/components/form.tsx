@@ -4,7 +4,7 @@ import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-import type { StoreIdSizeIdParamType } from "@/types/pages-params.type"
+import type { StoreIdColorIdParamType } from "@/types/pages-params.type"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -12,42 +12,42 @@ import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
-import { createSize, deleteSize, updateSize } from "@/services/sizes.service"
+import { createColor, deleteColor, updateColor } from "@/services/colors.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
-import type { ISizeFormProps } from "./form.props"
-import type { SizeDataType } from "./form.schema"
-import { sizeDataSchema } from "./form.schema"
+import type { IClientFormProps } from "./form.props"
+import type { ColorDataType } from "./form.schema"
+import { colorDataSchema } from "./form.schema"
 
-export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
+export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
-  const params = useParams<StoreIdSizeIdParamType>()
+  const params = useParams<StoreIdColorIdParamType>()
 
-  const title = initialData ? "Edit size" : "Create size"
-  const description = initialData ? "Managing store of size" : "Creating store size"
+  const title = initialData ? "Edit color" : "Create color"
+  const description = initialData ? "Managing store of color" : "Creating store color"
   const toastMessage = initialData ? "Editing saved" : "Created successfully"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<SizeDataType>({
-    resolver: zodResolver(sizeDataSchema),
+  const form = useForm<ColorDataType>({
+    resolver: zodResolver(colorDataSchema),
     defaultValues: initialData || {
       name: "",
       value: "",
     },
   })
 
-  const onSubmit = async (data: SizeDataType): Promise<void> => {
+  const onSubmit = async (data: ColorDataType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {
-        await updateSize(params.storeId, params.sizeId, data)
+        await updateColor(params.storeId, params.colorId, data)
       } else {
-        await createSize(params.storeId, data)
+        await createColor(params.storeId, data)
       }
       toast.success(toastMessage)
-      router.push(ClientRoutes.sizes(params.storeId))
+      router.push(ClientRoutes.colors(params.storeId))
       router.refresh()
     } catch (error) {
       console.log(error)
@@ -64,13 +64,13 @@ export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
 
     try {
       setIsLoading(true)
-      await deleteSize(params.storeId, params.sizeId)
+      await deleteColor(params.storeId, params.colorId)
       toast.success("Deleted successfully")
-      router.push(ClientRoutes.sizes(params.storeId))
+      router.push(ClientRoutes.colors(params.storeId))
       router.refresh()
     } catch (error) {
       console.log(error)
-      toast.error("Make sure you removed all products with the size first")
+      toast.error("Make sure you removed all products with the color first")
     } finally {
       setIsLoading(false)
       setIsOpen(false)
@@ -90,7 +90,7 @@ export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
       {initialData && (
         <AlertModal
           title={"Remove category"}
-          description={`Are you sure you want to remove size: ${initialData.name}. This action cannot be undone.`}
+          description={`Are you sure you want to remove color: ${initialData.name}. This action cannot be undone.`}
           isOpen={isOpen}
           onSubmit={onDeleteCategory}
           onClose={onAlertModalClose}
@@ -149,7 +149,7 @@ export const ClientForm: React.FC<ISizeFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder={"Size value..."}
+                      placeholder={"Color value..."}
                       {...field}
                     />
                   </FormControl>

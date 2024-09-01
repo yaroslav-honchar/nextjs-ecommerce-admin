@@ -24,4 +24,6 @@ export type ExceptionFilterModuleType =
   | "CATEGORIES"
   | "SIZE"
   | "SIZES"
+  | "COLOR"
+  | "COLORS"
 export type ExceptionFilterMethodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
