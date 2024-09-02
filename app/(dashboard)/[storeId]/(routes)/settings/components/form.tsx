@@ -4,6 +4,7 @@ import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+import { ApiAlert } from "@/components/api-alert/api-alert"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -146,12 +147,12 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
           </div>
         </form>
       </Form>
-      {/*<Separator className={"my-5"} />*/}
-      {/*<ApiAlert*/}
-      {/*  title={"NEXT_PUBLIC_API_URL"}*/}
-      {/*  description={`${origin}/api/stores/${initialData.id}`}*/}
-      {/*  variant={"admin"}*/}
-      {/*/>*/}
+      <Separator className={"my-5"} />
+      <ApiAlert
+        title={".env"}
+        description={`NEXT_PUBLIC_API_URL="${origin}/api/${initialData.id}"`}
+        variant={"public"}
+      />
     </>
   )
 }
