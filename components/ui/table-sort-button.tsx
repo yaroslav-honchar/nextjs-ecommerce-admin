@@ -14,7 +14,7 @@ export function TableSortButton<T>({
 }>) {
   return (
     <Button
-      className={"gap-2 items-center"}
+      className={"gap-2 items-center px-0 hover:bg-transparent"}
       variant="ghost"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >

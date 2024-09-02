@@ -48,10 +48,13 @@ export const columns: ColumnDef<ColumnType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div
-          className={"w-4 h-4 rounded-full border-2"}
-          style={{ backgroundColor: row.original.color.value }}
-        />
+        <div className={"flex gap-2 items-center"}>
+          <div
+            className={"w-4 h-4 rounded-full border-2"}
+            style={{ backgroundColor: row.original.color.value }}
+          />
+          {row.original.color.value}
+        </div>
       )
     },
   },
