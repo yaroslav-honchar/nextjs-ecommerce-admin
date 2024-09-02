@@ -13,5 +13,6 @@ export const ClientRoutes = {
   colorEdit: (storeId: string, colorId: string = "new"): string => `/${storeId}/colors/${colorId}`,
   products: (storeId: string): string => `/${storeId}/products`,
   productEdit: (storeId: string, productId: string = "new"): string => `/${storeId}/products/${productId}`,
+  orders: (storeId: string): string => `/${storeId}/orders`,
   settings: (storeId: string): string => `/${storeId}/settings`,
 }

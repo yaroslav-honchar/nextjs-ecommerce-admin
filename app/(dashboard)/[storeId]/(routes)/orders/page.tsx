@@ -8,39 +8,37 @@ import { Dashboard } from "./components/dashboard"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
 
-const SizesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: { storeId } }) => {
+const OrdersPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: { storeId } }) => {
   if (!ObjectId.isValid(storeId)) {
     redirect(ClientRoutes.home)
   }
-  const products = await prismadb.product.findMany({
+  const orders = await prismadb.order.findMany({
     where: {
       storeId,
     },
     include: {
-      category: true,
-      color: true,
-      size: true,
+      orderItems: {
+        include: {
+          product: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
   })
 
-  const formattedData = products.map(
-    ({ id, name, price, isArchived, isFeatured, category, color, size, createdAt }) => ({
-      id,
-      name,
-      isArchived,
-      isFeatured,
-      category,
-      color,
-      size,
-      price: priceFormatter(price),
-      createdAt: format(createdAt, "MMMM do, yyyy"),
-    }),
-  )
+  const formattedData = orders.map(({ id, isPaid, phone, address, orderItems, createdAt }) => ({
+    id,
+    phone,
+    address,
+    products: orderItems.map(({ product }) => product.name).join(","),
+    totalPrice: priceFormatter(orderItems.reduce((acc, { product }) => acc + +product.price, 0)),
+    isPaid,
+    createdAt: format(createdAt, "MMMM do, yyyy"),
+  }))
 
   return <Dashboard data={formattedData} />
 }
 
-export default SizesPage
+export default OrdersPage

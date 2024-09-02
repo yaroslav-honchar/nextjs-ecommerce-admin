@@ -28,6 +28,10 @@ export const getNavigationRoutes = (storeId: string): INavigationRoute[] => {
       href: ClientRoutes.colors(storeId),
     },
     {
+      label: "Orders",
+      href: ClientRoutes.orders(storeId),
+    },
+    {
       label: "Settings",
       href: ClientRoutes.settings(storeId),
     },
