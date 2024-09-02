@@ -8,7 +8,7 @@ export const productDataSchema = zod.object({
   colorId: zod.string().min(1),
   sizeId: zod.string().min(1),
   categoryId: zod.string().min(1),
-  images: zod.object({ url: zod.string() }).array(),
+  images: zod.object({ url: zod.string() }).array().min(1).max(8),
 })
 
 export type ProductDataType = zod.infer<typeof productDataSchema>

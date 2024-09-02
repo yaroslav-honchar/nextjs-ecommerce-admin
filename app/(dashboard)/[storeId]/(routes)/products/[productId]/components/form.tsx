@@ -97,7 +97,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
       {initialData && (
         <AlertModal
           title={"Remove category"}
-          description={`Are you sure you want to remove poduct: ${initialData.name}. This action cannot be undone.`}
+          description={`Are you sure you want to remove product: ${initialData.name}. This action cannot be undone.`}
           isOpen={isOpen}
           onSubmit={onDelete}
           onClose={onAlertModalClose}
@@ -129,21 +129,25 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
           className={"flex flex-col gap-8"}
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          {/*TODO: fix the bug with uploading photo*/}
           <FormField
             name={"images"}
             control={form.control}
-            render={({ field: { value, onChange } }) => {
-              console.log(value)
+            render={({ field }) => {
               return (
                 <FormItem>
                   <FormLabel>Images</FormLabel>
                   <FormControl>
                     <ImageUpload
-                      value={value.map((image) => image.url)}
+                      value={field.value.map((image) => image.url)}
                       disabled={isLoading}
-                      onChange={(url: string): void => onChange([...value, { url }])}
-                      onRemove={(url: string): void => onChange([...value.filter((image) => image.url !== url)])}
+                      onChange={(url: string): void => {
+                        const currentValue = form.getValues("images")
+                        const updatedValue = [...currentValue, { url }]
+                        form.setValue("images", updatedValue)
+                      }}
+                      onRemove={(url: string): void =>
+                        field.onChange([...field.value.filter((image) => image.url !== url)])
+                      }
                     />
                   </FormControl>
                   <FormMessage />
