@@ -2,7 +2,7 @@ import * as zod from "zod"
 
 export const productDataSchema = zod.object({
   name: zod.string().min(1),
-  price: zod.number({ message: "Price should be only a number" }).min(1),
+  price: zod.coerce.number({ message: "Price should be only a number" }).min(1),
   isArchived: zod.boolean(),
   isFeatured: zod.boolean(),
   colorId: zod.string().min(1),

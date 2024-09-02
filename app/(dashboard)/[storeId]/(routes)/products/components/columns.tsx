@@ -4,7 +4,7 @@ import type { ColumnDef } from "@tanstack/react-table"
 import React from "react"
 import { CellTableAction } from "@/components/cell-action/cell-action"
 import { TableSortButton } from "@/components/ui/table-sort-button"
-import { deleteSize } from "@/services/sizes.service"
+import { deleteProduct } from "@/services/products.service"
 import type { ColumnType } from "./column.type"
 
 export const columns: ColumnDef<ColumnType>[] = [
@@ -74,9 +74,9 @@ export const columns: ColumnDef<ColumnType>[] = [
     id: "actions",
     cell: ({ row }) => (
       <CellTableAction
-        editPathKey={"sizeEdit"}
+        editPathKey={"productEdit"}
         data={row.original}
-        deleteHandle={deleteSize}
+        deleteHandle={deleteProduct}
       />
     ),
   },

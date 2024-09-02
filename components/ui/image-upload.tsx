@@ -18,7 +18,6 @@ export const ImageUpload: React.FC<IImageUploadProps> = ({ disabled, onChange, o
   const isMounted = useMounted()
 
   const onUpload = (result: any) => {
-    console.log(result.info.secure_url)
     onChange(result.info.secure_url)
   }
 
