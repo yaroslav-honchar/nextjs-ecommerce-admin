@@ -14,17 +14,11 @@ const SizesNewPage: React.FC<Readonly<IPropsWithStoreidProductidParam>> = async 
       })
     : null
 
-  const colors = await prismadb.color.findMany({
-    where: { storeId },
-  })
-
-  const sizes = await prismadb.size.findMany({
-    where: { storeId },
-  })
-
-  const categories = await prismadb.category.findMany({
-    where: { storeId },
-  })
+  const [colors, sizes, categories] = await Promise.all([
+    prismadb.color.findMany({ where: { storeId } }),
+    prismadb.size.findMany({ where: { storeId } }),
+    prismadb.category.findMany({ where: { storeId } }),
+  ])
 
   return (
     <ClientForm

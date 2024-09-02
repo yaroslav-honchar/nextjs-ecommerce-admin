@@ -7,20 +7,23 @@ import toast from "react-hot-toast"
 import type { StoreIdProductIdParamType } from "@/types/pages-params.type"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
 import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
 import { createProduct, deleteProduct, updateProduct } from "@/services/products.service"
 import { zodResolver } from "@hookform/resolvers/zod"
+import type { Category, Color, Size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IFormProps } from "./form.props"
 import type { ProductDataType } from "./form.schema"
 import { productDataSchema } from "./form.schema"
 
-export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
+export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colors, sizes }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
@@ -77,7 +80,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
       router.refresh()
     } catch (error) {
       console.log(error)
-      toast.error("Make sure you removed all categories, colors and sizes with the product first")
+      toast.error("Something went wrong")
     } finally {
       setIsLoading(false)
       setIsOpen(false)
@@ -188,6 +191,153 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
                     />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name={"categoryId"}
+              control={form.control}
+              render={({ field: { value, onChange } }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    defaultValue={value}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Category"
+                          defaultValue={value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map(({ id, name }: Category) => (
+                        <SelectItem
+                          key={id}
+                          value={id}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name={"colorId"}
+              control={form.control}
+              render={({ field: { value, onChange } }) => (
+                <FormItem>
+                  <FormLabel>Color</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    defaultValue={value}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Color"
+                          defaultValue={value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {colors.map(({ id, name }: Color) => (
+                        <SelectItem
+                          key={id}
+                          value={id}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name={"sizeId"}
+              control={form.control}
+              render={({ field: { value, onChange } }) => (
+                <FormItem>
+                  <FormLabel>Size</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    defaultValue={value}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Size"
+                          defaultValue={value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {sizes.map(({ id, name }: Size) => (
+                        <SelectItem
+                          key={id}
+                          value={id}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className={"grid grid-cols-3 gap-5"}>
+            <FormField
+              name={"isFeatured"}
+              control={form.control}
+              render={({ field: { onChange, value } }) => (
+                <FormItem className={"flex gap-2 p-3 space-x-3 space-y-0 rounded-md border-2"}>
+                  <FormControl>
+                    <Checkbox
+                      checked={value}
+                      onCheckedChange={onChange}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+
+                  <div className={"space-y-1 leading-none"}>
+                    <FormLabel>Featured</FormLabel>
+                    <FormDescription>This product will be displayed on the homepage</FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              name={"isArchived"}
+              control={form.control}
+              render={({ field: { onChange, value } }) => (
+                <FormItem className={"flex gap-2 p-3 space-x-3 space-y-0 rounded-md border-2"}>
+                  <FormControl>
+                    <Checkbox
+                      checked={value}
+                      onCheckedChange={onChange}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+
+                  <div className={"space-y-1 leading-none"}>
+                    <FormLabel>Archived</FormLabel>
+                    <FormDescription>This product will be hidden from the store</FormDescription>
+                  </div>
                 </FormItem>
               )}
             />
