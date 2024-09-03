@@ -15,16 +15,16 @@ export const GET = exceptionFilter(
   IDValidator<IPropsWithStoreidParam>(async (_req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) => {
     const searchParams = new URLSearchParams(_req.url)
     const categoryId = searchParams.get("categoryId") || undefined
-    const colorId = searchParams.get("colorId") || undefined
-    const sizeId = searchParams.get("sizeId") || undefined
+    const colorId = searchParams.getAll("colorId") || undefined
+    const sizeId = searchParams.getAll("sizeId") || undefined
     const isFeatured = searchParams.get("isFeatured")
 
     const products = await prismadb.product.findMany({
       where: {
         storeId,
         categoryId,
-        colorId,
-        sizeId,
+        colorId: { in: colorId },
+        sizeId: { in: sizeId },
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
       },
