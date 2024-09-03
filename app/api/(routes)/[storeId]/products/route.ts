@@ -12,19 +12,24 @@ import { NextResponse } from "next/server"
 export const GET = exceptionFilter(
   "PRODUCTS",
   "GET",
-  IDValidator<IPropsWithStoreidParam>(async (_req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) => {
-    const searchParams = new URLSearchParams(_req.url)
+  IDValidator<IPropsWithStoreidParam>(async (req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) => {
+    const searchParams = new URLSearchParams(req.url.split("?")[1])
+
+    const colorParam = searchParams.getAll("colorId") || []
+    const colorId = colorParam.length > 0 ? colorParam : undefined
+
+    const sizeParam = searchParams.getAll("sizeId") || []
+    const sizeId = sizeParam.length > 0 ? sizeParam : undefined
+
     const categoryId = searchParams.get("categoryId") || undefined
-    const colorId = searchParams.getAll("colorId") || undefined
-    const sizeId = searchParams.getAll("sizeId") || undefined
     const isFeatured = searchParams.get("isFeatured")
 
     const products = await prismadb.product.findMany({
       where: {
         storeId,
         categoryId,
-        colorId: { in: colorId },
-        sizeId: { in: sizeId },
+        ...(colorId ? { colorId: { in: colorId } } : {}),
+        ...(sizeId ? { sizeId: { in: sizeId } } : {}),
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
       },
