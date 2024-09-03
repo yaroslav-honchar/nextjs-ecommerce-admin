@@ -16,6 +16,7 @@ export const GET = exceptionFilter(
     async (_req: NextRequest, { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam) => {
       const category = await prismadb.category.findUnique({
         where: { storeId, id: categoryId },
+        include: { billboard: true },
       })
 
       return new NextResponse(JSON.stringify(category), { status: 200 })
