@@ -19,7 +19,7 @@ export function exceptionFilter<ParamsType = undefined>(
   method: ExceptionFilterMethodType,
   handler: ExceptionFilterHandlerType<ParamsType>,
 ) {
-  return async function (req: NextRequest, params: ParamsType): Promise<NextResponse> {
+  return async function (req: NextRequest, params: ParamsType): Promise<NextResponse | void> {
     try {
       // Attempt to execute the handler function
       return await handler(req, params)

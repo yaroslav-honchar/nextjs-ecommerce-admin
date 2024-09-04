@@ -8,7 +8,7 @@ import type { NextRequest, NextResponse } from "next/server"
  * @param {T} params - The parameter object containing the request parameters.
  * @returns {Promise<NextResponse>} - A promise that resolves to a NextResponse object.
  */
-export type ExceptionFilterHandlerType<T> = (req: NextRequest, params: T) => Promise<NextResponse>
+export type ExceptionFilterHandlerType<T> = (req: NextRequest, params: T) => Promise<NextResponse | void>
 
 /**
  * Type definition for HTTP methods used in exception filtering.
@@ -28,4 +28,6 @@ export type ExceptionFilterModuleType =
   | "COLORS"
   | "PRODUCT"
   | "PRODUCTS"
+  | "CHECKOUT"
+  | "WEBHOOK"
 export type ExceptionFilterMethodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
