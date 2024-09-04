@@ -1,4 +1,5 @@
 import React from "react"
+import { ThemeSelect } from "@/components/theme-select/theme-select"
 import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
 import { Navigation } from "./components/navigation/navigation"
@@ -25,6 +26,7 @@ export const Header: React.FC = async () => {
       <StoreSwitcher items={stores} />
       <Navigation />
       <div className={"flex items-center gap-4 ms-auto"}>
+        <ThemeSelect />
         <SignedIn>
           <UserButton />
         </SignedIn>

@@ -27,7 +27,7 @@ export const Overview: React.FC<IOverviewProps> = ({ data }) => {
         />
         <Bar
           dataKey={"total"}
-          fill={"34398db"}
+          fill={"#00FFFF"}
           radius={[4, 4, 0, 0]}
         />
       </BarChart>
