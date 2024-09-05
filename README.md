@@ -3,13 +3,16 @@
 This is a fullstack application designed to build an admin panel with login functionality and database integration. The
 application is built using modern web technologies and libraries to ensure a robust and scalable solution.
 
-## [Demo](https://ecommerce-admin-pi-sage.vercel.app)
+## [Demo Admin](https://ecommerce-admin-pi-sage.vercel.app)
 
 Here is the demo of the project. You can login with the following credentials:
 
 **Email**: `yonilav532@amxyy.com`
 
 **Password**: `JFrQ7dkMUwnAX6q`
+
+## [Demo Client](https://nextjs-ecommerce-store-kappa.vercel.app/)
+Here is the demo store of the admin panel and try by by some products.
 
 ## Description
 
@@ -23,11 +26,17 @@ billboards. It features a user-friendly UI, secure authentication, and efficient
 - **Database Integration**: Utilizes `@prisma/client` for database operations.
 - **Admin Panel**: Manage store billboards and other entities through an intuitive interface.
 - **Responsive Design**: Built with modern UI libraries for a responsive and accessible design.
+- **Stripe Integration**: Integrated with Stripe for payment processing.
 
 ## Configuration
 
 First, create a `.env` file in the root directory of the project with the following environment variables:
 
+- Core environment variables for the application.
+    - `NEXT_PUBLIC_API_URL` - The base URL for the API routes. By default, it is set to `http://localhost:3001/api`. You
+      can change it based on your deployment environment.
+    - `CLIENT_APP_URL` - The base URL for the client application. By default, it is set to `http://localhost:3000`. You
+      can change it based on your deployment environment.
 - The base URL for the API routes. By default, it is set to `http://localhost:3000/api`. You can change it based on your
   deployment environment.
     - `NEXT_PUBLIC_API_URL`: The base URL for the API routes. By default, it is set to `http://localhost:3000/api`. You
@@ -47,6 +56,10 @@ First, create a `.env` file in the root directory of the project with the follow
   read more about it [here](https://next.cloudinary.dev/installation).
     - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
     - `NEXT_PUBLIC_CLOUDINARY_API_KEY`
+- Stripe environment variables for payment processing. You can configure these based on your Stripe setup. You can read
+  more about it [here](https://stripe.com/docs).
+    - `STRIPE_API_KEY`
+    - `STRIPE_WEBHOOK_KEY`
 
 ## Getting Started
 
@@ -83,6 +96,8 @@ First, create a `.env` file in the root directory of the project with the follow
 
 - **Prisma**: An ORM (Object-Relational Mapping) tool for database management.
 - **Next.js API Routes**: For handling server-side logic and API endpoints.
+- **Clerk**: For authentication and user management.
+- **Stripe**: For payment processing.
 
 ### UI Library
 
