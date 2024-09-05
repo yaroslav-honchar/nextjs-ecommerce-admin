@@ -12,7 +12,9 @@ Here is the demo of the project. You can login with the following credentials:
 **Password**: `JFrQ7dkMUwnAX6q`
 
 ## [Demo Client](https://nextjs-ecommerce-store-kappa.vercel.app/)
+
 Here is the demo store of the admin panel and try by by some products.
+Here is [source code](https://github.com/yaroslav-honchar/nextjs-ecommerce-store) of the project.
 
 ## Description
 
