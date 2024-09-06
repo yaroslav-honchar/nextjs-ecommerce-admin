@@ -122,7 +122,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
           className={"flex flex-col gap-8"}
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <div className={"grid grid-cols-3 gap-5"}>
+          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
             <FormField
               name={"name"}
               control={form.control}
@@ -161,7 +161,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData }) => {
 
           <div className={"flex items-center gap-2 mt-auto"}>
             <Button
-              className={"w-[12.5rem]"}
+              className={"w-full lg:w-[12.5rem]"}
               type={"submit"}
               disabled={isLoading}
             >

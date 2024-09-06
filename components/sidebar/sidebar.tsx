@@ -17,8 +17,8 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
 
   const routes: INavigationRoute[] = getNavigationRoutes(params.storeId)
 
-  const asideCloseOutside = (event: React.MouseEvent<HTMLElement>) => {
-    if (event.target === event.currentTarget && window.innerWidth <= 1024) {
+  const onLinkClickHandle = () => {
+    if (isOpen && window.innerWidth <= 1024) {
       onClose()
     }
   }
@@ -31,7 +31,6 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
         isOpen ? "translate-x-0" : "translate-x-[-100%]",
         className,
       )}
-      onClick={asideCloseOutside}
     >
       <nav className={cn("py-6 px-4 size-full min-h-fit h-full overflow-auto")}>
         <ul className={"flex flex-col items-start gap-3"}>
@@ -44,7 +43,7 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
                     pathname === `/${href}` ? "text-black dark:text-white" : "text-muted-foreground",
                   )}
                   href={href}
-                  onClick={onClose}
+                  onClick={onLinkClickHandle}
                 >
                   {label}
                 </Link>

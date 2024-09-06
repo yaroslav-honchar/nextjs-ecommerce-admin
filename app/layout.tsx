@@ -18,7 +18,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html
+        lang="en"
+        suppressHydrationWarning={true}
+      >
         <body className={inter.className}>
           <ThemeProvider
             attribute="class"

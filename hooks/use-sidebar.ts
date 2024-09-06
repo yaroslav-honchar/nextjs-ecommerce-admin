@@ -9,7 +9,11 @@ interface ISidebarStore {
 
 export const useSidebar = create<ISidebarStore>((set) => ({
   isOpen: true,
-  onOpen: (): void => set({ isOpen: true }),
+  onOpen: (): void =>
+    set(() => {
+      document.documentElement.style.setProperty("--sidebar-width", "240px")
+      return { isOpen: true }
+    }),
   onToggle: (): void => {
     set(({ isOpen }) => {
       if (isOpen) {
@@ -20,5 +24,9 @@ export const useSidebar = create<ISidebarStore>((set) => ({
       return { isOpen: !isOpen }
     })
   },
-  onClose: (): void => set({ isOpen: false }),
+  onClose: (): void =>
+    set(() => {
+      document.documentElement.style.setProperty("--sidebar-width", "0px")
+      return { isOpen: false }
+    }),
 }))

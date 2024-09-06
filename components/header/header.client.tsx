@@ -3,7 +3,7 @@
 import type { PropsWithChildren } from "react"
 import React, { useEffect, useRef } from "react"
 
-export const HeaderClient: React.FC<PropsWithChildren<{ className: string }>> = async ({ className, children }) => {
+export const HeaderClient: React.FC<PropsWithChildren<{ className: string }>> = ({ className, children }) => {
   const headerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
