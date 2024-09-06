@@ -8,8 +8,28 @@ body,
   height: 100%;
 }
 
+:root{
+  --header-height: 57px;
+}
+
+*::-webkit-scrollbar {
+  --sbw: 4px;
+  width: var(--sbw);
+  height: var(--sbw);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sbbg);
+  border-radius: 100px;
+}
+
 @layer base {
   :root {
+    --sbbg: black;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -38,6 +58,7 @@ body,
   }
 
   .dark {
+    --sbbg: white;
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;

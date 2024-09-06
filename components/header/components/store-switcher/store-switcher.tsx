@@ -1,7 +1,6 @@
 "use client"
 
 import { Check, ChevronsUpDown, PlusCircle, StoreIcon } from "lucide-react"
-import type { ComponentPropsWithoutRef } from "react"
 import React, { useState } from "react"
 import type { StoreIdParamType } from "@/types/pages-params.type"
 import { Button } from "@/components/ui/button"
@@ -11,19 +10,10 @@ import { useStoreModal } from "@/hooks/use-store-modal"
 import { cn } from "@/lib/utils"
 import type { Store } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
+import type { IStoreSwitcherProps } from "./store-switcher.props"
+import type { FormatedItemType } from "./store-switcher.types"
 
-type PopoverTriggerProps = ComponentPropsWithoutRef<typeof PopoverTrigger>
-
-type FormatedItemType = {
-  label: string
-  value: string
-}
-
-interface IStoreSwitcher extends PopoverTriggerProps {
-  items: Store[]
-}
-
-export const StoreSwitcher: React.FC<IStoreSwitcher> = ({ className, items = [] }) => {
+export const StoreSwitcher: React.FC<IStoreSwitcherProps> = ({ className, items = [] }) => {
   const storeModal = useStoreModal()
   const params = useParams<StoreIdParamType>()
   const router = useRouter()

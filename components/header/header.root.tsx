@@ -2,13 +2,14 @@ import React from "react"
 import { ThemeSelect } from "@/components/theme-select/theme-select"
 import { ClientRoutes } from "@/routes/client.routes"
 import prismadb from "@/lib/prismadb"
-import { Navigation } from "./components/navigation/navigation"
-import { StoreSwitcher } from "./components/store-switcher"
+import { cn } from "@/lib/utils"
+import { StoreSwitcher } from "./components/store-switcher/store-switcher"
 import { SignedIn, UserButton } from "@clerk/nextjs"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
+import { HeaderClient } from "./header.client"
 
-export const Header: React.FC = async () => {
+export const Header: React.FC<{ className: string }> = async ({ className }) => {
   const { userId } = auth()
 
   if (!userId) {
@@ -22,15 +23,14 @@ export const Header: React.FC = async () => {
   })
 
   return (
-    <header className={"flex items-center gap-6 px-4 py-6 border-b"}>
+    <HeaderClient className={cn("flex items-center gap-6 px-4 py-2 border-b w-full", className)}>
       <StoreSwitcher items={stores} />
-      <Navigation />
       <div className={"flex items-center gap-4 ms-auto"}>
         <ThemeSelect />
         <SignedIn>
           <UserButton />
         </SignedIn>
       </div>
-    </header>
+    </HeaderClient>
   )
 }

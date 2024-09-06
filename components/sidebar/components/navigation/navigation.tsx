@@ -20,13 +20,13 @@ export const Navigation: React.FC<HTMLAttributes<HTMLDivElement>> = ({ className
       className={cn(className)}
       {...rest}
     >
-      <ul className={"flex items-center gap-5"}>
+      <ul className={"flex flex-col items-start gap-3"}>
         {routes.map(({ href, label }: INavigationRoute) => {
           return (
             <li key={href}>
               <Link
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
+                  "text-md font-medium transition-colors hover:text-primary",
                   pathname === `/${href}` ? "text-black dark:text-white" : "text-muted-foreground",
                 )}
                 href={href}
