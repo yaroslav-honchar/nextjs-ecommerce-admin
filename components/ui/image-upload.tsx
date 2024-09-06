@@ -27,11 +27,11 @@ export const ImageUpload: React.FC<IImageUploadProps> = ({ disabled, onChange, o
 
   return (
     <div>
-      <div className={"mb-4 flex items-center gap-4"}>
+      <div className={"mb-4 flex items-center gap-4 flex-wrap"}>
         {value.map((url: string) => (
           <div
             key={url}
-            className={"relative w-[12.5rem] h-[12.5rem] rounded-md overflow-hidden"}
+            className={"relative w-36 lg:w-[12.5rem] h-36 lg:h-[12.5rem] rounded-md overflow-hidden"}
           >
             <Button
               className={"absolute top-2 right-2 p-2 rounded-bl-md z-10"}
@@ -44,7 +44,7 @@ export const ImageUpload: React.FC<IImageUploadProps> = ({ disabled, onChange, o
             <Image
               width={200}
               height={200}
-              className={"w-full h-full object-cover"}
+              className={"object-cover w-36 lg:w-[12.5rem] h-36 lg:h-[12.5rem]"}
               src={url}
               alt={"Image"}
             />

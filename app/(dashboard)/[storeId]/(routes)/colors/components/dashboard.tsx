@@ -23,7 +23,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({ data }) => {
 
   return (
     <>
-      <div className={"flex items-start justify-between"}>
+      <div className={"flex items-start sm:justify-between flex-col gap-3 sm:flex-row"}>
         <Heading
           title={`Colors (${data.length})`}
           description={"Manage colors for your store"}

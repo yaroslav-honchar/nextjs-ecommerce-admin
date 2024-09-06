@@ -32,7 +32,7 @@ export const ApiAlert: React.FC<IApiAlertProps> = ({ title, description, variant
         </AlertTitle>
       </div>
       <AlertDescription className={"flex items-start gap-5 w-full"}>
-        <code className={"relative rounded bg-muted p-2 font-mono text-sm w-full"}>{description}</code>
+        <code className={"relative rounded bg-muted p-2 font-mono text-sm w-full overflow-auto"}>{description}</code>
         <Button
           className={"ms-auto"}
           size={"icon"}
