@@ -1,8 +1,10 @@
 "use client"
 
+import { PlusIcon } from "lucide-react"
 import React from "react"
 import type { INavigationRoute } from "@/components/sidebar/navigation-route.type"
 import { getNavigationRoutes } from "@/components/sidebar/navigation.routes"
+import { Button } from "@/components/ui/button"
 import { useSidebar } from "@/hooks/use-sidebar"
 import { cn } from "@/lib/utils"
 import type { StoreIdParamType } from "@/types/pages-params.type"
@@ -34,12 +36,15 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
     >
       <nav className={cn("py-6 px-4 size-full min-h-fit h-full overflow-auto")}>
         <ul className={"flex flex-col items-start gap-3"}>
-          {routes.map(({ href, label }: INavigationRoute) => {
+          {routes.map(({ href, label, hrefAddNew }: INavigationRoute) => {
             return (
-              <li key={href}>
+              <li
+                key={href}
+                className={"flex items-center gap-2 w-full h-8"}
+              >
                 <Link
                   className={cn(
-                    "text-md font-medium transition-colors hover:text-primary",
+                    "text-md font-medium transition-colors hover:text-primary w-full flex-grow",
                     pathname === `/${href}` ? "text-black dark:text-white" : "text-muted-foreground",
                   )}
                   href={href}
@@ -47,6 +52,21 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
                 >
                   {label}
                 </Link>
+                {hrefAddNew && (
+                  <Button
+                    asChild
+                    size={"icon"}
+                    variant={"ghost"}
+                    className={"size-8 min-w-8 text-muted-foreground hover:text-primary"}
+                  >
+                    <Link
+                      href={hrefAddNew}
+                      onClick={onLinkClickHandle}
+                    >
+                      <PlusIcon size={20} />
+                    </Link>
+                  </Button>
+                )}
               </li>
             )
           })}

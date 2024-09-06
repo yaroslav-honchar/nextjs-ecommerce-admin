@@ -10,22 +10,27 @@ export const getNavigationRoutes = (storeId: string): INavigationRoute[] => {
     {
       label: "Billboards",
       href: ClientRoutes.billboards(storeId),
+      hrefAddNew: ClientRoutes.billboardEdit(storeId),
     },
     {
       label: "Categories",
       href: ClientRoutes.categories(storeId),
+      hrefAddNew: ClientRoutes.categoryEdit(storeId),
     },
     {
       label: "Products",
       href: ClientRoutes.products(storeId),
+      hrefAddNew: ClientRoutes.productEdit(storeId),
     },
     {
       label: "Sizes",
       href: ClientRoutes.sizes(storeId),
+      hrefAddNew: ClientRoutes.sizeEdit(storeId),
     },
     {
       label: "Colors",
       href: ClientRoutes.colors(storeId),
+      hrefAddNew: ClientRoutes.colorEdit(storeId),
     },
     {
       label: "Orders",
