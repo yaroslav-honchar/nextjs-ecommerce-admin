@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig } from "axios"
+import type { BillboardDataType } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
-import type { BillboardDataType } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/components/form.schema"
 import type { Billboard } from "@prisma/client"
 
 export const getBillboards = async (storeId: string, config: AxiosRequestConfig = {}): Promise<Billboard[]> => {

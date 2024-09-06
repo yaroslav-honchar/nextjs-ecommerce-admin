@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig } from "axios"
+import type { CategoryDataType } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
-import type { CategoryDataType } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/form.schema"
 import type { Category } from "@prisma/client"
 
 export const getCategories = async (storeId: string, config: AxiosRequestConfig = {}): Promise<Category[]> => {

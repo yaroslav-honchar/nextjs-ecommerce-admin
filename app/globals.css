@@ -8,8 +8,9 @@ body,
   height: 100%;
 }
 
-:root{
+:root {
   --header-height: 57px;
+  --sidebar-width: 240px;
 }
 
 *::-webkit-scrollbar {

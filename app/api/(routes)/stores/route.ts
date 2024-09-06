@@ -1,7 +1,7 @@
-import prismadb from "@/lib/prismadb"
 import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
+import prismadb from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"

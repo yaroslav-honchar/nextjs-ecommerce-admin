@@ -1,5 +1,5 @@
-import type { GraphData } from "@/types/graph-data.interface"
 import prismadb from "@/lib/prismadb"
+import type { GraphData } from "@/types/graph-data.interface"
 
 export const getGraphRevenue = async (storeId: string): Promise<GraphData[]> => {
   const paidOrders = await prismadb.order.findMany({

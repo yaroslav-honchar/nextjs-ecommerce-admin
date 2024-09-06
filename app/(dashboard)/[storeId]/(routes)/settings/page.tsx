@@ -1,7 +1,7 @@
 import React from "react"
-import type { IPropsWithStoreidParamAndStore } from "@/types/pages-props.interface"
-import { withStoreId } from "@/hocs/with-store-id"
 import { ClientForm } from "./components/form"
+import { withStoreId } from "@/hocs/with-store-id"
+import type { IPropsWithStoreidParamAndStore } from "@/types/pages-props.interface"
 
 const SettingsPage: React.FC<Readonly<IPropsWithStoreidParamAndStore>> = ({ store }) => (
   <ClientForm initialData={store} />

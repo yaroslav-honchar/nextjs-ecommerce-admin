@@ -1,15 +1,15 @@
 import { CreditCard, DollarSign } from "lucide-react"
-import type { IPropsWithStoreidParamAndStore } from "@/types/pages-props.interface"
-import { withStoreId } from "@/hocs/with-store-id"
-import { Overview } from "@/components/overview/overview"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Heading } from "@/components/ui/heading"
-import { Separator } from "@/components/ui/separator"
-import { priceFormatter } from "@/lib/price-formatter.lib"
 import { getGraphRevenue } from "@/actions/get-graph-revenue"
 import { getSalesCount } from "@/actions/get-sales-count"
 import { getStockCount } from "@/actions/get-stock-count"
 import { getTotalRevenue } from "@/actions/get-total-revenue"
+import { Overview } from "@/components/overview/overview"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Heading } from "@/components/ui/heading"
+import { Separator } from "@/components/ui/separator"
+import { withStoreId } from "@/hocs/with-store-id"
+import { priceFormatter } from "@/lib/price-formatter.lib"
+import type { IPropsWithStoreidParamAndStore } from "@/types/pages-props.interface"
 
 const DashboardPage = async ({ store }: Readonly<IPropsWithStoreidParamAndStore>) => {
   const totalRevenue = await getTotalRevenue(store.id)

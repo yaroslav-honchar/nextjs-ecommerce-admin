@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig } from "axios"
+import type { SizeDataType } from "@/app/(dashboard)/[storeId]/(routes)/sizes/[sizeId]/components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
-import type { SizeDataType } from "@/app/(dashboard)/[storeId]/(routes)/sizes/[sizeId]/components/form.schema"
 import type { Size } from "@prisma/client"
 
 export const getSizes = async (storeId: string, config: AxiosRequestConfig = {}): Promise<Size[]> => {

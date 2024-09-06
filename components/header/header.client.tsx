@@ -12,7 +12,7 @@ export const HeaderClient: React.FC<PropsWithChildren<{ className: string }>> = 
       return
     }
 
-    document.documentElement.style.setProperty("--header-height", `${headerEl.clientHeight}px`)
+    document.documentElement.style.setProperty("--header-height", `${headerEl.clientHeight + 1}px`)
   }, [])
 
   return (

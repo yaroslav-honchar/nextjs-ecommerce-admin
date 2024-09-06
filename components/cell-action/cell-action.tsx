@@ -1,7 +1,6 @@
 import { CopyIcon, EditIcon, MoreHorizontalIcon, TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import toast from "react-hot-toast"
-import type { StoreIdParamType } from "@/types/pages-params.type"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { StoreIdParamType } from "@/types/pages-params.type"
 import { useParams, useRouter } from "next/navigation"
 import type { ICellActionProps } from "./cell-action.props"
 

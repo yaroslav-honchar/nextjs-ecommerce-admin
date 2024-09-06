@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig } from "axios"
+import type { ColorDataType } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
-import type { ColorDataType } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/components/form.schema"
 import type { Color } from "@prisma/client"
 
 export const getColors = async (storeId: string, config: AxiosRequestConfig = {}): Promise<Color[]> => {
