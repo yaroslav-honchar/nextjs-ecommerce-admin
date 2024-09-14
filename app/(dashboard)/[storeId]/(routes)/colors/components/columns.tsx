@@ -1,11 +1,11 @@
 "use client"
 
-import type { ColumnDef } from "@tanstack/react-table"
 import React from "react"
 import { CellTableAction } from "@/components/cell-action/cell-action"
 import { ColorViewer } from "@/components/color-viewer/color-viewer"
 import { TableSortButton } from "@/components/ui/table-sort-button"
 import { deleteColor } from "@/services/colors.service"
+import type { ColumnDef } from "@tanstack/react-table"
 import type { ColumnType } from "./column.type"
 
 export const columns: ColumnDef<ColumnType>[] = [

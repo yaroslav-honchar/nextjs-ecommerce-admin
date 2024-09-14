@@ -14,8 +14,7 @@
   "useTabs": false,
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
-    "(next|next-.*|@next-.*)$",
-    "(react|react-.*|@react-.*)$",
+    "@/(.*)$",
     "../(.*)$",
     "./(.*)$"
   ],

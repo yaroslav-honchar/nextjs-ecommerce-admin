@@ -1,10 +1,10 @@
 "use client"
 
-import type { Column } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import type { PropsWithChildren } from "react"
 import React from "react"
 import { Button } from "@/components/ui/button"
+import type { Column } from "@tanstack/react-table"
 
 export function TableSortButton<T>({
   column,

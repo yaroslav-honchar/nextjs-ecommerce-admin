@@ -1,8 +1,8 @@
 "use client"
 
-import type { ColumnDef } from "@tanstack/react-table"
 import React from "react"
 import { TableSortButton } from "@/components/ui/table-sort-button"
+import type { ColumnDef } from "@tanstack/react-table"
 import type { ColumnType } from "./column.type"
 
 export const columns: ColumnDef<ColumnType>[] = [

@@ -2,14 +2,14 @@
 
 import { PlusIcon } from "lucide-react"
 import React from "react"
-import type { INavigationRoute } from "@/components/sidebar/navigation-route.type"
-import { getNavigationRoutes } from "@/components/sidebar/navigation.routes"
 import { Button } from "@/components/ui/button"
 import { useSidebar } from "@/hooks/use-sidebar"
 import { cn } from "@/lib/utils"
 import type { StoreIdParamType } from "@/types/pages-params.type"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
+import type { INavigationRoute } from "./navigation-route.type"
+import { getNavigationRoutes } from "./navigation.routes"
 
 export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
   const { isOpen, onClose } = useSidebar()

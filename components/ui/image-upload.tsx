@@ -1,7 +1,7 @@
 "use client"
 
-import { CldUploadWidget } from "next-cloudinary"
 import { ImagePlus, TrashIcon } from "lucide-react"
+import { CldUploadWidget } from "next-cloudinary"
 import React from "react"
 import { Button } from "@/components/ui/button"
 import { useMounted } from "@/hooks/use-mounted"

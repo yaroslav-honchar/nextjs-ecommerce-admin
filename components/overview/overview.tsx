@@ -1,7 +1,7 @@
 "use client"
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import React from "react"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import type { IOverviewProps } from "./overview.props"
 
 export const Overview: React.FC<IOverviewProps> = ({ data }) => {
