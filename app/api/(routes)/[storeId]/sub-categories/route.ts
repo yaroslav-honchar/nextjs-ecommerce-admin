@@ -1,8 +1,8 @@
-import slug from "slug"
 import { subCategoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/sub-categories/[subCategoryId]/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
+import { generateSlug } from "@/lib/generate-slug"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
@@ -54,7 +54,7 @@ export const POST = exceptionFilter(
           storeId,
         },
         data: {
-          slug: `${slug(subCategoryWithoutSlug.name)}-${subCategoryWithoutSlug.id}`,
+          slug: generateSlug(subCategoryWithoutSlug.name, subCategoryWithoutSlug.id),
         },
       })
 

@@ -1,8 +1,8 @@
-import slug from "slug"
 import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
 import { IDValidator } from "@/app/api/lib/id-validator"
+import { generateSlug } from "@/lib/generate-slug"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
@@ -54,7 +54,7 @@ export const POST = exceptionFilter(
           storeId,
         },
         data: {
-          slug: `${slug(categoryWithoutSlug.name)}-${categoryWithoutSlug.id}`,
+          slug: generateSlug(categoryWithoutSlug.name, categoryWithoutSlug.id),
         },
       })
 
