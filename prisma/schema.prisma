@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
@@ -45,20 +46,23 @@ model Category {
   billboard   Billboard @relation(fields: [billboardId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  sizes       Size[]    @relation("CategoryToSize")
 
   @@index([storeId])
   @@index([billboardId])
 }
 
 model Size {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  value     String
-  storeId   String    @db.ObjectId
-  store     Store     @relation("StoreToSize", fields: [storeId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  product   Product[]
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  value      String
+  storeId    String    @db.ObjectId
+  categoryId String    @db.ObjectId
+  store      Store     @relation("StoreToSize", fields: [storeId], references: [id])
+  category   Category  @relation("CategoryToSize", fields: [categoryId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  product    Product[]
 
   @@index([storeId])
 }

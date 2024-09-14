@@ -3,6 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import React from "react"
 import { CellTableAction } from "@/components/cell-action/cell-action"
+import { ColorViewer } from "@/components/color-viewer/color-viewer"
 import { TableSortButton } from "@/components/ui/table-sort-button"
 import { deleteColor } from "@/services/colors.service"
 import type { ColumnType } from "./column.type"
@@ -22,9 +23,9 @@ export const columns: ColumnDef<ColumnType>[] = [
     cell: ({ row }) => {
       return (
         <div className={"flex gap-2 items-center"}>
-          <div
-            className={"w-6 h-6 min-w-6 min-h-6 rounded-full border-2"}
-            style={{ backgroundColor: row.original.value }}
+          <ColorViewer
+            value={row.original.value}
+            size={"sm"}
           />
           {row.original.value}
         </div>

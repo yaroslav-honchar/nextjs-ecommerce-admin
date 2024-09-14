@@ -21,6 +21,15 @@ export const columns: ColumnDef<ColumnType>[] = [
     },
   },
   {
+    accessorKey: "category",
+    header: ({ column }) => {
+      return <TableSortButton column={column}>Category</TableSortButton>
+    },
+    cell: ({ row }) => {
+      return <span>{row.original.category.name}</span>
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => {
       return <TableSortButton column={column}>Date</TableSortButton>

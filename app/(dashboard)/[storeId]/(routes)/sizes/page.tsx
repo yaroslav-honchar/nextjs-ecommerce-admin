@@ -18,12 +18,16 @@ const SizesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: {
     orderBy: {
       name: "asc",
     },
+    include: {
+      category: true,
+    },
   })
 
-  const formattedData = sizes.map(({ id, name, value, createdAt }) => ({
+  const formattedData = sizes.map(({ id, name, value, createdAt, category }) => ({
     id,
     name,
     value,
+    category,
     createdAt: format(createdAt, "MMMM do, yyyy"),
   }))
 

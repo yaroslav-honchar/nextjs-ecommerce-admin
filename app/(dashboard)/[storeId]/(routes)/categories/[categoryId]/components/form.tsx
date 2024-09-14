@@ -155,7 +155,10 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData, billboards
                     onValueChange={onChange}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger
+                        className="w-full"
+                        disabled={billboards.length === 0}
+                      >
                         <SelectValue
                           placeholder="Billboard"
                           defaultValue={value}

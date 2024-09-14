@@ -4,6 +4,7 @@ import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+import { ColorViewer } from "@/components/color-viewer/color-viewer"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -154,10 +155,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
                         {...field}
                       />
                     </FormControl>
-                    <div
-                      className={"w-10 h-10 min-w-10 min-h-10 rounded-full border-2"}
-                      style={{ backgroundColor: field.value || "" }}
-                    />
+                    <ColorViewer value={field.value} />
                   </div>
                   <FormMessage />
                 </FormItem>
