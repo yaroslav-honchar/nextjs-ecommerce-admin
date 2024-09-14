@@ -22,6 +22,8 @@ export type ExceptionFilterModuleType =
   | "BILLBOARDS"
   | "CATEGORY"
   | "CATEGORIES"
+  | "SUB-CATEGORY"
+  | "SUB-CATEGORIES"
   | "SIZE"
   | "SIZES"
   | "COLOR"

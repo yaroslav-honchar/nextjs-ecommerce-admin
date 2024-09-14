@@ -5,11 +5,11 @@ import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidBillboardidParam } from "@/types/pages-props.interface"
 
 const BillboardsNewPage: React.FC<Readonly<IPropsWithStoreidBillboardidParam>> = async ({
-  params: { billboardId },
+  params: { billboardId, storeId },
 }) => {
   const billboard = ObjectId.isValid(billboardId)
     ? await prismadb.billboard.findUnique({
-        where: { id: billboardId },
+        where: { id: billboardId, storeId },
       })
     : null
 

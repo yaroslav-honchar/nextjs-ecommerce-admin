@@ -5,6 +5,7 @@ import type {
   StoreIdParamType,
   StoreIdProductIdParamType,
   StoreIdSizeIdParamType,
+  StoreIdSubCategoryIdParamType,
 } from "@/types/pages-params.type"
 import type { Store } from "@prisma/client"
 
@@ -23,6 +24,10 @@ export interface IPropsWithStoreidBillboardidParam {
 
 export interface IPropsWithStoreidCategoryidParam {
   params: StoreIdCategoryIdParamType
+}
+
+export interface IPropsWithStoreidSubCategoryidParam {
+  params: StoreIdSubCategoryIdParamType
 }
 
 export interface IPropsWithStoreidSizeidParam {

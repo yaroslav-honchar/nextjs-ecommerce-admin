@@ -11,7 +11,6 @@ import { Heading } from "@/components/ui/heading"
 import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Textarea } from "@/components/ui/textarea"
 import { ClientRoutes } from "@/routes/client.routes"
 import { createBillboard, deleteBillboard, updateBillboard } from "@/services/billboards.service"
 import type { StoreIdBillboardIdParamType } from "@/types/pages-params.type"
@@ -36,7 +35,6 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
     resolver: zodResolver(billboardDataSchema),
     defaultValues: initialData || {
       label: "",
-      description: undefined,
       imageUrl: "",
     },
   })
@@ -154,24 +152,6 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
                     <Input
                       disabled={isLoading}
                       placeholder={"Billboards label..."}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
-            <FormField
-              name={"description"}
-              control={form.control}
-              render={({ field }) => (
-                <FormItem className={"col-span-1 lg:col-span-2"}>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Billboard description..."
                       {...field}
                     />
                   </FormControl>

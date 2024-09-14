@@ -18,6 +18,11 @@ export const getNavigationRoutes = (storeId: string): INavigationRoute[] => {
       hrefAddNew: ClientRoutes.categoryEdit(storeId),
     },
     {
+      label: "Sub categories",
+      href: ClientRoutes.subCategories(storeId),
+      hrefAddNew: ClientRoutes.subCategoryEdit(storeId),
+    },
+    {
       label: "Products",
       href: ClientRoutes.products(storeId),
       hrefAddNew: ClientRoutes.productEdit(storeId),

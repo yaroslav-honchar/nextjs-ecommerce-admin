@@ -12,6 +12,11 @@ export type StoreIdCategoryIdParamType = {
   categoryId: string
 }
 
+export type StoreIdSubCategoryIdParamType = {
+  storeId: string
+  subCategoryId: string
+}
+
 export type StoreIdSizeIdParamType = {
   storeId: string
   sizeId: string
