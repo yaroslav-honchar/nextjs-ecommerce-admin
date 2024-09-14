@@ -16,6 +16,7 @@ export const GET = exceptionFilter(
   IDValidator<IPropsWithStoreidParam>(async (_req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam) => {
     const categories = await prismadb.category.findMany({
       where: { storeId },
+      include: { subCategories: true },
     })
 
     return new NextResponse(JSON.stringify(categories), { status: 200 })
