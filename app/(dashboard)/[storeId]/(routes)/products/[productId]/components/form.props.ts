@@ -8,5 +8,5 @@ export interface IFormProps {
     | null
   colors: Color[]
   sizes: Size[]
-  categories: Category[]
+  categories: (Category & { sizes: Size[] })[]
 }

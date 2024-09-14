@@ -17,15 +17,16 @@ import { ClientRoutes } from "@/routes/client.routes"
 import { createProduct, deleteProduct, updateProduct } from "@/services/products.service"
 import type { StoreIdProductIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Category, Color, Size } from "@prisma/client"
+import type { Color, Size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IFormProps } from "./form.props"
 import type { ProductDataType } from "./form.schema"
 import { productDataSchema } from "./form.schema"
 
-export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colors, sizes }) => {
+export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colors, sizes: initialSizes }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [sizes, setSizes] = useState<Size[]>(initialSizes)
   const router = useRouter()
   const params = useParams<StoreIdProductIdParamType>()
 
@@ -195,41 +196,6 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
               )}
             />
             <FormField
-              name={"categoryId"}
-              control={form.control}
-              render={({ field: { value, onChange } }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    disabled={isLoading}
-                    defaultValue={value}
-                    value={value}
-                    onValueChange={onChange}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue
-                          placeholder="Category"
-                          defaultValue={value}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {categories.map(({ id, name }: Category) => (
-                        <SelectItem
-                          key={id}
-                          value={id}
-                        >
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
               name={"colorId"}
               control={form.control}
               render={({ field: { value, onChange } }) => (
@@ -265,13 +231,49 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
               )}
             />
             <FormField
+              name={"categoryId"}
+              control={form.control}
+              render={({ field: { value, onChange } }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    defaultValue={value}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Category"
+                          defaultValue={value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map(({ id, name, sizes }) => (
+                        <SelectItem
+                          key={id}
+                          value={id}
+                          onClick={() => setSizes(sizes)}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
               name={"sizeId"}
               control={form.control}
               render={({ field: { value, onChange } }) => (
                 <FormItem>
                   <FormLabel>Size</FormLabel>
                   <Select
-                    disabled={isLoading}
+                    disabled={isLoading || form.getValues("categoryId") === ""}
                     defaultValue={value}
                     value={value}
                     onValueChange={onChange}
