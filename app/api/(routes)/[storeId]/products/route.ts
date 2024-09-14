@@ -1,3 +1,4 @@
+import slug from "slug"
 import { productDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
@@ -64,7 +65,7 @@ export const POST = exceptionFilter(
 
       const data = productDataSchema.parse(await req.json())
 
-      const product = await prismadb.product.create({
+      const productWithoutSlug = await prismadb.product.create({
         data: {
           ...data,
           images: {
@@ -73,6 +74,16 @@ export const POST = exceptionFilter(
             },
           },
           storeId,
+        },
+      })
+
+      const product = await prismadb.product.update({
+        where: {
+          id: productWithoutSlug.id,
+          storeId,
+        },
+        data: {
+          slug: `${slug(productWithoutSlug.name)}-${productWithoutSlug.id}`,
         },
       })
 

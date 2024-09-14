@@ -37,6 +37,7 @@ model Billboard {
 model Category {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
+  slug        String?
   storeId     String    @db.ObjectId
   store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
   products    Product[] @relation("CategoryToProduct")
@@ -87,6 +88,7 @@ model Product {
   color      Color       @relation(fields: [colorId], references: [id])
   name       String
   price      Float
+  slug       String?
   orderItems OrderItem[]
   isFeatured Boolean     @default(false)
   isArchived Boolean     @default(false)

@@ -1,3 +1,4 @@
+import slug from "slug"
 import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/components/form.schema"
 import { authGuard } from "@/app/api/lib/auth-guard"
 import { exceptionFilter } from "@/app/api/lib/exception-filter"
@@ -39,10 +40,20 @@ export const POST = exceptionFilter(
 
       const data = categoryDataSchema.parse(await req.json())
 
-      const category = await prismadb.category.create({
+      const categoryWithoutSlug = await prismadb.category.create({
         data: {
           ...data,
           storeId,
+        },
+      })
+
+      const category = await prismadb.category.update({
+        where: {
+          id: categoryWithoutSlug.id,
+          storeId,
+        },
+        data: {
+          slug: `${slug(categoryWithoutSlug.name)}-${categoryWithoutSlug.id}`,
         },
       })
 
