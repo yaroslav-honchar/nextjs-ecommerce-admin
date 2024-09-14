@@ -196,48 +196,13 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
               )}
             />
             <FormField
-              name={"colorId"}
-              control={form.control}
-              render={({ field: { value, onChange } }) => (
-                <FormItem>
-                  <FormLabel>Color</FormLabel>
-                  <Select
-                    disabled={isLoading}
-                    defaultValue={value}
-                    value={value}
-                    onValueChange={onChange}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue
-                          placeholder="Color"
-                          defaultValue={value}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {colors.map(({ id, name }: Color) => (
-                        <SelectItem
-                          key={id}
-                          value={id}
-                        >
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
               name={"categoryId"}
               control={form.control}
               render={({ field: { value, onChange } }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
                   <Select
-                    disabled={isLoading}
+                    disabled={isLoading || categories.length === 0}
                     defaultValue={value}
                     value={value}
                     onValueChange={onChange}
@@ -267,13 +232,48 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
               )}
             />
             <FormField
+              name={"colorId"}
+              control={form.control}
+              render={({ field: { value, onChange } }) => (
+                <FormItem>
+                  <FormLabel>Color</FormLabel>
+                  <Select
+                    disabled={isLoading || colors.length === 0}
+                    defaultValue={value}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Color"
+                          defaultValue={value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {colors.map(({ id, name }: Color) => (
+                        <SelectItem
+                          key={id}
+                          value={id}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
               name={"sizeId"}
               control={form.control}
               render={({ field: { value, onChange } }) => (
                 <FormItem>
                   <FormLabel>Size</FormLabel>
                   <Select
-                    disabled={isLoading || form.getValues("categoryId") === ""}
+                    disabled={isLoading || form.getValues("categoryId") === "" || sizes.length === 0}
                     defaultValue={value}
                     value={value}
                     onValueChange={onChange}
