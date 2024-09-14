@@ -49,7 +49,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData, categories
         await createSubCategory(params.storeId, data)
       }
       toast.success(toastMessage)
-      router.push(ClientRoutes.categories(params.storeId))
+      router.push(ClientRoutes.subCategories(params.storeId))
       router.refresh()
     } catch (error) {
       console.log(error)
