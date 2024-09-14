@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig } from "axios"
-import type { ColorDataType } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/components/form.schema"
+import type { ColorDataType } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
 import type { Color } from "@prisma/client"

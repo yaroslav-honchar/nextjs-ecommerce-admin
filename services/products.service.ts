@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig } from "axios"
-import type { ProductDataType } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/components/form.schema"
+import type { ProductDataType } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
 import type { Product } from "@prisma/client"

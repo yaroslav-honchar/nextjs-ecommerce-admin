@@ -1,8 +1,8 @@
 import { ObjectId } from "bson"
 import React from "react"
+import { ClientForm } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/_components/form"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidProductidParam } from "@/types/pages-props.interface"
-import { ClientForm } from "./components/form"
 
 const SizesNewPage: React.FC<Readonly<IPropsWithStoreidProductidParam>> = async ({
   params: { productId, storeId },

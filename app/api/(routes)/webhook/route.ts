@@ -1,5 +1,5 @@
 import type Stripe from "stripe"
-import { exceptionFilter } from "@/app/api/lib/exception-filter"
+import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { stripeConfig } from "@/configs/stripe.config"
 import prismadb from "@/lib/prismadb"
 import { stripe } from "@/lib/stripe"

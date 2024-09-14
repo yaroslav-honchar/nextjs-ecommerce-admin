@@ -1,10 +1,10 @@
 import { ObjectId } from "bson"
 import React from "react"
+import { Dashboard } from "@/app/(dashboard)/[storeId]/(routes)/products/_components/dashboard"
 import { priceFormatter } from "@/lib/price-formatter.lib"
 import prismadb from "@/lib/prismadb"
 import { ClientRoutes } from "@/routes/client.routes"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
-import { Dashboard } from "./components/dashboard"
 import { format } from "date-fns/format"
 import { redirect } from "next/navigation"
 

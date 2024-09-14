@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig } from "axios"
-import type { SizeDataType } from "@/app/(dashboard)/[storeId]/(routes)/sizes/[sizeId]/components/form.schema"
+import type { SizeDataType } from "@/app/(dashboard)/[storeId]/(routes)/sizes/[sizeId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
 import type { Size } from "@prisma/client"

@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig } from "axios"
-import type { SubCategoryDataType } from "@/app/(dashboard)/[storeId]/(routes)/sub-categories/[subCategoryId]/components/form.schema"
+import type { SubCategoryDataType } from "@/app/(dashboard)/[storeId]/(routes)/sub-categories/[subCategoryId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
 import { coreService } from "@/services/core.service"
 import type { SubCategory } from "@prisma/client"

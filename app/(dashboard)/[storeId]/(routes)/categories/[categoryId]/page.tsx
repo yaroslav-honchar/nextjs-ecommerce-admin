@@ -1,8 +1,8 @@
 import { ObjectId } from "bson"
 import React from "react"
+import { ClientForm } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/_components/form"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidCategoryidParam } from "@/types/pages-props.interface"
-import { ClientForm } from "./components/form"
 
 const CategoriesNewPage: React.FC<Readonly<IPropsWithStoreidCategoryidParam>> = async ({
   params: { categoryId, storeId },

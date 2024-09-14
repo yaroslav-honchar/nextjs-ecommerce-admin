@@ -1,8 +1,8 @@
 import { ObjectId } from "bson"
 import React from "react"
+import { ClientForm } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/_components/form"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidColoridParam } from "@/types/pages-props.interface"
-import { ClientForm } from "./components/form"
 
 const ColorNewPage: React.FC<Readonly<IPropsWithStoreidColoridParam>> = async ({ params: { colorId } }) => {
   const color = ObjectId.isValid(colorId)
