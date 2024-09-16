@@ -1,8 +1,8 @@
-import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import prismadb from "@/lib/prismadb"
+import { categorySchema } from "@/schemas/category.schema"
 import type { IPropsWithStoreidCategoryidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -16,7 +16,12 @@ export const GET = exceptionFilter(
     async (_req: NextRequest, { params: { storeId, categoryId } }: IPropsWithStoreidCategoryidParam) => {
       const category = await prismadb.category.findUnique({
         where: { storeId, id: categoryId },
-        include: { billboard: true, sizes: true, subCategories: true },
+        include: {
+          billboard: true,
+          sizes: true,
+          subCategories: true,
+          meta: true,
+        },
       })
 
       return new NextResponse(JSON.stringify(category), { status: 200 })
@@ -44,11 +49,23 @@ export const PATCH = exceptionFilter(
           return new NextResponse("Unauthorized", { status: 403 })
         }
 
-        const data = categoryDataSchema.parse(await req.json())
+        const data = categorySchema.parse(await req.json())
 
         const category = await prismadb.category.update({
           where: { id: categoryId, storeId },
-          data,
+          data: {
+            billboardId: data.billboardId,
+            name: data.name,
+            storeId,
+          },
+        })
+
+        await prismadb.metaInformation.update({
+          where: { id: category.metaId, storeId },
+          data: {
+            ...data.meta,
+            storeId,
+          },
         })
 
         return new NextResponse(JSON.stringify(category), { status: 200 })

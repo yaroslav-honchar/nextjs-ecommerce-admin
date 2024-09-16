@@ -1,9 +1,9 @@
-import { categoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import { generateSlug } from "@/lib/generate-slug"
 import prismadb from "@/lib/prismadb"
+import { categorySchema } from "@/schemas/category.schema"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -39,12 +39,21 @@ export const POST = exceptionFilter(
         return new NextResponse("Unauthorized", { status: 403 })
       }
 
-      const data = categoryDataSchema.parse(await req.json())
+      const data = categorySchema.parse(await req.json())
+
+      const meta = await prismadb.metaInformation.create({
+        data: {
+          ...data.meta,
+          storeId,
+        },
+      })
 
       const categoryWithoutSlug = await prismadb.category.create({
         data: {
-          ...data,
+          billboardId: data.billboardId,
+          name: data.name,
           storeId,
+          metaId: meta.id,
         },
       })
 

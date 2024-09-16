@@ -12,14 +12,14 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { CategorySchemaType } from "@/schemas/category.schema"
+import { categorySchema } from "@/schemas/category.schema"
 import { createCategory, deleteCategory, updateCategory } from "@/services/categories.service"
 import type { StoreIdCategoryIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IClientFormProps } from "./form.props"
-import type { CategoryDataType } from "./form.schema"
-import { categoryDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IClientFormProps> = ({ initialData, billboards }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -32,15 +32,15 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData, billboards
   const toastMessage = initialData ? "Category editing saved" : "Category created"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<CategoryDataType>({
-    resolver: zodResolver(categoryDataSchema),
+  const form = useForm<CategorySchemaType>({
+    resolver: zodResolver(categorySchema),
     defaultValues: initialData || {
       name: "",
       billboardId: "",
     },
   })
 
-  const onSubmit = async (data: CategoryDataType): Promise<void> => {
+  const onSubmit = async (data: CategorySchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

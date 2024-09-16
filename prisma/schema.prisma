@@ -9,18 +9,19 @@ datasource db {
 }
 
 model Store {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  id            String            @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   userId        String
-  billboards    Billboard[]   @relation("StoreToBillboard")
-  categories    Category[]    @relation("StoreToCategory")
-  subCategories SubCategory[] @relation("StoreToSubCategory")
-  sizes         Size[]        @relation("StoreToSize")
-  colors        Color[]       @relation("StoreToColor")
-  products      Product[]     @relation("StoreToProduct")
-  orders        Order[]       @relation("StoreToOrder")
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  billboards    Billboard[]       @relation("StoreToBillboard")
+  categories    Category[]        @relation("StoreToCategory")
+  subCategories SubCategory[]     @relation("StoreToSubCategory")
+  sizes         Size[]            @relation("StoreToSize")
+  colors        Color[]           @relation("StoreToColor")
+  products      Product[]         @relation("StoreToProduct")
+  orders        Order[]           @relation("StoreToOrder")
+  meta          MetaInformation[] @relation("StoreToMetaInformation")
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
 }
 
 model Billboard {
@@ -37,21 +38,39 @@ model Billboard {
 }
 
 model Category {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   slug          String?
-  storeId       String        @db.ObjectId
-  store         Store         @relation("StoreToCategory", fields: [storeId], references: [id])
-  products      Product[]     @relation("CategoryToProduct")
-  billboardId   String        @db.ObjectId
-  billboard     Billboard     @relation(fields: [billboardId], references: [id])
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  sizes         Size[]        @relation("CategoryToSize")
-  subCategories SubCategory[] @relation("CategoryToSubCategory")
+  storeId       String          @db.ObjectId
+  store         Store           @relation("StoreToCategory", fields: [storeId], references: [id])
+  products      Product[]       @relation("CategoryToProduct")
+  billboardId   String          @db.ObjectId
+  billboard     Billboard       @relation(fields: [billboardId], references: [id])
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  sizes         Size[]          @relation("CategoryToSize")
+  subCategories SubCategory[]   @relation("CategoryToSubCategory")
+  metaId        String          @unique @db.ObjectId
+  meta          MetaInformation @relation(fields: [metaId], references: [id], onDelete: Cascade)
 
   @@index([storeId])
   @@index([billboardId])
+}
+
+model MetaInformation {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  keywords    String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  storeId     String    @db.ObjectId
+  store       Store     @relation("StoreToMetaInformation", fields: [storeId], references: [id])
+  category    Category?
+  // subCategory          SubCategory?
+  // product              Product?
+
+  @@index([storeId])
 }
 
 model SubCategory {
@@ -62,11 +81,41 @@ model SubCategory {
   store      Store    @relation("StoreToSubCategory", fields: [storeId], references: [id])
   categoryId String   @db.ObjectId
   category   Category @relation("CategoryToSubCategory", fields: [categoryId], references: [id])
+  // metaId     String          @unique @db.ObjectId
+  // meta       MetaInformation @relation(fields: [metaId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
   @@index([categoryId])
   @@index([storeId])
+}
+
+model Product {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  storeId    String      @db.ObjectId
+  store      Store       @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId String      @db.ObjectId
+  category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  sizeId     String      @db.ObjectId
+  size       Size        @relation(fields: [sizeId], references: [id])
+  colorId    String      @db.ObjectId
+  color      Color       @relation(fields: [colorId], references: [id])
+  // metaId     String          @unique @db.ObjectId
+  // meta       MetaInformation @relation(fields: [metaId], references: [id])
+  name       String
+  price      Float
+  slug       String?
+  orderItems OrderItem[]
+  isFeatured Boolean     @default(false)
+  isArchived Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  images     Image[]
+
+  @@index([storeId])
+  @@index([categoryId])
+  @@index([sizeId])
+  @@index([colorId])
 }
 
 model Size {
@@ -95,32 +144,6 @@ model Color {
   product   Product[]
 
   @@index([storeId])
-}
-
-model Product {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  storeId    String      @db.ObjectId
-  store      Store       @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId String      @db.ObjectId
-  category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  sizeId     String      @db.ObjectId
-  size       Size        @relation(fields: [sizeId], references: [id])
-  colorId    String      @db.ObjectId
-  color      Color       @relation(fields: [colorId], references: [id])
-  name       String
-  price      Float
-  slug       String?
-  orderItems OrderItem[]
-  isFeatured Boolean     @default(false)
-  isArchived Boolean     @default(false)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  images     Image[]
-
-  @@index([storeId])
-  @@index([categoryId])
-  @@index([sizeId])
-  @@index([colorId])
 }
 
 model Image {

@@ -17,12 +17,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        suppressHydrationWarning={true}
-      >
-        <body className={inter.className}>
+    <html
+      lang="en"
+      suppressHydrationWarning={true}
+    >
+      <body className={inter.className}>
+        <ClerkProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -33,8 +33,8 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
             <ToastProvider />
             <div className={"w-full h-full flex flex-col"}>{children}</div>
           </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }
