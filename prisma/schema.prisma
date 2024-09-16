@@ -61,7 +61,7 @@ model MetaInformation {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
-  keywords    String[]
+  keywords    String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   storeId     String    @db.ObjectId
