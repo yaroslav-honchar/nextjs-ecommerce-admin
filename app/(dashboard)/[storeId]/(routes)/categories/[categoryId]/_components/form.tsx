@@ -188,7 +188,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData, billboards
             />
           </div>
 
-          <h1 className={"text-2xl sm:text-3xl mt-5 font-medium"}>Meta information</h1>
+          <h2 className={"text-2xl sm:text-3xl mt-5 font-medium"}>Meta information</h2>
           <Separator className={"mb-2"} />
 
           <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>

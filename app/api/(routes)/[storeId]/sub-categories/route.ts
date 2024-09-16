@@ -9,7 +9,7 @@ import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
-// Send all sub categories of a store
+// Send all subcategories of a store
 export const GET = exceptionFilter(
   "SUB-CATEGORIES",
   "GET",
@@ -23,7 +23,7 @@ export const GET = exceptionFilter(
   }),
 )
 
-// Create a new sub category for a store
+// Create a new subcategory for a store
 export const POST = exceptionFilter(
   "SUB-CATEGORIES",
   "POST",
@@ -41,10 +41,19 @@ export const POST = exceptionFilter(
 
       const data = subCategorySchema.parse(await req.json())
 
+      const meta = await prismadb.metaInformation.create({
+        data: {
+          ...data.meta,
+          storeId,
+        },
+      })
+
       const subCategoryWithoutSlug = await prismadb.subCategory.create({
         data: {
-          ...data,
+          categoryId: data.categoryId,
+          name: data.name,
           storeId,
+          metaId: meta.id,
         },
       })
 

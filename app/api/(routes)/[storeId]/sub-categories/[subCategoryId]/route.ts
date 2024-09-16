@@ -8,7 +8,7 @@ import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
-// Send a category of a store
+// Send a subcategory of a store
 export const GET = exceptionFilter(
   "CATEGORY",
   "GET",
@@ -16,7 +16,7 @@ export const GET = exceptionFilter(
     async (_req: NextRequest, { params: { storeId, subCategoryId } }: IPropsWithStoreidSubCategoryidParam) => {
       const subCategory = await prismadb.subCategory.findUnique({
         where: { storeId, id: subCategoryId },
-        include: { category: true },
+        include: { category: true, meta: true },
       })
 
       return new NextResponse(JSON.stringify(subCategory), { status: 200 })
@@ -24,7 +24,7 @@ export const GET = exceptionFilter(
   ),
 )
 
-// Update a category of a store
+// Update a subcategory of a store
 export const PATCH = exceptionFilter(
   "CATEGORY",
   "PATCH",
@@ -48,7 +48,19 @@ export const PATCH = exceptionFilter(
 
         const subCategory = await prismadb.subCategory.update({
           where: { id: subCategoryId, storeId },
-          data,
+          data: {
+            categoryId: data.categoryId,
+            name: data.name,
+            storeId,
+          },
+        })
+
+        await prismadb.metaInformation.update({
+          where: { id: subCategory.metaId, storeId },
+          data: {
+            ...data.meta,
+            storeId,
+          },
         })
 
         return new NextResponse(JSON.stringify(subCategory), { status: 200 })
@@ -57,7 +69,7 @@ export const PATCH = exceptionFilter(
   ),
 )
 
-// Delete a category of a store
+// Delete a subcategory of a store
 export const DELETE = exceptionFilter(
   "CATEGORY",
   "DELETE",

@@ -58,33 +58,33 @@ model Category {
 }
 
 model MetaInformation {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
   keywords    String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  storeId     String    @db.ObjectId
-  store       Store     @relation("StoreToMetaInformation", fields: [storeId], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  storeId     String       @db.ObjectId
+  store       Store        @relation("StoreToMetaInformation", fields: [storeId], references: [id])
   category    Category?
-  // subCategory          SubCategory?
+  subCategory SubCategory?
   // product              Product?
 
   @@index([storeId])
 }
 
 model SubCategory {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
   name       String
   slug       String?
-  storeId    String   @db.ObjectId
-  store      Store    @relation("StoreToSubCategory", fields: [storeId], references: [id])
-  categoryId String   @db.ObjectId
-  category   Category @relation("CategoryToSubCategory", fields: [categoryId], references: [id])
-  // metaId     String          @unique @db.ObjectId
-  // meta       MetaInformation @relation(fields: [metaId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  storeId    String          @db.ObjectId
+  store      Store           @relation("StoreToSubCategory", fields: [storeId], references: [id])
+  categoryId String          @db.ObjectId
+  category   Category        @relation("CategoryToSubCategory", fields: [categoryId], references: [id])
+  metaId     String          @unique @db.ObjectId
+  meta       MetaInformation @relation(fields: [metaId], references: [id], onDelete: Cascade)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
 
   @@index([categoryId])
   @@index([storeId])
