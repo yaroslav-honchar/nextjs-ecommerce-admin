@@ -68,7 +68,7 @@ model MetaInformation {
   store       Store        @relation("StoreToMetaInformation", fields: [storeId], references: [id])
   category    Category?
   subCategory SubCategory?
-  // product              Product?
+  product     Product?
 
   @@index([storeId])
 }
@@ -91,26 +91,27 @@ model SubCategory {
 }
 
 model Product {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  storeId    String      @db.ObjectId
-  store      Store       @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId String      @db.ObjectId
-  category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  sizeId     String      @db.ObjectId
-  size       Size        @relation(fields: [sizeId], references: [id])
-  colorId    String      @db.ObjectId
-  color      Color       @relation(fields: [colorId], references: [id])
-  // metaId     String          @unique @db.ObjectId
-  // meta       MetaInformation @relation(fields: [metaId], references: [id])
-  name       String
-  price      Float
-  slug       String?
-  orderItems OrderItem[]
-  isFeatured Boolean     @default(false)
-  isArchived Boolean     @default(false)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  images     Image[]
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  storeId     String          @db.ObjectId
+  store       Store           @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId  String          @db.ObjectId
+  category    Category        @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  sizeId      String          @db.ObjectId
+  size        Size            @relation(fields: [sizeId], references: [id])
+  colorId     String          @db.ObjectId
+  color       Color           @relation(fields: [colorId], references: [id])
+  metaId      String          @unique @db.ObjectId
+  meta        MetaInformation @relation(fields: [metaId], references: [id], onDelete: Cascade)
+  name        String
+  description String
+  price       Float
+  slug        String?
+  orderItems  OrderItem[]
+  isFeatured  Boolean         @default(false)
+  isArchived  Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  images      Image[]
 
   @@index([storeId])
   @@index([categoryId])

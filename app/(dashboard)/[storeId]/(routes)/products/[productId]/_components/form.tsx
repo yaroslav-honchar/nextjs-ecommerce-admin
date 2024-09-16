@@ -4,7 +4,9 @@ import { TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+import { getFormConstants } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/_components/form.constants"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -13,6 +15,7 @@ import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { Textarea } from "@/components/ui/textarea"
 import { ClientRoutes } from "@/routes/client.routes"
 import type { ProductSchemaType } from "@/schemas/product.schema"
 import { productSchema } from "@/schemas/product.schema"
@@ -30,22 +33,26 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
   const router = useRouter()
   const params = useParams<StoreIdProductIdParamType>()
 
-  const title = initialData ? "Edit product" : "Create product"
-  const description = initialData ? "Managing store of product" : "Creating store product"
-  const toastMessage = initialData ? "Editing saved" : "Created successfully"
-  const action = initialData ? "Edit" : "Create"
+  const { title, description, action, submitSuccess, submitFailed, deleteSuccess, deleteFailed } =
+    getFormConstants(!!initialData)
 
   const form = useForm<ProductSchemaType>({
     resolver: zodResolver(productSchema),
     defaultValues: initialData || {
       name: "",
       price: 0,
+      description: "",
       isArchived: false,
       isFeatured: false,
       colorId: "",
       sizeId: "",
       categoryId: "",
       images: [],
+      meta: {
+        title: "",
+        description: "",
+        keywords: "",
+      },
     },
   })
 
@@ -57,12 +64,12 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
       } else {
         await createProduct(params.storeId, data)
       }
-      toast.success(toastMessage)
+      toast.success(submitSuccess)
       router.push(ClientRoutes.products(params.storeId))
       router.refresh()
     } catch (error) {
       console.log(error)
-      toast.error("Failed to save")
+      toast.error(submitFailed)
     } finally {
       setIsLoading(false)
     }
@@ -76,12 +83,12 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
     try {
       setIsLoading(true)
       await deleteProduct(params.storeId, params.productId)
-      toast.success("Deleted successfully")
+      toast.success(deleteSuccess)
       router.push(ClientRoutes.products(params.storeId))
       router.refresh()
     } catch (error) {
       console.log(error)
-      toast.error("Something went wrong")
+      toast.error(deleteFailed)
     } finally {
       setIsLoading(false)
       setIsOpen(false)
@@ -231,6 +238,27 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
                 </FormItem>
               )}
             />
+
+            <FormField
+              name={"description"}
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className={"col-span-1 sm:col-span-2"}>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={isLoading}
+                      placeholder={"Description..."}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
             <FormField
               name={"colorId"}
               control={form.control}
@@ -302,6 +330,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
               )}
             />
           </div>
+
           <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
             <FormField
               name={"isFeatured"}
@@ -339,6 +368,75 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
                   <div className={"space-y-1 leading-none"}>
                     <FormLabel>Archived</FormLabel>
                     <FormDescription>This product will be hidden from the store</FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <h2 className={"text-2xl sm:text-3xl mt-5 font-medium"}>Meta information</h2>
+          <Separator className={"mb-2"} />
+
+          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
+            <FormField
+              name={"meta.title"}
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className={"col-span-1 sm:col-span-2"}>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder={"Title..."}
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name={"meta.description"}
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className={"col-span-1 sm:col-span-2"}>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={isLoading}
+                      placeholder={"Description..."}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name={"meta.keywords"}
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className={"col-span-1 sm:col-span-2"}>
+                  <FormLabel>Keywords</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={isLoading}
+                      placeholder={"Keywords..."}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+
+                  <div className={"flex gap-1 flex-wrap py-2"}>
+                    {field.value
+                      ?.trim()
+                      .split(",")
+                      .filter(Boolean)
+                      .map((keyword: string, index: number) => <Badge key={index}>{keyword}</Badge>)}
                   </div>
                 </FormItem>
               )}

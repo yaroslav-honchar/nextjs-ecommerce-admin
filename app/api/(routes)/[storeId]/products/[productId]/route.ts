@@ -21,6 +21,7 @@ export const GET = exceptionFilter(
           color: true,
           size: true,
           category: true,
+          meta: true,
         },
       })
 
@@ -54,7 +55,15 @@ export const PATCH = exceptionFilter(
         await prismadb.product.update({
           where: { id: productId, storeId },
           data: {
-            ...data,
+            name: data.name,
+            description: data.description,
+            price: data.price,
+            isArchived: data.isArchived,
+            isFeatured: data.isFeatured,
+            sizeId: data.sizeId,
+            colorId: data.colorId,
+            categoryId: data.categoryId,
+            storeId,
             images: {
               deleteMany: {},
             },
@@ -69,6 +78,14 @@ export const PATCH = exceptionFilter(
                 data: data.images,
               },
             },
+          },
+        })
+
+        await prismadb.metaInformation.update({
+          where: { id: product.metaId, storeId },
+          data: {
+            ...data.meta,
+            storeId,
           },
         })
 

@@ -65,15 +65,30 @@ export const POST = exceptionFilter(
 
       const data = productSchema.parse(await req.json())
 
+      const meta = await prismadb.metaInformation.create({
+        data: {
+          ...data.meta,
+          storeId,
+        },
+      })
+
       const productWithoutSlug = await prismadb.product.create({
         data: {
-          ...data,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          isArchived: data.isArchived,
+          isFeatured: data.isFeatured,
+          sizeId: data.sizeId,
+          colorId: data.colorId,
+          categoryId: data.categoryId,
+          storeId,
+          metaId: meta.id,
           images: {
             createMany: {
               data: data.images,
             },
           },
-          storeId,
         },
       })
 
