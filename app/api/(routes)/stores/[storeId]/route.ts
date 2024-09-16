@@ -1,8 +1,8 @@
-import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import prismadb from "@/lib/prismadb"
+import { storeSchema } from "@/schemas/store.schema"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -17,7 +17,7 @@ export const PATCH = exceptionFilter(
       async (req: NextRequest, { params: { storeId } }: IPropsWithStoreidParam): Promise<NextResponse> => {
         const userId = auth().userId as string
 
-        const data = storeDataSchema.parse(await req.json())
+        const data = storeSchema.parse(await req.json())
 
         const store = await prismadb.store.updateMany({
           where: {

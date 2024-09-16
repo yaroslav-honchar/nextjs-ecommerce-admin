@@ -12,13 +12,13 @@ import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { BillboardSchemaType } from "@/schemas/billboard.schema"
+import { billboardSchema } from "@/schemas/billboard.schema"
 import { createBillboard, deleteBillboard, updateBillboard } from "@/services/billboards.service"
 import type { StoreIdBillboardIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
 import type { IClientFormProps } from "./form.props"
-import type { BillboardDataType } from "./form.schema"
-import { billboardDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -31,15 +31,15 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const toastMessage = initialData ? "Billboard editing saved" : "Billboard created"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<BillboardDataType>({
-    resolver: zodResolver(billboardDataSchema),
+  const form = useForm<BillboardSchemaType>({
+    resolver: zodResolver(billboardSchema),
     defaultValues: initialData || {
       label: "",
       imageUrl: "",
     },
   })
 
-  const onSubmit = async (data: BillboardDataType): Promise<void> => {
+  const onSubmit = async (data: BillboardSchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

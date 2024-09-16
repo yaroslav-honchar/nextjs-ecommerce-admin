@@ -1,9 +1,9 @@
-import { productDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import { generateSlug } from "@/lib/generate-slug"
 import prismadb from "@/lib/prismadb"
+import { productSchema } from "@/schemas/product.schema"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -63,7 +63,7 @@ export const POST = exceptionFilter(
         return new NextResponse("Unauthorized", { status: 403 })
       }
 
-      const data = productDataSchema.parse(await req.json())
+      const data = productSchema.parse(await req.json())
 
       const productWithoutSlug = await prismadb.product.create({
         data: {

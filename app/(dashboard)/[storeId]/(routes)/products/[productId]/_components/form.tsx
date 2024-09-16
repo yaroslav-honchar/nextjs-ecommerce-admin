@@ -14,14 +14,14 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { ProductSchemaType } from "@/schemas/product.schema"
+import { productSchema } from "@/schemas/product.schema"
 import { createProduct, deleteProduct, updateProduct } from "@/services/products.service"
 import type { StoreIdProductIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Color, Size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IFormProps } from "./form.props"
-import type { ProductDataType } from "./form.schema"
-import { productDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colors, sizes: initialSizes }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -35,8 +35,8 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
   const toastMessage = initialData ? "Editing saved" : "Created successfully"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<ProductDataType>({
-    resolver: zodResolver(productDataSchema),
+  const form = useForm<ProductSchemaType>({
+    resolver: zodResolver(productSchema),
     defaultValues: initialData || {
       name: "",
       price: 0,
@@ -49,7 +49,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
     },
   })
 
-  const onSubmit = async (data: ProductDataType): Promise<void> => {
+  const onSubmit = async (data: ProductSchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

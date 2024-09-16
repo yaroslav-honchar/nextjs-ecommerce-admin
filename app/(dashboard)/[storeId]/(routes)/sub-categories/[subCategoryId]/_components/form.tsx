@@ -12,14 +12,14 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { SubCategorySchemaType } from "@/schemas/sub-category.schema"
+import { subCategorySchema } from "@/schemas/sub-category.schema"
 import { createSubCategory, deleteSubCategory, updateSubCategory } from "@/services/sub-categories.service"
 import type { StoreIdSubCategoryIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Category } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IClientFormProps } from "./form.props"
-import type { SubCategoryDataType } from "./form.schema"
-import { subCategoryDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IClientFormProps> = ({ initialData, categories }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -32,15 +32,15 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData, categories
   const toastMessage = initialData ? "Sub category editing saved" : "Sub category created"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<SubCategoryDataType>({
-    resolver: zodResolver(subCategoryDataSchema),
+  const form = useForm<SubCategorySchemaType>({
+    resolver: zodResolver(subCategorySchema),
     defaultValues: initialData || {
       name: "",
       categoryId: "",
     },
   })
 
-  const onSubmit = async (data: SubCategoryDataType): Promise<void> => {
+  const onSubmit = async (data: SubCategorySchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

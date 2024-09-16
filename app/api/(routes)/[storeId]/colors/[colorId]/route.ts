@@ -1,8 +1,8 @@
-import { colorDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import prismadb from "@/lib/prismadb"
+import { colorSchema } from "@/schemas/color.schema"
 import type { IPropsWithStoreidColoridParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -43,7 +43,7 @@ export const PATCH = exceptionFilter(
           return new NextResponse("Unauthorized", { status: 403 })
         }
 
-        const data = colorDataSchema.parse(await req.json())
+        const data = colorSchema.parse(await req.json())
 
         const color = await prismadb.color.update({
           where: { id: colorId, storeId },

@@ -1,8 +1,8 @@
-import { subCategoryDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/sub-categories/[subCategoryId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import prismadb from "@/lib/prismadb"
+import { subCategorySchema } from "@/schemas/sub-category.schema"
 import type { IPropsWithStoreidSubCategoryidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -44,7 +44,7 @@ export const PATCH = exceptionFilter(
           return new NextResponse("Unauthorized", { status: 403 })
         }
 
-        const data = subCategoryDataSchema.parse(await req.json())
+        const data = subCategorySchema.parse(await req.json())
 
         const subCategory = await prismadb.subCategory.update({
           where: { id: subCategoryId, storeId },

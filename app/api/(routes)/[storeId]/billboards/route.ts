@@ -1,8 +1,8 @@
-import { billboardDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import prismadb from "@/lib/prismadb"
+import { billboardSchema } from "@/schemas/billboard.schema"
 import type { IPropsWithStoreidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -37,7 +37,7 @@ export const POST = exceptionFilter(
         return new NextResponse("Unauthorized", { status: 403 })
       }
 
-      const data = billboardDataSchema.parse(await req.json())
+      const data = billboardSchema.parse(await req.json())
 
       const billboard = await prismadb.billboard.create({
         data: {

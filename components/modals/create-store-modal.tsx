@@ -3,27 +3,27 @@
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-import type { StoreDataType } from "@/app/(dashboard)/[storeId]/(routes)/settings/_components/form.schema"
-import { storeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/settings/_components/form.schema"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
 import { useStoreModal } from "@/hooks/use-store-modal"
+import type { StoreSchemaType } from "@/schemas/store.schema"
+import { storeSchema } from "@/schemas/store.schema"
 import { createStore } from "@/services/stores.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 export const CreateStoreModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { isOpen, onClose } = useStoreModal()
-  const form = useForm<StoreDataType>({
-    resolver: zodResolver(storeDataSchema),
+  const form = useForm<StoreSchemaType>({
+    resolver: zodResolver(storeSchema),
     defaultValues: {
       name: "",
     },
   })
 
-  const onSubmit = async (data: StoreDataType) => {
+  const onSubmit = async (data: StoreSchemaType) => {
     try {
       setIsLoading(true)
       const response = await createStore(data)

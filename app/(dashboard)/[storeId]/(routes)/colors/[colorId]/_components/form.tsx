@@ -12,13 +12,13 @@ import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { ColorSchemaType } from "@/schemas/color.schema"
+import { colorSchema } from "@/schemas/color.schema"
 import { createColor, deleteColor, updateColor } from "@/services/colors.service"
 import type { StoreIdColorIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
 import type { IClientFormProps } from "./form.props"
-import type { ColorDataType } from "./form.schema"
-import { colorDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -31,15 +31,15 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const toastMessage = initialData ? "Editing saved" : "Created successfully"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<ColorDataType>({
-    resolver: zodResolver(colorDataSchema),
+  const form = useForm<ColorSchemaType>({
+    resolver: zodResolver(colorSchema),
     defaultValues: initialData || {
       name: "",
       value: "",
     },
   })
 
-  const onSubmit = async (data: ColorDataType): Promise<void> => {
+  const onSubmit = async (data: ColorSchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

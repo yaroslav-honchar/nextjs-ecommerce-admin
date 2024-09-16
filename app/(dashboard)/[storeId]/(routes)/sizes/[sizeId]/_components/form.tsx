@@ -12,14 +12,14 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { SizeSchemaType } from "@/schemas/size.schema"
+import { sizeSchema } from "@/schemas/size.schema"
 import { createSize, deleteSize, updateSize } from "@/services/sizes.service"
 import type { StoreIdSizeIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Category } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IFormProps } from "./form.props"
-import type { SizeDataType } from "./form.schema"
-import { sizeDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IFormProps> = ({ initialData, categories }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -32,8 +32,8 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories }) =>
   const toastMessage = initialData ? "Editing saved" : "Created successfully"
   const action = initialData ? "Edit" : "Create"
 
-  const form = useForm<SizeDataType>({
-    resolver: zodResolver(sizeDataSchema),
+  const form = useForm<SizeSchemaType>({
+    resolver: zodResolver(sizeSchema),
     defaultValues: initialData || {
       name: "",
       value: "",
@@ -41,7 +41,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories }) =>
     },
   })
 
-  const onSubmit = async (data: SizeDataType): Promise<void> => {
+  const onSubmit = async (data: SizeSchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       if (initialData) {

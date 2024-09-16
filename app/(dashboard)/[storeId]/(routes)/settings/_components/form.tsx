@@ -12,12 +12,12 @@ import { Heading } from "@/components/ui/heading"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ClientRoutes } from "@/routes/client.routes"
+import type { StoreSchemaType } from "@/schemas/store.schema"
+import { storeSchema } from "@/schemas/store.schema"
 import { deleteStore, updateStore } from "@/services/stores.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import type { IClientFormProps } from "./form.props"
-import type { StoreDataType } from "./form.schema"
-import { storeDataSchema } from "./form.schema"
 
 export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   // const origin = useOrigin()
@@ -27,12 +27,12 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData }) => {
   const router = useRouter()
 
   const { name } = initialData
-  const form = useForm<StoreDataType>({
-    resolver: zodResolver(storeDataSchema),
+  const form = useForm<StoreSchemaType>({
+    resolver: zodResolver(storeSchema),
     defaultValues: initialData,
   })
 
-  const onSubmit = async (data: StoreDataType): Promise<void> => {
+  const onSubmit = async (data: StoreSchemaType): Promise<void> => {
     try {
       setIsLoading(true)
       await updateStore(initialData.id, data)

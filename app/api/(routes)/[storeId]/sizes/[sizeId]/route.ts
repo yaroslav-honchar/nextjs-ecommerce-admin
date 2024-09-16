@@ -1,8 +1,8 @@
-import { sizeDataSchema } from "@/app/(dashboard)/[storeId]/(routes)/sizes/[sizeId]/_components/form.schema"
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
 import prismadb from "@/lib/prismadb"
+import { sizeSchema } from "@/schemas/size.schema"
 import type { IPropsWithStoreidSizeidParam } from "@/types/pages-props.interface"
 import { auth } from "@clerk/nextjs/server"
 import type { NextRequest } from "next/server"
@@ -43,7 +43,7 @@ export const PATCH = exceptionFilter(
           return new NextResponse("Unauthorized", { status: 403 })
         }
 
-        const data = sizeDataSchema.parse(await req.json())
+        const data = sizeSchema.parse(await req.json())
 
         const size = await prismadb.size.update({
           where: { id: sizeId, storeId },
