@@ -1,17 +1,17 @@
 import type { AxiosRequestConfig } from "axios"
-import type { StoreDataType } from "@/app/(dashboard)/[storeId]/(routes)/settings/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
+import type { StoreSchemaType } from "@/schemas/store.schema"
 import { coreService } from "@/services/core.service"
 import type { Store } from "@prisma/client"
 
-export const createStore = async (data: StoreDataType, config: AxiosRequestConfig = {}): Promise<Store> => {
+export const createStore = async (data: StoreSchemaType, config: AxiosRequestConfig = {}): Promise<Store> => {
   const response = await coreService.post<Store>(ApiRoutes.stores, data, config)
   return response.data
 }
 
 export const updateStore = async (
   storeId: string,
-  data: StoreDataType,
+  data: StoreSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Store> => {
   const response = await coreService.patch<Store>(ApiRoutes.store(storeId), data, config)

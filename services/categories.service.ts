@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from "axios"
-import type { CategoryDataType } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
+import type { CategorySchemaType } from "@/schemas/category.schema"
 import { coreService } from "@/services/core.service"
 import type { Category } from "@prisma/client"
 
@@ -20,7 +20,7 @@ export const getCategory = async (
 
 export const createCategory = async (
   storeId: string,
-  data: CategoryDataType,
+  data: CategorySchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Category> => {
   const response = await coreService.post<Category>(ApiRoutes.categories(storeId), data, config)
@@ -30,7 +30,7 @@ export const createCategory = async (
 export const updateCategory = async (
   storeId: string,
   categoryId: string,
-  data: CategoryDataType,
+  data: CategorySchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Category> => {
   const response = await coreService.patch<Category>(ApiRoutes.category(storeId, categoryId), data, config)

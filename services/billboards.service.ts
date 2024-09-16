@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from "axios"
-import type { BillboardDataType } from "@/app/(dashboard)/[storeId]/(routes)/billboards/[billboardId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
+import type { BillboardSchemaType } from "@/schemas/billboard.schema"
 import { coreService } from "@/services/core.service"
 import type { Billboard } from "@prisma/client"
 
@@ -20,7 +20,7 @@ export const getBillboard = async (
 
 export const createBillboard = async (
   storeId: string,
-  data: BillboardDataType,
+  data: BillboardSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Billboard> => {
   const response = await coreService.post<Billboard>(ApiRoutes.billboards(storeId), data, config)
@@ -30,7 +30,7 @@ export const createBillboard = async (
 export const updateBillboard = async (
   storeId: string,
   billboardId: string,
-  data: BillboardDataType,
+  data: BillboardSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Billboard> => {
   const response = await coreService.patch<Billboard>(ApiRoutes.billboard(storeId, billboardId), data, config)

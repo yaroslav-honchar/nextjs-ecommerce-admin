@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from "axios"
-import type { ColorDataType } from "@/app/(dashboard)/[storeId]/(routes)/colors/[colorId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
+import type { ColorSchemaType } from "@/schemas/color.schema"
 import { coreService } from "@/services/core.service"
 import type { Color } from "@prisma/client"
 
@@ -16,7 +16,7 @@ export const getColor = async (storeId: string, colorId: string, config: AxiosRe
 
 export const createColor = async (
   storeId: string,
-  data: ColorDataType,
+  data: ColorSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Color> => {
   const response = await coreService.post<Color>(ApiRoutes.colors(storeId), data, config)
@@ -26,7 +26,7 @@ export const createColor = async (
 export const updateColor = async (
   storeId: string,
   colorId: string,
-  data: ColorDataType,
+  data: ColorSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Color> => {
   const response = await coreService.patch<Color>(ApiRoutes.color(storeId, colorId), data, config)

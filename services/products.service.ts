@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from "axios"
-import type { ProductDataType } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
+import type { ProductSchemaType } from "@/schemas/product.schema"
 import { coreService } from "@/services/core.service"
 import type { Product } from "@prisma/client"
 
@@ -20,7 +20,7 @@ export const getProduct = async (
 
 export const createProduct = async (
   storeId: string,
-  data: ProductDataType,
+  data: ProductSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Product> => {
   const response = await coreService.post<Product>(ApiRoutes.products(storeId), data, config)
@@ -30,7 +30,7 @@ export const createProduct = async (
 export const updateProduct = async (
   storeId: string,
   productId: string,
-  data: ProductDataType,
+  data: ProductSchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<Product> => {
   const response = await coreService.patch<Product>(ApiRoutes.product(storeId, productId), data, config)

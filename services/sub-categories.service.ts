@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from "axios"
-import type { SubCategoryDataType } from "@/app/(dashboard)/[storeId]/(routes)/sub-categories/[subCategoryId]/_components/form.schema"
 import { ApiRoutes } from "@/routes/api.routes"
+import type { SubCategorySchemaType } from "@/schemas/sub-category.schema"
 import { coreService } from "@/services/core.service"
 import type { SubCategory } from "@prisma/client"
 
@@ -20,7 +20,7 @@ export const getSubCategory = async (
 
 export const createSubCategory = async (
   storeId: string,
-  data: SubCategoryDataType,
+  data: SubCategorySchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<SubCategory> => {
   const response = await coreService.post<SubCategory>(ApiRoutes.subCategories(storeId), data, config)
@@ -30,7 +30,7 @@ export const createSubCategory = async (
 export const updateSubCategory = async (
   storeId: string,
   subCategoryId: string,
-  data: SubCategoryDataType,
+  data: SubCategorySchemaType,
   config: AxiosRequestConfig = {},
 ): Promise<SubCategory> => {
   const response = await coreService.patch<SubCategory>(ApiRoutes.subCategory(storeId, subCategoryId), data, config)
