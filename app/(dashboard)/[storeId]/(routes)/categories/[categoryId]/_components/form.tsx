@@ -247,12 +247,10 @@ export const ClientForm: React.FC<IClientFormProps> = ({ initialData, billboards
 
                   <div className={"flex gap-1 flex-wrap py-2"}>
                     {field.value
-                      .trim()
+                      ?.trim()
                       .split(",")
                       .filter(Boolean)
-                      .map((keyword: string, index: number) => (
-                        <Badge key={index}>{keyword}</Badge>
-                      ))}
+                      .map((keyword: string, index: number) => <Badge key={index}>{keyword}</Badge>)}
                   </div>
                 </FormItem>
               )}
