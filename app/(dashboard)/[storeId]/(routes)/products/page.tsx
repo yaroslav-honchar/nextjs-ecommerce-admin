@@ -19,27 +19,21 @@ const SizesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: {
     include: {
       category: true,
       subcategory: true,
-      color: true,
-      size: true,
     },
     orderBy: {
       createdAt: "desc",
     },
   })
 
-  const formattedData = products.map(
-    ({ id, name, price, isArchived, isFeatured, category, color, size, createdAt }) => ({
-      id,
-      name,
-      isArchived,
-      isFeatured,
-      category,
-      color,
-      size,
-      price: priceFormatter(price),
-      createdAt: format(createdAt, "MMMM do, yyyy"),
-    }),
-  )
+  const formattedData = products.map(({ id, name, price, isArchived, isFeatured, category, createdAt }) => ({
+    id,
+    name,
+    isArchived,
+    isFeatured,
+    category,
+    price: priceFormatter(price),
+    createdAt: format(createdAt, "MMMM do, yyyy"),
+  }))
 
   return <Dashboard data={formattedData} />
 }

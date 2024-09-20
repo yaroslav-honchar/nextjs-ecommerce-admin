@@ -10,15 +10,38 @@ const SizesNewPage: React.FC<Readonly<IPropsWithStoreidProductidParam>> = async 
   const product = ObjectId.isValid(productId)
     ? await prismadb.product.findUnique({
         where: { id: productId },
-        include: { images: true },
+        include: {
+          category: true,
+          subcategory: true,
+          meta: true,
+          variants: {
+            include: {
+              color: true,
+              sizes: true,
+              images: true,
+            },
+          },
+        },
       })
     : null
 
+  const categoryId = product?.categoryId ? { categoryId: product.categoryId } : {}
+
   const [colors, sizes, categories, subCategories] = await Promise.all([
     prismadb.color.findMany({ where: { storeId } }),
-    prismadb.size.findMany({ where: { storeId } }),
+    prismadb.size.findMany({
+      where: {
+        storeId,
+        ...categoryId,
+      },
+    }),
     prismadb.category.findMany({ where: { storeId }, include: { sizes: true } }),
-    prismadb.subCategory.findMany({ where: { storeId, categoryId: product?.categoryId } }),
+    prismadb.subCategory.findMany({
+      where: {
+        storeId,
+        ...categoryId,
+      },
+    }),
   ])
 
   return (

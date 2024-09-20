@@ -9,19 +9,20 @@ datasource db {
 }
 
 model Store {
-  id            String            @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  userId        String
-  billboards    Billboard[]       @relation("StoreToBillboard")
-  categories    Category[]        @relation("StoreToCategory")
-  subCategories SubCategory[]     @relation("StoreToSubCategory")
-  sizes         Size[]            @relation("StoreToSize")
-  colors        Color[]           @relation("StoreToColor")
-  products      Product[]         @relation("StoreToProduct")
-  orders        Order[]           @relation("StoreToOrder")
-  meta          MetaInformation[] @relation("StoreToMetaInformation")
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  userId          String
+  billboards      Billboard[]       @relation("StoreToBillboard")
+  categories      Category[]        @relation("StoreToCategory")
+  subCategories   SubCategory[]     @relation("StoreToSubCategory")
+  sizes           Size[]            @relation("StoreToSize")
+  colors          Color[]           @relation("StoreToColor")
+  products        Product[]         @relation("StoreToProduct")
+  productVariants ProductVariant[]  @relation("StoreToProductVariant")
+  orders          Order[]           @relation("StoreToOrder")
+  meta            MetaInformation[] @relation("StoreToMetaInformation")
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 model Billboard {
@@ -92,74 +93,88 @@ model SubCategory {
 }
 
 model Product {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  storeId       String          @db.ObjectId
-  store         Store           @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId    String          @db.ObjectId
-  category      Category        @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  subcategoryId String          @db.ObjectId
-  subcategory   SubCategory     @relation("SubcategoryToProduct", fields: [subcategoryId], references: [id])
-  sizeId        String          @db.ObjectId
-  size          Size            @relation(fields: [sizeId], references: [id])
-  colorId       String          @db.ObjectId
-  color         Color           @relation(fields: [colorId], references: [id])
-  metaId        String          @unique @db.ObjectId
-  meta          MetaInformation @relation(fields: [metaId], references: [id], onDelete: Cascade)
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  storeId       String           @db.ObjectId
+  store         Store            @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId    String           @db.ObjectId
+  category      Category         @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  subcategoryId String           @db.ObjectId
+  subcategory   SubCategory      @relation("SubcategoryToProduct", fields: [subcategoryId], references: [id])
+  metaId        String           @unique @db.ObjectId
+  meta          MetaInformation  @relation(fields: [metaId], references: [id], onDelete: Cascade)
   name          String
   description   String
   price         Float
   slug          String?
   orderItems    OrderItem[]
-  isFeatured    Boolean         @default(false)
-  isArchived    Boolean         @default(false)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  images        Image[]
+  isFeatured    Boolean          @default(false)
+  isArchived    Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  variants      ProductVariant[] @relation("ProductToProductVariant")
+  stock         Int
 
   @@index([storeId])
   @@index([categoryId])
   @@index([subcategoryId])
-  @@index([sizeId])
+}
+
+model ProductVariant {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  storeId   String   @db.ObjectId
+  store     Store    @relation("StoreToProductVariant", fields: [storeId], references: [id])
+  sizeIds   String[] @db.ObjectId
+  sizes     Size[]   @relation(fields: [sizeIds], references: [id])
+  colorId   String   @db.ObjectId
+  color     Color    @relation(fields: [colorId], references: [id])
+  images    Image[]  @relation("ProductVariantImage")
+  stock     Int
+  productId String   @db.ObjectId
+  product   Product  @relation("ProductToProductVariant", fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
+  @@index([productId])
   @@index([colorId])
 }
 
+model Image {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  url              String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  productVariant   ProductVariant @relation("ProductVariantImage", fields: [productVariantId], references: [id], onDelete: Cascade)
+  productVariantId String         @db.ObjectId
+}
+
 model Size {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  value      String
-  storeId    String    @db.ObjectId
-  categoryId String    @db.ObjectId
-  store      Store     @relation("StoreToSize", fields: [storeId], references: [id])
-  category   Category  @relation("CategoryToSize", fields: [categoryId], references: [id])
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  product    Product[]
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  value             String
+  storeId           String           @db.ObjectId
+  categoryId        String           @db.ObjectId
+  store             Store            @relation("StoreToSize", fields: [storeId], references: [id])
+  category          Category         @relation("CategoryToSize", fields: [categoryId], references: [id])
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  productVariantIds String[]         @db.ObjectId
+  productVariants   ProductVariant[] @relation(fields: [productVariantIds], references: [id])
 
   @@index([storeId])
 }
 
 model Color {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  value     String
-  storeId   String    @db.ObjectId
-  store     Store     @relation("StoreToColor", fields: [storeId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  product   Product[]
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  value           String
+  storeId         String           @db.ObjectId
+  store           Store            @relation("StoreToColor", fields: [storeId], references: [id])
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  productVariants ProductVariant[]
 
   @@index([storeId])
-}
-
-model Image {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  productId String   @db.ObjectId
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([productId])
 }
 
 model Order {

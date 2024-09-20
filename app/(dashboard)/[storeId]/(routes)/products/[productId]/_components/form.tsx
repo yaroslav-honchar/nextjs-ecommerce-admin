@@ -1,10 +1,9 @@
 "use client"
 
-import { TrashIcon } from "lucide-react"
+import { PlusIcon, TrashIcon } from "lucide-react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-import { getFormConstants } from "@/app/(dashboard)/[storeId]/(routes)/categories/[categoryId]/_components/form.constants"
 import { AlertModal } from "@/components/modals/alert-modal/alert-modal"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -13,6 +12,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Heading } from "@/components/ui/heading"
 import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
+import { MultiSelect } from "@/components/ui/multi-select"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
@@ -24,6 +24,7 @@ import type { StoreIdProductIdParamType } from "@/types/pages-params.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Color, Size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
+import { getFormConstants } from "./form.constants"
 import type { IFormProps } from "./form.props"
 
 export const ClientForm: React.FC<IFormProps> = ({
@@ -50,16 +51,21 @@ export const ClientForm: React.FC<IFormProps> = ({
       description: "",
       isArchived: false,
       isFeatured: false,
-      colorId: "",
-      sizeId: "",
       categoryId: "",
       subcategoryId: "",
-      images: [],
       meta: {
         title: "",
         description: "",
         keywords: "",
       },
+      variants: [
+        {
+          colorId: "",
+          sizeIds: [],
+          stock: 0,
+          images: [],
+        },
+      ],
     },
   })
 
@@ -110,6 +116,8 @@ export const ClientForm: React.FC<IFormProps> = ({
     setIsOpen(false)
   }
 
+  console.log(form.formState)
+
   return (
     <>
       {initialData && (
@@ -144,35 +152,9 @@ export const ClientForm: React.FC<IFormProps> = ({
 
       <Form {...form}>
         <form
-          className={"flex flex-col gap-8"}
+          className={"flex flex-col gap-6"}
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <FormField
-            name={"images"}
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Images</FormLabel>
-                  <FormControl>
-                    <ImageUpload
-                      value={field.value.map((image) => image.url)}
-                      disabled={isLoading}
-                      onChange={(url: string): void => {
-                        const currentValue = form.getValues("images")
-                        const updatedValue = [...currentValue, { url }]
-                        form.setValue("images", updatedValue)
-                      }}
-                      onRemove={(url: string): void =>
-                        field.onChange([...field.value.filter((image) => image.url !== url)])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
           <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
             <FormField
               name={"name"}
@@ -226,7 +208,7 @@ export const ClientForm: React.FC<IFormProps> = ({
                     <FormControl>
                       <SelectTrigger className="w-full">
                         <SelectValue
-                          placeholder="Category"
+                          placeholder="Category..."
                           defaultValue={value}
                         />
                       </SelectTrigger>
@@ -263,7 +245,7 @@ export const ClientForm: React.FC<IFormProps> = ({
                     <FormControl>
                       <SelectTrigger className="w-full">
                         <SelectValue
-                          placeholder="Category"
+                          placeholder="Subcategory..."
                           defaultValue={value}
                         />
                       </SelectTrigger>
@@ -298,79 +280,6 @@ export const ClientForm: React.FC<IFormProps> = ({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
-            <FormField
-              name={"colorId"}
-              control={form.control}
-              render={({ field: { value, onChange } }) => (
-                <FormItem>
-                  <FormLabel>Color</FormLabel>
-                  <Select
-                    disabled={isLoading || colors.length === 0}
-                    defaultValue={value}
-                    value={value}
-                    onValueChange={onChange}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue
-                          placeholder="Color"
-                          defaultValue={value}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {colors.map(({ id, name }: Color) => (
-                        <SelectItem
-                          key={id}
-                          value={id}
-                        >
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name={"sizeId"}
-              control={form.control}
-              render={({ field: { value, onChange } }) => (
-                <FormItem>
-                  <FormLabel>Size</FormLabel>
-                  <Select
-                    disabled={isLoading || form.getValues("categoryId") === "" || sizes.length === 0}
-                    defaultValue={value}
-                    value={value}
-                    onValueChange={onChange}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue
-                          placeholder="Size"
-                          defaultValue={value}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {sizes.map(({ id, name }: Size) => (
-                        <SelectItem
-                          key={id}
-                          value={id}
-                        >
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -419,6 +328,128 @@ export const ClientForm: React.FC<IFormProps> = ({
               )}
             />
           </div>
+
+          <div className={"flex gap-5 mt-5 justify-between items-start"}>
+            <h2 className={"text-2xl sm:text-3xl font-medium"}>Product variants</h2>
+            <Button
+              type={"button"}
+              size={"icon"}
+            >
+              <PlusIcon className={"size-5"} />
+            </Button>
+          </div>
+          <Separator className={"mb-2"} />
+
+          {form.getValues("variants").map((variant, index) => {
+            return (
+              <div
+                key={variant.colorId}
+                className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}
+              >
+                <FormField
+                  name={`variants.${index}.images`}
+                  control={form.control}
+                  render={({ field }) => {
+                    return (
+                      <FormItem className={"col-span-1 sm:col-span-2 lg:col-span-3"}>
+                        <FormLabel>Images</FormLabel>
+                        <FormControl>
+                          <ImageUpload
+                            value={field.value.map((image) => image.url)}
+                            disabled={isLoading}
+                            onChange={(url: string): void => {
+                              console.log("Updated")
+                              const currentValue = form.getValues(`variants.${index}.images`)
+                              const updatedValue = [...currentValue, { url }]
+                              form.setValue(`variants.${index}.images`, updatedValue)
+                            }}
+                            onRemove={(url: string): void =>
+                              field.onChange([...field.value.filter((image) => image.url !== url)])
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )
+                  }}
+                />
+
+                <FormField
+                  name={`variants.${index}.colorId`}
+                  control={form.control}
+                  render={({ field: { value, onChange } }) => (
+                    <FormItem>
+                      <FormLabel>Color</FormLabel>
+                      <Select
+                        disabled={isLoading || colors.length === 0}
+                        defaultValue={value}
+                        value={value}
+                        onValueChange={onChange}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue
+                              placeholder="Color"
+                              defaultValue={value}
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {colors.map(({ id, name }: Color) => (
+                            <SelectItem
+                              key={id}
+                              value={id}
+                            >
+                              {name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name={`variants.${index}.sizeIds`}
+                  control={form.control}
+                  render={({ field: { value, onChange } }) => (
+                    <FormItem>
+                      <FormLabel>Sizes</FormLabel>
+                      <FormControl>
+                        <MultiSelect
+                          disabled={isLoading || form.getValues("categoryId") === "" || sizes.length === 0}
+                          defaultValue={value}
+                          value={value}
+                          onValueChange={onChange}
+                          options={sizes.map(({ id, name }) => ({ value: id, label: name }))}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  name={`variants.${index}.stock`}
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Stock</FormLabel>
+                      <FormControl>
+                        <Input
+                          type={"number"}
+                          disabled={isLoading}
+                          placeholder={"99"}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )
+          })}
 
           <h2 className={"text-2xl sm:text-3xl mt-5 font-medium"}>Meta information</h2>
           <Separator className={"mb-2"} />

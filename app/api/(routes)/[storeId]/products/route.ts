@@ -35,10 +35,14 @@ export const GET = exceptionFilter(
         isArchived: false,
       },
       include: {
-        images: true,
         category: true,
-        color: true,
-        size: true,
+        variants: {
+          include: {
+            color: true,
+            sizes: true,
+            images: true,
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
     })
@@ -79,17 +83,11 @@ export const POST = exceptionFilter(
           price: data.price,
           isArchived: data.isArchived,
           isFeatured: data.isFeatured,
-          sizeId: data.sizeId,
-          colorId: data.colorId,
           categoryId: data.categoryId,
           subcategoryId: data.subcategoryId,
           storeId,
+          stock: data.variants.reduce((acc, variant) => acc + variant.stock, 0),
           metaId: meta.id,
-          images: {
-            createMany: {
-              data: data.images,
-            },
-          },
         },
       })
 
@@ -102,6 +100,31 @@ export const POST = exceptionFilter(
           slug: generateSlug(productWithoutSlug.name, productWithoutSlug.id),
         },
       })
+
+      const variants = await Promise.all(
+        data.variants.map((variant) =>
+          prismadb.productVariant.create({
+            data: {
+              storeId,
+              colorId: variant.colorId,
+              sizeIds: variant.sizeIds,
+              stock: variant.stock,
+              productId: productWithoutSlug.id,
+            },
+          }),
+        ),
+      )
+
+      await Promise.all(
+        variants.map((variant, index) =>
+          prismadb.image.createMany({
+            data: data.variants[index].images.map((image) => ({
+              url: image.url,
+              productVariantId: variant.id,
+            })),
+          }),
+        ),
+      )
 
       return new NextResponse(JSON.stringify(product), { status: 201 })
     }),

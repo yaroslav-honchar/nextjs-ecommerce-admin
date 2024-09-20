@@ -1,4 +1,4 @@
-import type { Category, Color, Size } from "@prisma/client"
+import type { Category } from "@prisma/client"
 
 export type ColumnType = {
   id: string
@@ -6,8 +6,6 @@ export type ColumnType = {
   price: string
   isArchived: boolean
   isFeatured: boolean
-  color: Color
-  size: Size
   category: Category
   createdAt: string
 }

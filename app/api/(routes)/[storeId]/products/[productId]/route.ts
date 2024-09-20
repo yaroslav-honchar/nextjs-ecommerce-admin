@@ -1,6 +1,7 @@
 import { authGuard } from "@/app/api/_utils/auth-guard/auth-guard"
 import { exceptionFilter } from "@/app/api/_utils/exception-filter/exception-filter"
 import { IDValidator } from "@/app/api/_utils/id-validator/id-validator"
+import { generateSlug } from "@/lib/generate-slug"
 import prismadb from "@/lib/prismadb"
 import { productSchema } from "@/schemas/product.schema"
 import type { IPropsWithStoreidProductidParam } from "@/types/pages-props.interface"
@@ -17,12 +18,16 @@ export const GET = exceptionFilter(
       const product = await prismadb.product.findUnique({
         where: { storeId, id: productId },
         include: {
-          images: true,
-          color: true,
-          size: true,
           category: true,
           subcategory: true,
           meta: true,
+          variants: {
+            include: {
+              color: true,
+              sizes: true,
+              images: true,
+            },
+          },
         },
       })
 
@@ -53,7 +58,7 @@ export const PATCH = exceptionFilter(
 
         const data = productSchema.parse(await req.json())
 
-        await prismadb.product.update({
+        const productWithOldSlug = await prismadb.product.update({
           where: { id: productId, storeId },
           data: {
             name: data.name,
@@ -61,23 +66,36 @@ export const PATCH = exceptionFilter(
             price: data.price,
             isArchived: data.isArchived,
             isFeatured: data.isFeatured,
-            sizeId: data.sizeId,
-            colorId: data.colorId,
             categoryId: data.categoryId,
             subcategoryId: data.subcategoryId,
             storeId,
-            images: {
+            stock: data.variants.reduce((acc, variant) => acc + variant.stock, 0),
+            variants: {
               deleteMany: {},
             },
           },
         })
 
         const product = await prismadb.product.update({
-          where: { id: productId, storeId },
+          where: {
+            id: productWithOldSlug.id,
+            storeId,
+          },
           data: {
-            images: {
+            slug: generateSlug(productWithOldSlug.name, productWithOldSlug.id),
+            variants: {
               createMany: {
-                data: data.images,
+                data: data.variants.map((variant) => ({
+                  storeId,
+                  colorId: variant.colorId,
+                  sizeIds: variant.sizeIds,
+                  stock: variant.stock,
+                  images: {
+                    createMany: {
+                      data: variant.images,
+                    },
+                  },
+                })),
               },
             },
           },
@@ -116,6 +134,12 @@ export const DELETE = exceptionFilter(
         if (!storeByUserId) {
           return new NextResponse("Unauthorized", { status: 403 })
         }
+
+        await prismadb.productVariant.deleteMany({
+          where: {
+            productId: productId,
+          },
+        })
 
         const product = await prismadb.product.delete({
           where: { id: productId, storeId },

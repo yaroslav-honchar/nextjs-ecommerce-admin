@@ -2,7 +2,6 @@
 
 import React from "react"
 import { CellTableAction } from "@/components/cell-action/cell-action"
-import { ColorViewer } from "@/components/color-viewer/color-viewer"
 import { TableSortButton } from "@/components/ui/table-sort-button"
 import { deleteProduct } from "@/services/products.service"
 import type { ColumnDef } from "@tanstack/react-table"
@@ -40,32 +39,6 @@ export const columns: ColumnDef<ColumnType>[] = [
     },
     cell: ({ row }) => {
       return <span>{row.original.category.name}</span>
-    },
-  },
-  {
-    accessorKey: "color",
-    header: ({ column }) => {
-      return <TableSortButton column={column}>Color</TableSortButton>
-    },
-    cell: ({ row }) => {
-      return (
-        <div className={"flex gap-2 items-center"}>
-          <ColorViewer
-            value={row.original.color.value}
-            size={"xs"}
-          />
-          {row.original.color.value}
-        </div>
-      )
-    },
-  },
-  {
-    accessorKey: "size",
-    header: ({ column }) => {
-      return <TableSortButton column={column}>Size</TableSortButton>
-    },
-    cell: ({ row }) => {
-      return <span>{row.original.size.value}</span>
     },
   },
   {
