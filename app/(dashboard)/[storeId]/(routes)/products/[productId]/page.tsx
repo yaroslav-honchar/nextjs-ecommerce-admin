@@ -1,8 +1,8 @@
 import { ObjectId } from "bson"
 import React from "react"
-import { ClientForm } from "@/app/(dashboard)/[storeId]/(routes)/products/[productId]/_components/form"
 import prismadb from "@/lib/prismadb"
 import type { IPropsWithStoreidProductidParam } from "@/types/pages-props.interface"
+import { ClientForm } from "./_components/form"
 
 const SizesNewPage: React.FC<Readonly<IPropsWithStoreidProductidParam>> = async ({
   params: { productId, storeId },
@@ -14,10 +14,11 @@ const SizesNewPage: React.FC<Readonly<IPropsWithStoreidProductidParam>> = async 
       })
     : null
 
-  const [colors, sizes, categories] = await Promise.all([
+  const [colors, sizes, categories, subCategories] = await Promise.all([
     prismadb.color.findMany({ where: { storeId } }),
     prismadb.size.findMany({ where: { storeId } }),
     prismadb.category.findMany({ where: { storeId }, include: { sizes: true } }),
+    prismadb.subCategory.findMany({ where: { storeId, categoryId: product?.categoryId } }),
   ])
 
   return (
@@ -26,6 +27,7 @@ const SizesNewPage: React.FC<Readonly<IPropsWithStoreidProductidParam>> = async 
       colors={colors}
       sizes={sizes}
       categories={categories}
+      subCategories={subCategories}
     />
   )
 }

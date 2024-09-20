@@ -26,7 +26,13 @@ import type { Color, Size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import type { IFormProps } from "./form.props"
 
-export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colors, sizes: initialSizes }) => {
+export const ClientForm: React.FC<IFormProps> = ({
+  initialData,
+  categories,
+  colors,
+  sizes: initialSizes,
+  subCategories,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [sizes, setSizes] = useState<Size[]>(initialSizes)
@@ -47,6 +53,7 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
       colorId: "",
       sizeId: "",
       categoryId: "",
+      subcategoryId: "",
       images: [],
       meta: {
         title: "",
@@ -202,6 +209,8 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
                 </FormItem>
               )}
             />
+          </div>
+          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
             <FormField
               name={"categoryId"}
               control={form.control}
@@ -239,6 +248,43 @@ export const ClientForm: React.FC<IFormProps> = ({ initialData, categories, colo
               )}
             />
 
+            <FormField
+              name={"subcategoryId"}
+              control={form.control}
+              render={({ field: { value, onChange } }) => (
+                <FormItem>
+                  <FormLabel>Subcategory</FormLabel>
+                  <Select
+                    disabled={isLoading || subCategories.length === 0}
+                    defaultValue={value}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Category"
+                          defaultValue={value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {subCategories.map(({ id, name }) => (
+                        <SelectItem
+                          key={id}
+                          value={id}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"}>
             <FormField
               name={"description"}
               control={form.control}

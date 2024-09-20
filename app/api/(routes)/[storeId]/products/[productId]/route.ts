@@ -21,6 +21,7 @@ export const GET = exceptionFilter(
           color: true,
           size: true,
           category: true,
+          subcategory: true,
           meta: true,
         },
       })
@@ -63,6 +64,7 @@ export const PATCH = exceptionFilter(
             sizeId: data.sizeId,
             colorId: data.colorId,
             categoryId: data.categoryId,
+            subcategoryId: data.subcategoryId,
             storeId,
             images: {
               deleteMany: {},

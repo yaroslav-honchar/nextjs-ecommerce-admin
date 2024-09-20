@@ -11,6 +11,7 @@ export const productSchema = object({
   colorId: string().min(1),
   sizeId: string().min(1),
   categoryId: string().min(1),
+  subcategoryId: string().min(1),
   images: object({ url: string() }).array().min(1).max(8),
   meta: metaSchema,
 })

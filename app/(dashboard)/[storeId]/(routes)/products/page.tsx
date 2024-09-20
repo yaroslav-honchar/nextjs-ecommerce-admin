@@ -18,6 +18,7 @@ const SizesPage: React.FC<Readonly<IPropsWithStoreidParam>> = async ({ params: {
     },
     include: {
       category: true,
+      subcategory: true,
       color: true,
       size: true,
     },

@@ -1,4 +1,4 @@
-import type { Category, Color, Image, Product, Size } from "@prisma/client"
+import type { Category, Color, Image, Product, Size, SubCategory } from "@prisma/client"
 
 export interface IFormProps {
   initialData:
@@ -9,4 +9,5 @@ export interface IFormProps {
   colors: Color[]
   sizes: Size[]
   categories: (Category & { sizes: Size[] })[]
+  subCategories: SubCategory[]
 }

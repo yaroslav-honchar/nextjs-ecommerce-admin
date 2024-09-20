@@ -82,6 +82,7 @@ export const POST = exceptionFilter(
           sizeId: data.sizeId,
           colorId: data.colorId,
           categoryId: data.categoryId,
+          subcategoryId: data.subcategoryId,
           storeId,
           metaId: meta.id,
           images: {
