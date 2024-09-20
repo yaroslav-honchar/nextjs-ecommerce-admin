@@ -24,7 +24,12 @@ export const Header: React.FC<{ className?: string }> = async ({ className }) =>
   })
 
   return (
-    <HeaderClient className={cn("flex items-center gap-4 lg:gap-6 px-4 py-2 border-b w-full bg-background", className)}>
+    <HeaderClient
+      className={cn(
+        "flex items-center gap-4 lg:gap-6 px-4 py-2 border-b w-full bg-background fixed top-0 left-0",
+        className,
+      )}
+    >
       <SidebarToggler />
       <StoreSwitcher items={stores} />
       <div className={"flex items-center gap-4 ms-auto"}>

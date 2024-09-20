@@ -116,8 +116,6 @@ export const ClientForm: React.FC<IFormProps> = ({
     setIsOpen(false)
   }
 
-  console.log(form.formState)
-
   return (
     <>
       {initialData && (

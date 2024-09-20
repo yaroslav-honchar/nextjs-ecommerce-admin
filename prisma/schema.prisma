@@ -137,6 +137,7 @@ model ProductVariant {
   @@index([storeId])
   @@index([productId])
   @@index([colorId])
+  @@index([sizeIds])
 }
 
 model Image {

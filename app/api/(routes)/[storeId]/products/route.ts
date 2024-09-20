@@ -29,14 +29,18 @@ export const GET = exceptionFilter(
       where: {
         storeId,
         categoryId,
-        ...(colorId ? { colorId: { in: colorId } } : {}),
-        ...(sizeId ? { sizeId: { in: sizeId } } : {}),
+        stock: { gt: 0 },
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
       },
       include: {
         category: true,
         variants: {
+          where: {
+            ...(colorId ? { colorId: { in: colorId } } : {}),
+            ...(sizeId ? { sizeId: { in: sizeId } } : {}),
+            stock: { gt: 0 },
+          },
           include: {
             color: true,
             sizes: true,
@@ -47,7 +51,19 @@ export const GET = exceptionFilter(
       orderBy: { createdAt: "desc" },
     })
 
-    return new NextResponse(JSON.stringify(products), { status: 200 })
+    const filteredProducts = products.filter((product) => {
+      if (colorId) {
+        return product.variants.some((variant) => colorId.includes(variant.colorId))
+      }
+
+      if (sizeId) {
+        return product.variants.some((variant) => sizeId.some((size) => variant.sizeIds.includes(size)))
+      }
+
+      return true
+    })
+
+    return new NextResponse(JSON.stringify(filteredProducts), { status: 200 })
   }),
 )
 
@@ -101,6 +117,7 @@ export const POST = exceptionFilter(
         },
       })
 
+      // Create variants
       const variants = await Promise.all(
         data.variants.map((variant) =>
           prismadb.productVariant.create({
@@ -115,6 +132,7 @@ export const POST = exceptionFilter(
         ),
       )
 
+      // Create images
       await Promise.all(
         variants.map((variant, index) =>
           prismadb.image.createMany({
